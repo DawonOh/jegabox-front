@@ -24,11 +24,33 @@
       border-left: solid 1px rgb(208, 208, 208);
       height: 571px;
       .timeSchedule {
-        height: 39px;
+        height: 40px;
         border-bottom: solid 1px rgb(208, 208, 208);
         position: relative;
         p {
           display: inline-block;
+        }
+        button {
+          width: 30px;
+          height: 39px;
+          border: none;
+          background-color: #ffffff;
+          cursor: pointer;
+          img {
+            border: none;
+          }
+        }
+        .cal {
+          display: inline-block;
+          width: 58px;
+          img {
+            width: 26px;
+            height: 26px;
+            padding-left: 11px;
+            line-height: 39px;
+            vertical-align: middle;
+            cursor: pointer;
+          }
         }
         .year {
           border: solid 1px rgb(208, 208, 208);
@@ -81,7 +103,7 @@
               margin-bottom: 10px;
             }
             .m_list {
-              background-color: yellow;
+              background-color: lightgray;
               height: 330px;
             }
           }
@@ -115,7 +137,7 @@
               margin-bottom: 10px;
             }
             .t_list {
-              background-color: yellow;
+              background-color: lightgray;
               height: 330px;
             }
           }
@@ -141,13 +163,23 @@
             height: 30px;
             border-top: solid 1px rgb(208, 208, 208);
             border-bottom: solid 1px rgb(208, 208, 208);
+            text-align: center;
+            button {
+              height: 30px;
+              width: 35px;
+              color: #b0b0b0;
+              border: none;
+              font-size: 19px;
+              background-color: white;
+              cursor: pointer;
+            }
           }
         }
       }
       .ad {
         height: 90px;
         margin-top: 15px;
-        background-color: antiquewhite;
+        background-color: lightgray;
       }
     }
   }
