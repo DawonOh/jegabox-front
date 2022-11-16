@@ -1,0 +1,71 @@
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginAlertBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  @include flexCenter();
+  .loginAlertContainer {
+    width: 400px;
+    height: 181px;
+    background-color: #fff;
+    .loginAlertHeader {
+      background-color: #503396;
+      height: 45px;
+      @include flexCenter();
+      .loginAlertHeaderTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 370px;
+        height: 45px;
+        & h3 {
+          color: #fff;
+          font : {
+            size: 1.2em;
+          }
+          line-height: 45px;
+        }
+        .closeLoginAlert {
+          width: 17px;
+          height: 17px;
+          cursor: pointer;
+          background : {
+            color: #503396;
+            image: url('../../../assets/images/close.png');
+            size: 17px 17px;
+            repeat: no-repeat;
+          }
+        }
+      }
+    }
+    .loginAlertMain {
+      @include flexCenter();
+      flex-direction: column;
+      .loginAlertContents {
+        width: 370px;
+        height: 80px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 0.9em;
+      }
+      .checkLoginAlert {
+        width: 55px;
+        height: 36px;
+        cursor: pointer;
+        background-color: #503396;
+        border-radius: 5px;
+        color: #fff;
+      }
+    }
+  }
+}
