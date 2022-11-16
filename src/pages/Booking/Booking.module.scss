@@ -1,0 +1,186 @@
+.container {
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  .innerWrap {
+    box-sizing: border-box;
+    width: 1100px;
+    height: 830px;
+    margin: 0px auto;
+    padding: 40px 0px 100px;
+
+    h2 {
+      margin: 0px 0px;
+      padding: 0px 0px 25px;
+      font-size: 1.8666em;
+      font-weight: lighter;
+    }
+
+    .bookTable {
+      border-top: solid 1px #676767;
+      border-right: solid 1px rgb(208, 208, 208);
+      border-bottom: solid 1px rgb(208, 208, 208);
+      border-left: solid 1px rgb(208, 208, 208);
+      height: 571px;
+      .timeSchedule {
+        height: 40px;
+        border-bottom: solid 1px rgb(208, 208, 208);
+        position: relative;
+        p {
+          display: inline-block;
+        }
+        button {
+          width: 30px;
+          height: 39px;
+          border: none;
+          background-color: #ffffff;
+          cursor: pointer;
+          img {
+            border: none;
+          }
+        }
+        .cal {
+          display: inline-block;
+          width: 58px;
+          img {
+            width: 26px;
+            height: 26px;
+            padding-left: 11px;
+            line-height: 39px;
+            vertical-align: middle;
+            cursor: pointer;
+          }
+        }
+        .year {
+          border: solid 1px rgb(208, 208, 208);
+          width: 70px;
+          height: 20px;
+          border-radius: 10px;
+          bottom: 28px;
+          left: 30px;
+          display: inline-block;
+          position: absolute;
+          background-color: white;
+          text-align: center;
+          p {
+            margin: 0px 0px;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: rgb(56, 56, 56);
+            font-weight: 100;
+          }
+        }
+      }
+      .choiceArea {
+        height: 531px;
+        box-sizing: border-box;
+        p {
+          height: 30px;
+          margin: 0px 0px;
+          font-size: 18px;
+          line-height: 38px;
+          vertical-align: middle;
+        }
+        .movieChoice {
+          display: inline-block;
+          width: 229px;
+          float: left;
+          padding: 0px 20px 17px;
+          height: 515px;
+          .m_listArea {
+            margin-top: 12px;
+            width: 229px;
+            height: 370px;
+            p {
+              line-height: 31px;
+              vertical-align: middle;
+              text-align: center;
+              font-size: 16px;
+              border-left: 1px solid rgb(208, 208, 208);
+              border-top: 1px solid rgb(208, 208, 208);
+              border-right: 1px solid rgb(208, 208, 208);
+              margin-bottom: 10px;
+            }
+            .m_list {
+              background-color: lightgray;
+              height: 330px;
+            }
+          }
+          .selectedMovie {
+            border: solid 1px rgb(208, 208, 208);
+            margin-top: 10px;
+            width: 229px;
+            height: 90px;
+          }
+        }
+        .theaterChoice {
+          border-left: solid 1px rgb(208, 208, 208);
+          display: inline-block;
+          width: 309px;
+          padding: 0px 20px 20px;
+          float: left;
+          height: 511px;
+          .t_listArea {
+            margin-top: 12px;
+            width: 309px;
+            height: 370px;
+            p {
+              line-height: 31px;
+              vertical-align: middle;
+              height: 30px;
+              text-align: center;
+              font-size: 16px;
+              border-left: 1px solid rgb(208, 208, 208);
+              border-top: 1px solid rgb(208, 208, 208);
+              border-right: 1px solid rgb(208, 208, 208);
+              margin-bottom: 10px;
+            }
+            .t_list {
+              background-color: lightgray;
+              height: 330px;
+            }
+          }
+          .selectedTheater {
+            margin-top: 10px;
+            width: 309px;
+            height: 90px;
+            border: solid 1px rgb(208, 208, 208);
+          }
+        }
+        .timeChoice {
+          display: inline-block;
+          width: 478px;
+          border-left: solid 1px rgb(208, 208, 208);
+          float: left;
+          //   background-color: green;
+          height: 531px;
+          p {
+            padding-left: 20px;
+          }
+          .h_listArea {
+            margin-top: 12px;
+            height: 30px;
+            border-top: solid 1px rgb(208, 208, 208);
+            border-bottom: solid 1px rgb(208, 208, 208);
+            text-align: center;
+            button {
+              height: 30px;
+              width: 35px;
+              color: #b0b0b0;
+              border: none;
+              font-size: 19px;
+              background-color: white;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .ad {
+        height: 90px;
+        margin-top: 15px;
+        background-color: lightgray;
+      }
+    }
+  }
+}
