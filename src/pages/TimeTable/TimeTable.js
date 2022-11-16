@@ -49,14 +49,20 @@ function App() {
   }, [resData]);
 
   return (
-    <div>
+    <div className={css.mainDiv}>
       <SortByMovie
         titleList={titleList}
         setCurrTitle={setCurrTitle}
         currPoster={currPoster}
         setTitleList={setTitleList}
       />
-      <TimeTableComponent />
+      <TimeTableComponent
+        currTitle={currTitle}
+        currDate={currDate}
+        setCurrDate={setCurrDate}
+        currArea={currArea}
+        setCurrArea={setCurrArea}
+      />
     </div>
   );
 }
