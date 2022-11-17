@@ -1,0 +1,32 @@
+{
+  "location": [
+    {
+      "id": 1,
+      "location_name": "서울"
+    },
+    {
+      "id": 2,
+      "location_name": "경기"
+    },
+    {
+      "id": 3,
+      "location_name": "인천"
+    },
+    {
+      "id": 4,
+      "location_name": "대전 / 충청 / 세종"
+    },
+    {
+      "id": 5,
+      "location_name": "부산 / 대구 / 경상"
+    },
+    {
+      "id": 6,
+      "location_name": "광주 / 전라"
+    },
+    {
+      "id": 7,
+      "location_name": "강원"
+    }
+  ]
+}

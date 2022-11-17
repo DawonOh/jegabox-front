@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './Booking.module.scss';
 import DayBtn from '../../components/DayBtn/DayBtn';
 import SelectSeat from '../SelectSeat/SelectSeat';
@@ -10,21 +10,69 @@ function Booking() {
   let date = now.getDate(); //날짜
   let day = now.getDay(); //요일
   const [num, setnum] = useState(0);
-  const [disable, setDisable] = useState(false);
-
+  const [disable, setDisable] = useState(true);
+  const [movies, setMovie] = useState([]);
+  const [movieId, setId] = useState();
+  const [locations, setLocation] = useState([]);
+  const [locationId, setLocationId] = useState([]);
+  const [cinemas, setCinema] = useState([]);
+  const [cinemaId, setCinemaId] = useState();
   const printDayBtn = num => {
     const result = [];
-
     for (let i = 0; i < 14; i++) {
       result.push(
         <DayBtn
           key={i}
           date={now.setDate(date + i + num)}
-          week={week[day + (i % 7) - 2]}
+          week={week[day + (i % 7) - day]}
           today={date}
         />
       );
     }
+    return result;
+  };
+
+  useEffect(() => {
+    fetch('/data/movie.json')
+      .then(res => res.json())
+      .then(res => setMovie(res.movie));
+
+    fetch('/data/cinema.json')
+      .then(res => res.json())
+      .then(res => setCinema(res.cinema));
+
+    fetch('/data/location.json')
+      .then(res => res.json())
+      .then(res => setLocation(res.location));
+  }, []);
+
+  useEffect(() => {
+    prtMovie(); //영화 선택시, 밑에 영화 포스터 뜨게 하기 => 최대 3개까지 인거 생각하고 다시ㅏ찍
+  }, [movieId]);
+
+  useEffect(() => {
+    prtCinema(); //유저가 로케이션 클릭시 해당지역 영화관 뜨게 하기.
+  }, [locationId]);
+
+  const prtMovie = () => {
+    const selectMovie = movies.filter(movie => movie.id === movieId);
+    let url = selectMovie[0] || {};
+    url = url.movie_poster;
+    return <p>{url}</p>;
+  };
+
+  const prtCinema = () => {
+    let result = [];
+    const selectCinema = cinemas.filter(
+      cinemas => cinemas.location_id === locationId
+    );
+    selectCinema.map((cinema, idx) => {
+      result.push(
+        <p key={idx} onClick={() => setCinemaId(cinema.id)}>
+          {cinema.cinema_name}
+        </p>
+      );
+    });
     return result;
   };
 
@@ -81,15 +129,40 @@ function Booking() {
                 <p>영화</p>
                 <div className={css.m_listArea}>
                   <p>전체</p>
-                  <div className={css.m_list}></div>
+                  <div className={css.m_list}>
+                    {movies.map((movie, idx) => (
+                      <p
+                        key={idx}
+                        onClick={() => {
+                          setId(movie.id);
+                        }}
+                      >
+                        {movie.ko_title}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-                <div className={css.selectedMovie}></div>
+                <div className={css.selectedMovie}>{prtMovie()}</div>
               </div>
               <div className={css.theaterChoice}>
                 <p>극장</p>
                 <div className={css.t_listArea}>
                   <p>전체</p>
-                  <div className={css.t_list}></div>
+                  <div className={css.t_list}>
+                    <div className={css.location}>
+                      {locations.map((location, idx) => (
+                        <p
+                          key={idx}
+                          onClick={() => {
+                            setLocationId(location.id);
+                          }}
+                        >
+                          {location.location_name}
+                        </p>
+                      ))}
+                    </div>
+                    <div className={css.cinema}>{prtCinema()}</div>
+                  </div>
                 </div>
                 <div className={css.selectedTheater}></div>
               </div>
