@@ -1,0 +1,29 @@
+.idFindWrap {
+  width: 510px;
+  height: 154px;
+  margin-top: 80px;
+  table {
+    border-collapse: collapse;
+    border-top: 1px solid #444;
+    font-size: 0.9em;
+    tr {
+      border-bottom: 1px solid #d1d5dd;
+      th {
+        width: 130px;
+        height: 50px;
+        background-color: #f7f8f9;
+      }
+      td {
+        width: 380px;
+        height: 50px;
+        padding-left: 15px;
+        & input {
+          width: 208px;
+          height: 30px;
+          border: 1px solid #d8d9db;
+          text-indent: 10px;
+        }
+      }
+    }
+  }
+}
