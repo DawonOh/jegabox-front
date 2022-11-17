@@ -2,16 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import css from './LoginModal.module.scss';
 import { useCookies } from 'react-cookie';
 import WrongLoginAlert from './WrongLoginAlert/WrongLoginAlert';
+import { Link } from 'react-router-dom';
 
 const LoginModal = ({ closeLogin }) => {
-  //아이디 저장 상태값
-  const [saveId, setSaveId] = useState(false);
-
   //로그인 버튼 disabled 상태값
   const [disabled, setDisabled] = useState(true);
 
   //로그인 여부 상태값
   const [isLogin, setIsLogin] = useState(false);
+
+  //아이디 저장
+  const [id, setId] = useState('');
+  const [isRemember, setIsRemember] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
 
   //아이디,비밀번호 현재값 저장
   const [idValue, setIdValue] = useState();
@@ -68,6 +71,24 @@ const LoginModal = ({ closeLogin }) => {
   const closeLoginAlert = () => {
     setOpenLoginAlertModal(false);
   };
+
+  //쿠키 - 아이디 가져오기
+  useEffect(() => {
+    if (cookies.rememberId !== undefined) {
+      setId(cookies.rememberId);
+      setIsRemember(true);
+    }
+  }, []);
+
+  //아이디 저장 클릭할 때 실행될 함수
+  const handleOnChange = e => {
+    setIsRemember(e.target.check);
+    if (e.target.check) {
+      setCookie('rememberId', idValue, { maxAge: 2592000 });
+    } else {
+      removeCookie('rememberId');
+    }
+  };
   return (
     <div className={css.loginBackground}>
       {openLoginAlertModal && (
@@ -103,6 +124,8 @@ const LoginModal = ({ closeLogin }) => {
                 type="checkbox"
                 name="saveIdRadio"
                 className={css.loginChekboxStyle}
+                defaultChecked={isRemember}
+                onChange={handleOnChange}
               />
               아이디 저장
             </label>
@@ -117,9 +140,11 @@ const LoginModal = ({ closeLogin }) => {
             </button>
             <div className={css.loginFindInfo}>
               <div className={css.loginFIndInfoCenter}>
-                <span className={css.goToFindLoginInfo}>ID / PW 찾기</span>
+                <Link to={'/idfind'}>
+                  <span className={css.loginLink}>ID / PW 찾기</span>
+                </Link>
                 <div className={css.loginFindBoundary} />
-                <span className={css.goToJoin}>회원가입</span>
+                <span className={css.loginLink}>회원가입</span>
               </div>
             </div>
           </div>
