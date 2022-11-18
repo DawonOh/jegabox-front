@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './LoginModal.module.scss';
 import { useCookies } from 'react-cookie';
-import WrongLoginAlert from './WrongLoginAlert/WrongLoginAlert';
+import AlertModal from './AlertModal/AlertModal';
 import { Link } from 'react-router-dom';
 
 const LoginModal = ({ closeLogin }) => {
@@ -58,18 +58,18 @@ const LoginModal = ({ closeLogin }) => {
     } else {
       idInput.current.value = '';
       pwInput.current.value = '';
-      openLoginAlert();
+      openAlertModal();
       setDisabled(true);
       return;
     }
   };
   //알림 모달창 상태값
-  const [openLoginAlertModal, setOpenLoginAlertModal] = useState(false);
-  const openLoginAlert = () => {
-    setOpenLoginAlertModal(true);
+  const [alertModal, setAlertModal] = useState(false);
+  const openAlertModal = () => {
+    setAlertModal(true);
   };
-  const closeLoginAlert = () => {
-    setOpenLoginAlertModal(false);
+  const closeAlertModal = () => {
+    setAlertModal(false);
   };
 
   //쿠키 - 아이디 가져오기
@@ -91,9 +91,7 @@ const LoginModal = ({ closeLogin }) => {
   };
   return (
     <div className={css.loginBackground}>
-      {openLoginAlertModal && (
-        <WrongLoginAlert closeLoginAlert={closeLoginAlert} />
-      )}
+      {alertModal && <AlertModal closeAlertModal={closeAlertModal} />}
       <div className={css.loginContainer}>
         <div className={css.loginTop}>
           <div className={css.loginTopTitle}>
@@ -141,7 +139,7 @@ const LoginModal = ({ closeLogin }) => {
             <div className={css.loginFindInfo}>
               <div className={css.loginFIndInfoCenter}>
                 <Link to={'/userfind'}>
-                  <span className={css.loginLink}>ID / PW찾기</span>
+                  <span className={css.loginLink}>ID / PW 찾기</span>
                 </Link>
                 <div className={css.loginFindBoundary} />
                 <span className={css.loginLink}>회원가입</span>
