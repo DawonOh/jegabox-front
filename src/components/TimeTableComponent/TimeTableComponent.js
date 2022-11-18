@@ -3,36 +3,49 @@ import css from './timeTableComponent.module.scss';
 import Area from './areaComponent';
 
 function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
-  const [areaClickCheck, setAreaClickCheck] = useState();
+  const [areaClickCheck, setAreaClickCheck] = useState(1);
   const [dayClickCheck, setDayClickCheck] = useState();
   const [dateArr, setDateArr] = useState([]);
+  const [dayOfWeekArr, setDayOfWeekArr] = useState([]);
 
   const date = new Date();
   const month = date.getMonth();
   const year = date.getFullYear();
   const day = parseInt(date.getDate());
   const week = ['일', '월', '화', '수', '목', '금', '토'];
-  const dayOfWeek = week[new Date(`${year}-${month + 1}-${day}`).getDay()];
 
   function makeDateArr() {
     const tempArr = [];
     const lastDay = new Date(year, month + 1, 0);
+    const lastDay2 = lastDay.getDate();
     for (let i = day; i < 14 + day; i++) {
-      if (i > lastDay) tempArr.push(i - lastDay);
-      if (i <= lastDay) tempArr.push(i);
+      if (i > lastDay2) tempArr.push(i - lastDay2);
+      if (i <= lastDay2) tempArr.push(i);
+    }
+
+    const tempArr2 = [];
+    for (let i = 0; i < tempArr.length; i++) {
+      tempArr2.push(
+        week[new Date(`${year}-${month + 1}-${tempArr[i]}`).getDay()]
+      );
     }
 
     setDateArr(tempArr);
+    setDayOfWeekArr(tempArr2);
   }
 
   function dayClick(event) {
     const day = event.target.innerText;
-    setCurrDate(`${year}-${month + 1}-${day}`);
+    setCurrDate(`${year}-${month + 1}-${parseInt(day)}`); // 개행 처리된 값에 split이 생각처럼 적용되지 않아서 애먹은 부분
   }
 
   useEffect(() => {
     makeDateArr();
   }, []);
+
+  useEffect(() => {
+    console.log(currDate);
+  }, [currDate]);
 
   return (
     <div className={css.mainDiv}>
@@ -57,8 +70,13 @@ function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
         {dateArr.map((elem, idx) => {
           return (
             <div key={idx} className={css.day} onClick={dayClick}>
-              <div>{elem}</div>
-              <div>{dayOfWeek[idx]}</div>
+              {elem}
+              <br />
+              {elem === day
+                ? '오늘'
+                : elem === day + 1
+                ? '내일'
+                : dayOfWeekArr[idx]}
             </div>
           );
         })}

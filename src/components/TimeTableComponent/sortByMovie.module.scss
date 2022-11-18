@@ -20,7 +20,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 25px;
+      font-size: 22px;
 
       i {
         margin: 5px;
@@ -37,6 +37,7 @@
 
       .category {
         margin: 5px;
+        font-size: 15px;
         cursor: pointer;
       }
     }
@@ -49,7 +50,7 @@
       overflow: auto;
       margin-left: 40px;
       ::-webkit-scrollbar-thumb {
-        border-radius: 3px;
+        border-radius: 0.5px;
         background-color: gray;
       }
 

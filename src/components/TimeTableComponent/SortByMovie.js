@@ -19,13 +19,24 @@ function App({
           className={css.sort}
           style={{ color: 'rgb(50, 32, 98)', borderRight: 'none' }}
         >
-          <i className="fa-solid fa-film"></i>영화별
+          <i className="fa-solid fa-film"></i>
+          영화별
         </div>
-        <div className={css.sort}>
-          <i class="fa-solid fa-mattress-pillow"></i>극장별
+        <div
+          className={css.sort}
+          style={{ backgroundColor: 'rgb(242, 242, 242)' }}
+        >
+          <i
+            className="fa-solid fa-users-rectangle"
+            style={{ backgroundColor: 'rgb(242, 242, 242)' }}
+          ></i>
+          극장별
         </div>
-        <div className={css.sort}>
-          <i className="fa-solid fa-couch"></i>
+        <div
+          className={css.sort}
+          style={{ backgroundColor: 'rgb(242, 242, 242)' }}
+        >
+          <i className="fa-solid fa-champagne-glasses"></i>
           특별관
         </div>
       </div>
