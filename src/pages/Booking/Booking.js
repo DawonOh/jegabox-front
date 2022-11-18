@@ -17,25 +17,15 @@ function Booking() {
   const [locationId, setLocationId] = useState([]);
   const [cinemas, setCinema] = useState([]);
   const [cinemaId, setCinemaId] = useState();
-  const printDayBtn = num => {
-    const result = [];
-    for (let i = 0; i < 14; i++) {
-      result.push(
-        <DayBtn
-          key={i}
-          date={now.setDate(date + i + num)}
-          week={week[day + (i % 7) - day]}
-          today={date}
-        />
-      );
-    }
-    return result;
-  };
+  const [user_date, setDate] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('/data/movie.json')
+    fetch('http://127.0.0.1:8000/booking/', {
+      method: 'GET',
+    })
       .then(res => res.json())
-      .then(res => setMovie(res.movie));
+      .then(res => setMovie(res.data));
 
     fetch('/data/cinema.json')
       .then(res => res.json())
@@ -54,11 +44,47 @@ function Booking() {
     prtCinema(); //유저가 로케이션 클릭시 해당지역 영화관 뜨게 하기.
   }, [locationId]);
 
+  //유저가 선택한 시네마 출력하기
+
+  useEffect(() => {
+    if (user_date && movieId && cinemaId) {
+      fetch('http://127.0.0.1:8000/booking/movie-cinema', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: user_date,
+          movie_id: movieId,
+          cinema_id: cinemaId,
+        }),
+      })
+        .then(res => res.json())
+        .then(res => setData(res));
+    }
+  }, [user_date, movieId, cinemaId]);
+
   const prtMovie = () => {
     const selectMovie = movies.filter(movie => movie.id === movieId);
     let url = selectMovie[0] || {};
     url = url.movie_poster;
     return <p>{url}</p>;
+  };
+
+  const printDayBtn = num => {
+    const result = [];
+    for (let i = 0; i < 14; i++) {
+      result.push(
+        <DayBtn
+          key={i}
+          date={now.setDate(date + i + num)}
+          week={week[day + (i % 7) - day]}
+          today={date}
+          setDate={setDate}
+        />
+      );
+    }
+    return result;
   };
 
   const prtCinema = () => {
@@ -189,6 +215,9 @@ function Booking() {
                       height="12px"
                     />
                   </button>
+                  <div className={css.movieSchedule}>
+                    {data[0] ? data[0].title : null}
+                  </div>
                 </div>
               </div>
             </div>
