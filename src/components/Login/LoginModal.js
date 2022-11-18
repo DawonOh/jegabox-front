@@ -140,8 +140,8 @@ const LoginModal = ({ closeLogin }) => {
             </button>
             <div className={css.loginFindInfo}>
               <div className={css.loginFIndInfoCenter}>
-                <Link to={'/idfind'}>
-                  <span className={css.loginLink}>ID / PW 찾기</span>
+                <Link to={'/userfind'}>
+                  <span className={css.loginLink}>ID / PW찾기</span>
                 </Link>
                 <div className={css.loginFindBoundary} />
                 <span className={css.loginLink}>회원가입</span>

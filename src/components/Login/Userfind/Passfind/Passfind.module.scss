@@ -1,0 +1,55 @@
+@mixin flexcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passFindWrap {
+  @include flexcenter();
+  flex-direction: column;
+  width: 510px;
+  height: 480px;
+  table {
+    border-collapse: collapse;
+    border-top: 1px solid #444;
+    font-size: 0.9em;
+    tr {
+      border-bottom: 1px solid #d1d5dd;
+      th {
+        width: 130px;
+        height: 50px;
+        background-color: #f7f8f9;
+        text-align: start;
+        padding-left: 20px;
+      }
+      td {
+        width: 380px;
+        height: 50px;
+        padding: 10px;
+        & input {
+          width: 208px;
+          height: 30px;
+          border: 1px solid #d8d9db;
+          text-indent: 10px;
+        }
+        & input:focus {
+          outline: none;
+        }
+        .warning {
+          margin-top: 5px;
+          color: #e81002;
+        }
+      }
+    }
+  }
+  .findPassBtn {
+    width: 200px;
+    height: 46px;
+    color: #777;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 3px;
+    background-color: #e0e0e0;
+    margin-top: 50px;
+  }
+}

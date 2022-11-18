@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import css from './Userfind.module.scss';
 import { Link } from 'react-router-dom';
 import Idfind from '../../../components/Login/Userfind/Idfind/Idfind';
+import Passfind from '../../../components/Login/Userfind/Passfind/Passfind';
 
 const Userfind = () => {
   const [isOn, setIsOn] = useState(true);
-  const handleOn = () => {
+  const [getInnerText, setGetInnerText] = useState('아이디 찾기');
+  const handleOn = e => {
     setIsOn(!isOn);
+    setGetInnerText(e.target.innerText);
   };
 
   return (
@@ -28,8 +31,7 @@ const Userfind = () => {
             비밀번호 찾기
           </div>
         </div>
-        {/* 아이디찾기, 비밀번호찾기 컴포넌트 들어갈 자리.. */}
-        <Idfind />
+        {getInnerText === '아이디 찾기' ? <Idfind /> : <Passfind />}
       </div>
     </div>
   );
