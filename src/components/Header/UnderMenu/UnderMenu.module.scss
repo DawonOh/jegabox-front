@@ -1,0 +1,22 @@
+.undermenu {
+  position: absolute;
+  left: -190px;
+  top: 50px;
+  padding-top: 17px;
+  width: 1500px;
+  height: 36px;
+  background-color: black;
+  span {
+    color: white;
+    margin-right: 13px;
+    text-align: center;
+    font-size: 18px;
+    &:first-child {
+      margin-left: 300px;
+    }
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

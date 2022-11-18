@@ -2,7 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 .headerContainer {
+  position: relative;
+
   background-color: black;
+  border-bottom: 1px solid #888;
 }
 .header {
   background-color: black;
@@ -23,8 +26,6 @@
     }
   }
   .mainWholeBar {
-    border-bottom: 1px solid #888;
-    padding-bottom: 20px;
     position: relative;
     display: flex;
     //justify-content: space-between;
@@ -33,28 +34,35 @@
       justify-content: space-between;
     }
     .mainMenuBar {
+      .divdiv {
+        // display: inline-block;
+
+        width: 200px;
+      }
       display: flex;
       .menuMargin1 {
+        padding-bottom: 20px;
         margin-right: 90px;
       }
       .menuMargin2 {
+        padding-bottom: 20px;
         margin-right: 60px;
       }
       .menuMargin3 {
+        padding-bottom: 20px;
         margin-right: 350px;
       }
       .linkToWhere {
-        width: 50px;
         font-size: 22px;
         text-decoration-line: none;
         color: rgb(214 213 214);
         .closeIcon {
           cursor: pointer;
           color: rgb(214 213 214);
-          margin-top: -5px;
-          margin-left: 25px;
+          margin-top: 0px;
+          margin-left: 18px;
           width: 30px;
-          height: 25px;
+          height: 30px;
         }
         .headerIcon {
           cursor: pointer;
@@ -77,4 +85,13 @@
       }
     }
   }
+}
+.position {
+  position: relative;
+}
+.padding {
+  height: 27px;
+  padding-bottom: 20px;
+}
+.save {
 }

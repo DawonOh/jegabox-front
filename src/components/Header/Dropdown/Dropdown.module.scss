@@ -1,12 +1,18 @@
 .dropdownContainer {
+  padding-right: 200px;
+  padding-left: 200px;
+  margin: auto;
+  width: 1400px;
+  position: absolute;
+  // z-index: 200;
   background-color: rgb(51 51 51);
 }
 
 .dropdownWhole {
   background-color: rgb(51 51 51);
-  width: 1400px;
-  height: 900px;
-  margin: auto;
+
+  height: 830px;
+
   h5 {
     padding-bottom: 30px;
     padding-top: 40px;
