@@ -4,9 +4,9 @@ import css from './DayBtn.module.scss';
 function DayBtn({ date, week, today, setDate }) {
   const [btnDisable, setBtnDisable] = useState(false);
   useEffect(() => {
-    new Date(date).getDate() >= today + 5
-      ? setBtnDisable(true)
-      : setBtnDisable(false);
+    new Date(date).getDate() <= today + 4 && new Date(date).getDate() >= today
+      ? setBtnDisable(false)
+      : setBtnDisable(true);
   }, []);
 
   if (new Date(date).getDate() === today) {
