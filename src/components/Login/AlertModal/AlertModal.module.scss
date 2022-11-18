@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.loginAlertBackground {
+.AlertModalBackground {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,15 +12,15 @@
   right: 0;
   background-color: rgba($color: #000000, $alpha: 0.5);
   @include flexCenter();
-  .loginAlertContainer {
+  .AlertModalContainer {
     width: 400px;
     height: 181px;
     background-color: #fff;
-    .loginAlertHeader {
+    .AlertModalHeader {
       background-color: #503396;
       height: 45px;
       @include flexCenter();
-      .loginAlertHeaderTitle {
+      .AlertModalHeaderTitle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -33,7 +33,7 @@
           }
           line-height: 45px;
         }
-        .closeLoginAlert {
+        .closeAlertModal {
           width: 17px;
           height: 17px;
           cursor: pointer;
@@ -46,10 +46,10 @@
         }
       }
     }
-    .loginAlertMain {
+    .AlertModalMain {
       @include flexCenter();
       flex-direction: column;
-      .loginAlertContents {
+      .AlertModalContents {
         width: 370px;
         height: 80px;
         display: flex;
@@ -58,7 +58,7 @@
         flex-direction: column;
         font-size: 0.9em;
       }
-      .checkLoginAlert {
+      .checkAlertModal {
         width: 55px;
         height: 36px;
         cursor: pointer;
