@@ -1,0 +1,96 @@
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+.headerContainer {
+  position: relative;
+
+  background-color: white;
+  border-bottom: 1px solid #888;
+}
+.header {
+  background-color: white;
+  margin: auto;
+  width: 1400px;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  .subNavbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    span {
+      padding-top: 20px;
+      font-size: 17px;
+      color: #888;
+      float: left;
+      margin-right: 25px;
+    }
+  }
+  .mainWholeBar {
+    position: relative;
+    display: flex;
+    //justify-content: space-between;
+    .mainMenuBarColumn {
+      display: flex;
+      justify-content: space-between;
+    }
+    .mainMenuBar {
+      .divdiv {
+        // display: inline-block;
+
+        width: 200px;
+      }
+      display: flex;
+      .menuMargin1 {
+        padding-bottom: 20px;
+        margin-right: 90px;
+      }
+      .menuMargin2 {
+        padding-bottom: 20px;
+        margin-right: 60px;
+      }
+      .menuMargin3 {
+        padding-bottom: 20px;
+        margin-right: 350px;
+      }
+
+      .linkToWhere {
+        font-size: 22px;
+        text-decoration-line: none;
+        color: rgb(48, 48, 48);
+        .closeIcon {
+          cursor: pointer;
+          color: rgb(214 213 214);
+          margin-top: 0px;
+          margin-left: 18px;
+          width: 30px;
+          height: 30px;
+        }
+        .headerIcon {
+          cursor: pointer;
+          margin-left: 18px;
+          width: 30px;
+          height: 30px;
+        }
+        img {
+          top: -50px;
+          left: 590px;
+          position: absolute;
+          display: block;
+          width: 200px;
+          height: 70px;
+          margin: 0;
+          padding: 0;
+          font-size: 0;
+          line-height: 0;
+        }
+      }
+    }
+  }
+}
+.position {
+  position: relative;
+}
+.padding {
+  height: 27px;
+  padding-bottom: 20px;
+}
