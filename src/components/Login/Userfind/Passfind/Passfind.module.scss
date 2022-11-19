@@ -27,7 +27,7 @@
         height: 50px;
         padding: 10px;
         & input {
-          width: 208px;
+          width: 238px;
           height: 30px;
           border: 1px solid #d8d9db;
           text-indent: 10px;
@@ -35,9 +35,22 @@
         & input:focus {
           outline: none;
         }
+
+        .passFindTimer {
+          width: 50px;
+          height: 30px;
+          border: 1px solid black;
+        }
+
         .warning {
           margin-top: 5px;
           color: #e81002;
+        }
+      }
+      .certificationTd {
+        display: flex;
+        .certificationInput {
+          width: 180px;
         }
       }
     }
