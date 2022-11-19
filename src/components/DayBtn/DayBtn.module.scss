@@ -1,0 +1,19 @@
+.container {
+  display: inline-block;
+  button {
+    height: 39px;
+    width: 70px !important;
+    border: none;
+    cursor: pointer;
+    img {
+      padding: 4px;
+    }
+    &:hover {
+      border-bottom: solid 2px rgb(111, 28, 111) !important;
+    }
+  }
+  .btnActive {
+    border-bottom: solid 2px rgb(111, 28, 111) !important;
+    background-color: yellow;
+  }
+}

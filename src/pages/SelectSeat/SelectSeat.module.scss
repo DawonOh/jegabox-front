@@ -1,0 +1,191 @@
+.container {
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+
+  .seatSelection {
+    background-color: white;
+    border-top: 1px solid #cecece;
+    width: 770px;
+    height: 556px;
+    text-align: center;
+    .m_title {
+      background-color: white;
+      height: 47px;
+      display: flex;
+      justify-content: space-between;
+
+      h3 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        line-height: 47px;
+        vertical-align: middle;
+        font-weight: 100;
+        display: inline-block;
+      }
+
+      button {
+        width: 70px;
+        height: 30px;
+        vertical-align: middle;
+        border: 1px solid rgb(173, 173, 173);
+        border-radius: 4px;
+        padding: 5 20px;
+        margin-top: 10px;
+        font-size: 15px;
+        color: #4e4e4e;
+      }
+    }
+  }
+  .selectDisplay {
+    border: 1px solid #cecece;
+  }
+  .SelectPeople {
+    text-align: left !important;
+    height: 53px;
+    background-color: #f1f4f5;
+    p {
+      display: inline-block;
+      padding-right: 10px;
+    }
+    .cell {
+      display: inline-block;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+  .Select {
+    width: 770px;
+    text-align: center;
+    margin-top: 38px;
+  }
+  .seatResult {
+    flex-grow: 0;
+    box-sizing: border-box;
+    flex-grow: 0;
+    width: 310px;
+    height: 556px;
+    background-color: #333333;
+    margin-left: 20px;
+    border-radius: 12px;
+    padding: 15px 0px 0px 0px;
+    .tit_area {
+      padding-left: 10px;
+      color: white;
+      height: 48.89px;
+      border-bottom: 1px solid #434343;
+    }
+    .info_area {
+      color: #9c9c9c;
+      padding-top: 10px;
+      padding-left: 10px;
+      height: 121px;
+      border-bottom: 1px solid #434343;
+    }
+    .choice_area {
+      height: 230px;
+      border-bottom: 1px solid #434343;
+    }
+    .pay_area {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: white;
+      padding: 10px 20px;
+      height: 48px;
+      margin-top: 48px;
+      border-bottom: 1px solid #434343;
+      line-height: 48px;
+      vertical-align: center;
+      .price {
+        font-size: 15px;
+        .money {
+          font-size: 24px;
+          padding-right: 5px;
+          color: #59bec9;
+        }
+      }
+    }
+    .btn_group {
+      height: 40px;
+
+      .before {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+        color: white !important;
+        background-color: #434343;
+        border: none;
+        outline: none;
+        width: 50%;
+        height: 41px;
+        border-bottom-left-radius: 7px;
+      }
+      .submit {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+        color: #aaaaaa !important;
+        border: none;
+        outline: none;
+        width: 50%;
+        height: 41px;
+        border-bottom-right-radius: 7px;
+      }
+    }
+  }
+  .SelectSeat {
+    width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    margin-bottom: 151px;
+
+    .seat {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: gray;
+      margin-left: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+
+      h2 {
+        line-height: 40px;
+        vertical-align: center;
+        font-size: 15px;
+      }
+    }
+  }
+  .Selectbtn {
+    border: 1px solid #cecece;
+    display: inline;
+    height: 32px;
+    display: inline-block;
+    border-radius: 7px;
+    button {
+      cursor: pointer;
+      height: 32px;
+      width: 32px;
+      background-color: white;
+      border: none;
+    }
+    .left {
+      cursor: pointer;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      cursor: pointer;
+    }
+    .right {
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+      cursor: pointer;
+    }
+    .prtNum {
+      border-left: #cecece solid 1px;
+      border-right: #cecece solid 1px;
+      width: 42px;
+    }
+  }
+}
