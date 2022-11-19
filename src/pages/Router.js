@@ -16,8 +16,6 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/timetable" element={<TimeTable />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/test2" element={<Test2 />} />
       </Routes>
     </BrowserRouter>
   );

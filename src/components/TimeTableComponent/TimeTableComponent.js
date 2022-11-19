@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import css from './timeTableComponent.module.scss';
-import Area from './areaComponent';
+import AreaFilter from './AreaFilterComponent';
 
 function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
   const [areaClickCheck, setAreaClickCheck] = useState(1);
@@ -99,49 +99,49 @@ function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
         <div className={css.classInfo}>관람등급안내</div>
       </div>
       <div className={css.areaFilterDiv}>
-        <Area
+        <AreaFilter
           curr={1}
           name={'서울'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={2}
           name={'경기'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={3}
           name={'인천'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={4}
           name={'대전/충청/세종'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={5}
           name={'부산/대구/경상'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={6}
           name={'광주/전라'}
           setAreaClickCheck={setAreaClickCheck}
           areaClickCheck={areaClickCheck}
           setCurrArea={setCurrArea}
         />
-        <Area
+        <AreaFilter
           curr={7}
           name={'강원'}
           setAreaClickCheck={setAreaClickCheck}
