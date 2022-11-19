@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import css from './timetable.module.scss';
 import SortByMovie from '../../components/TimeTableComponent/SortByMovie';
 import TimeTableComponent from '../../components/TimeTableComponent/TimeTableComponent';
+import ScreeningInfo from '../../components/TimeTableComponent/ScreeningInfo1';
 
 function App() {
   const [titleList, setTitleList] = useState([]); // SortByMovie에 뿌릴 타이틀 정보
@@ -89,7 +90,7 @@ function App() {
   }, [reqData]);
 
   useEffect(() => {
-    console.log(resData);
+    console.log('resData', resData);
     if (resData) setCurrPoster(resData[0].Img_url);
     if (resData) {
       const tempArr1 = []; //[강남, 강동, 마곡, 화곡]
@@ -109,7 +110,6 @@ function App() {
       tempArr1.map(elem => {
         tempArr2.push(resData.filter(data => data.cinema_name === elem));
       });
-      console.log('tempArr2', tempArr2);
 
       // 지역별 상영 스크린 배열값 push
       // screenArr = [[1, 2, 3], [1, 2], [1], [1]];
@@ -120,7 +120,6 @@ function App() {
         });
         screenArr.push(temp2);
       });
-      console.log(screenArr);
 
       // tempArr1 = [강남, 강동, 마곡, 화곡]
       // screenArr = [[1, 2, 3], [1, 2], [1], [1]];
@@ -136,7 +135,7 @@ function App() {
         tempArr3.push(temp);
       });
       setProcessedArr(tempArr3);
-      console.log(tempArr3);
+      console.log('tempArr3', tempArr3);
 
       // 강남의 스크린별 상영 정보 배열, 강동의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열
       // screenArr.map(elem => {
@@ -175,6 +174,9 @@ function App() {
         currArea={currArea}
         setCurrArea={setCurrArea}
       />
+      {processedArr.map((elem, idx) => {
+        return <ScreeningInfo processedArr={processedArr} key={idx} />;
+      })}
     </div>
   );
 }

@@ -43,10 +43,6 @@ function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
     makeDateArr();
   }, []);
 
-  useEffect(() => {
-    console.log(currDate);
-  }, [currDate]);
-
   return (
     <div className={css.mainDiv}>
       <div className={css.movieTitle}>
