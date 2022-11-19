@@ -78,24 +78,33 @@ const Idfind = () => {
 
   //fetch로 데이터 전송 후 id받아오기
   const getId = () => {
-    fetch('http://localhost:8000/users/ID', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phone_number: phoneNumValue,
-        birthday: birthValue,
-        name: nameValue,
-      }),
-    })
-      .then(res => res.json())
-      .then(json => {
-        setId(json.id);
-        setJoinDate(json.date);
-      });
+    // fetch('http://localhost:8000/users/ID', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     phone_number: phoneNumValue,
+    //     birthday: birthValue,
+    //     name: nameValue,
+    //   }),
+    // })
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     if(id !== undefined){
+    //       setId(json.id);
+    //     }else {
+    //       setId('');
+    //     }
+    //     setJoinDate(json.date);
+    //   });
     openAlertModal();
-    setId('ttiate1998');
+
+    if (id === undefined) {
+      setId('');
+    } else {
+      setId('ttiate1998');
+    }
     setJoinDate('2022-11-19');
   };
 
@@ -108,24 +117,34 @@ const Idfind = () => {
     setAlertModal(false);
   };
 
-  // const viewId = id => {
-  //   let newId;
-  //   newId = id.replace(/\b(?=\b{2})/g, '*');
-  //   return newId;
-  // };
+  const viewId = id => {
+    let newId;
+    if (id !== undefined) {
+      newId = id.replace(/[ㄱ-ㅎ가-힣a-zA-z0-9][ㄱ-ㅎ가-힣a-zA-z0-9]$/gm, '**');
+    }
 
-  // console.log('asdf1234'.replace(/\b(?=\b{2})/g, '*'));
-  // let endTwoWords = 'asdf1234'.slice(-2);
+    return newId;
+  };
 
   const message = [
-    { id: 1, message: `회원님의 아이디는 [${id}] 입니다.` },
+    { id: 1, message: `회원님의 아이디는 [${viewId(id)}] 입니다.` },
     { id: 2, message: `가입일 : ${joinDate}` },
+  ];
+
+  const wrongIDmessage = [
+    { id: 1, message: '해당 정보로 가입된 사용자를 찾을 수 없습니다.' },
   ];
   return (
     <div className={css.idFindWrap}>
-      {alertModal && (
-        <AlertModal closeAlertModal={closeAlertModal} messages={message} />
-      )}
+      {alertModal &&
+        (id !== '' ? (
+          <AlertModal closeAlertModal={closeAlertModal} messages={message} />
+        ) : (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={wrongIDmessage}
+          />
+        ))}
       <table>
         <tbody>
           <tr>
