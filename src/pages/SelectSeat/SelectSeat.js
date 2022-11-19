@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './SelectSeat.module.scss';
 
-function SelectSeat() {
+function SelectSeat({ userMovie, setDisable }) {
   const [adult, setAdult] = useState(0);
   const [child, setChild] = useState(0);
-  const [elderly, setElderly] = useState(0);
+  const [pay, setPay] = useState(0);
+  let totalNum = adult + child;
+  let user_seat = [];
+  let [hour, minute] = userMovie.seats.time.split(':');
+  let time = Number(hour) * 60 + Number(minute) + userMovie.movie_time;
+  let f_time = String(Math.floor(time / 60)) + ':' + String(time % 60);
+  console.log(userMovie);
+  useEffect(() => {
+    console.log(totalNum);
+    setPay(adult * 14000 + child * 13000);
+  }, [adult, child]);
+  const handleBack = () => {
+    setDisable(true);
+  };
   const prtseat = () => {
+    //있는 좌석만 받아오기 비교해서
     const section = ['A', 'B', 'C', 'D'];
     const num = ['1', '2', '3', '4', '5'];
     const result = [];
@@ -30,7 +44,19 @@ function SelectSeat() {
     }
     return result;
   };
-
+  const buy = () => {
+    fetch('http://127.0.0.1:8000/booking/booking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        showtime_id: userMovie.id,
+        seat_count: totalNum,
+        seat_name: user_seat,
+      }),
+    });
+  };
   const prtbtn = (num, setFunc) => {
     return (
       <div className={css.Selectbtn}>
@@ -71,10 +97,6 @@ function SelectSeat() {
               <p>청소년</p>
               {prtbtn(child, setChild)}
             </div>
-            <div className={css.cell}>
-              <p>우대</p>
-              {prtbtn(elderly, setElderly)}
-            </div>
           </div>
           <div className={css.Select}>
             <img
@@ -87,11 +109,34 @@ function SelectSeat() {
         </div>
       </div>
       <div className={css.seatResult}>
-        <div className={css.tit_area}></div>
-        <div className={css.info_area}></div>
+        <div className={css.tit_area}>
+          {userMovie.title} <br />
+          {userMovie.movie_property}
+        </div>
+        <div className={css.info_area}>
+          {userMovie.cinema_name}
+          <br />
+          {userMovie.screen}관<br />
+          {userMovie.seats.day}
+          <br />
+          {/**시간 선택 할수 있게 */}
+          {userMovie.seats.time}~{f_time}
+        </div>
         <div className={css.choice_area}></div>
-        <div className={css.pay_area}></div>
-        <div className={css.btn_group}></div>
+        <div className={css.pay_area}>
+          <span className={css.total_money}>최종결제금액</span>{' '}
+          <span className={css.price}>
+            <span className={css.money}>{pay}</span>원
+          </span>
+        </div>
+        <div className={css.btn_group}>
+          <button className={css.before} onClick={handleBack}>
+            이전
+          </button>
+          <button className={css.submit} onClick={buy}>
+            구매
+          </button>
+        </div>
       </div>
     </div>
   );

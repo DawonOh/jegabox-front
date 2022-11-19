@@ -1,20 +1,15 @@
 import React from 'react';
 import css from './MovieSche.module.scss';
-function MovieSche({ movies, setDisable }) {
+function MovieSche({ movies, setDisable, setUserMv }) {
   let [hour, minute] = movies.seats.time.split(':');
   let time = Number(hour) * 60 + Number(minute) + movies.movie_time;
   let f_time = String(Math.floor(time / 60)) + ':' + String(time % 60);
-  const goToSelect = () => {
-    console.log('in');
+  const goToSelect = e => {
     setDisable(false);
+    setUserMv(movies);
   };
   return (
-    <div
-      className={css.component}
-      onClick={() => {
-        goToSelect();
-      }}
-    >
+    <div className={css.component} onClick={e => goToSelect(e)}>
       <div className={css.time}>
         <b>{movies.seats.time} </b>
         <span>~ {f_time}</span>

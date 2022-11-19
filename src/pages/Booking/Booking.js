@@ -18,7 +18,7 @@ function Booking() {
   const [cinemaId, setCinemaId] = useState();
   const [user_date, setDate] = useState();
   const [data, setData] = useState([]);
-
+  const [userMovie, setUserMv] = useState({});
   useEffect(() => {
     fetch('http://127.0.0.1:8000/booking/', {
       method: 'GET',
@@ -227,6 +227,7 @@ function Booking() {
                         setDisable={setDisable}
                         key={idx}
                         movies={prop}
+                        setUserMv={setUserMv}
                       />
                     ))}
                   </div>
@@ -236,7 +237,9 @@ function Booking() {
             <div className={css.ad}>광고</div>
           </div>
         )}
-        {!disable && <SelectSeat />}
+        {!disable && (
+          <SelectSeat userMovie={userMovie} setDisable={setDisable} />
+        )}
       </div>
     </div>
   );

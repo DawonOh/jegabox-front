@@ -61,38 +61,78 @@
     margin-top: 38px;
   }
   .seatResult {
+    flex-grow: 0;
     box-sizing: border-box;
-    // padding: 15px 20px 0 0;
     flex-grow: 0;
     width: 310px;
     height: 556px;
     background-color: #333333;
     margin-left: 20px;
     border-radius: 12px;
+    padding: 15px 0px 0px 0px;
     .tit_area {
+      padding-left: 10px;
+      color: white;
       height: 48.89px;
-      background-color: yellow;
+      border-bottom: 1px solid #434343;
     }
     .info_area {
+      color: #9c9c9c;
+      padding-top: 10px;
+      padding-left: 10px;
       height: 121px;
-      background-color: rgb(147, 147, 39);
+      border-bottom: 1px solid #434343;
     }
     .choice_area {
       height: 230px;
-      background-color: rgb(46, 157, 131);
-    }
-    .choice_area {
-      height: 230px;
-      background-color: rgb(46, 157, 131);
+      border-bottom: 1px solid #434343;
     }
     .pay_area {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: white;
+      padding: 10px 20px;
       height: 48px;
-      margin-top: 68px;
-      background-color: rgb(181, 88, 163);
+      margin-top: 48px;
+      border-bottom: 1px solid #434343;
+      line-height: 48px;
+      vertical-align: center;
+      .price {
+        font-size: 15px;
+        .money {
+          font-size: 24px;
+          padding-right: 5px;
+          color: #59bec9;
+        }
+      }
     }
     .btn_group {
       height: 40px;
-      background-color: rgb(146, 94, 65);
+
+      .before {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+        color: white !important;
+        background-color: #434343;
+        border: none;
+        outline: none;
+        width: 50%;
+        height: 41px;
+        border-bottom-left-radius: 7px;
+      }
+      .submit {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+        color: #aaaaaa !important;
+        border: none;
+        outline: none;
+        width: 50%;
+        height: 41px;
+        border-bottom-right-radius: 7px;
+      }
     }
   }
   .SelectSeat {
@@ -125,12 +165,14 @@
     display: inline-block;
     border-radius: 7px;
     button {
+      cursor: pointer;
       height: 32px;
       width: 32px;
       background-color: white;
       border: none;
     }
     .left {
+      cursor: pointer;
       border-top-left-radius: 7px;
       border-bottom-left-radius: 7px;
       cursor: pointer;
