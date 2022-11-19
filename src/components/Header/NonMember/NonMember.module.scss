@@ -1,0 +1,34 @@
+.position {
+  height: 380px;
+  width: 1800px;
+  background-color: rgb(2 123 148);
+  position: absolute;
+  z-index: 200;
+  .nonMemberWhole {
+    padding-top: 90px;
+    text-align: center;
+    p {
+      color: white;
+      font-weight: 500;
+      font-size: 19px;
+      padding-bottom: 10px;
+    }
+    .loginBtn {
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 1.5px solid white;
+      background-color: rgb(2 123 148);
+      font-size: 18px;
+      width: 150px;
+      height: 47px;
+      margin-top: 25px;
+      margin-bottom: 60px;
+    }
+    .signup {
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+  }
+}

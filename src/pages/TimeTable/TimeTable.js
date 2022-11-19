@@ -3,6 +3,8 @@ import css from './timetable.module.scss';
 import SortByMovie from '../../components/TimeTableComponent/SortByMovie';
 import TimeTableComponent from '../../components/TimeTableComponent/TimeTableComponent';
 import ScreeningInfo from '../../components/TimeTableComponent/ScreeningInfo1';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import PageFooter from '../../components/Footer/Footer';
 
 function App() {
   const [titleList, setTitleList] = useState([]); // SortByMovie에 뿌릴 타이틀 정보
@@ -160,24 +162,28 @@ function App() {
   }, [resData]);
 
   return (
-    <div className={css.mainDiv}>
-      <SortByMovie
-        titleList={titleList}
-        setCurrTitle={setCurrTitle}
-        currPoster={currPoster}
-        setTitleList={setTitleList}
-      />
-      <TimeTableComponent
-        currTitle={currTitle}
-        currDate={currDate}
-        setCurrDate={setCurrDate}
-        currArea={currArea}
-        setCurrArea={setCurrArea}
-      />
-      {processedArr.map((elem, idx) => {
-        return <ScreeningInfo processedArr={processedArr} key={idx} />;
-      })}
-    </div>
+    <>
+      <PageHeader />
+      <div className={css.mainDiv}>
+        <SortByMovie
+          titleList={titleList}
+          setCurrTitle={setCurrTitle}
+          currPoster={currPoster}
+          setTitleList={setTitleList}
+        />
+        <TimeTableComponent
+          currTitle={currTitle}
+          currDate={currDate}
+          setCurrDate={setCurrDate}
+          currArea={currArea}
+          setCurrArea={setCurrArea}
+        />
+        {processedArr.map((elem, idx) => {
+          return <ScreeningInfo processedArr={processedArr} key={idx} />;
+        })}
+      </div>
+      <PageFooter />
+    </>
   );
 }
 
