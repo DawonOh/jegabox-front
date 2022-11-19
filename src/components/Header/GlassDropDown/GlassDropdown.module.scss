@@ -1,25 +1,25 @@
 .outColor {
-  padding: 0px 200px;
+  padding: 0px 160px;
   position: absolute;
   z-index: 100;
   margin-top: 0px;
   background-color: rgb(54 31 103);
   .wholeSearch {
-    width: 1400px;
+    width: 1100px;
     margin: auto;
-    padding-bottom: 70px;
+    padding-bottom: 56px;
     background-color: rgb(54 31 103);
     .rankingName {
-      padding-top: 70px;
+      padding-top: 45px;
       display: flex;
 
       .searchTitle {
-        margin-right: 30px;
-        font-size: 20px;
+        margin-right: 24px;
+        font-size: 16px;
         color: #fff;
       }
       .underlineChange {
-        padding-bottom: 10px;
+        padding-bottom: 8px;
         border-bottom: 2px solid white;
       }
     }
@@ -28,10 +28,10 @@
       align-items: center;
       .moviePoster {
         position: relative;
-        margin-top: 35px;
+        margin-top: 24px;
         img {
-          width: 210px;
-          height: 270px;
+          width: 160px;
+          height: 220px;
         }
         .moviePoster1 {
           z-index: -1;
@@ -47,13 +47,15 @@
         }
       }
       .movieRanking {
-        font-size: 20px;
-        margin-left: 50px;
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 15px;
+        margin-left: 40px;
         color: #fff;
 
-        .marginChange {
-          margin-top: 30px;
-        }
+        // .marginChange {
+        //   margin-top: 24px;
+        // }
 
         .movieName {
           display: block;
@@ -66,27 +68,27 @@
 
           .nameNumber {
             font-style: oblique;
-            font-size: 36px;
+            font-size: 28px;
             margin-right: 17px;
           }
         }
       }
       .searchBar {
         position: relative;
-        margin-left: 250px;
+        margin-left: 200px;
         input {
           padding-left: 10px;
           margin-left: 10px;
-          font-size: 23px;
+          font-size: 18px;
           color: white;
           border: none;
           border-bottom: 1.5px solid white;
           background-color: rgb(54 31 103);
-          width: 500px;
+          width: 400px;
           height: 55px;
           &::placeholder {
             color: white;
-            font-size: 23px;
+            font-size: 18px;
           }
           &:focus {
             outline: none;
@@ -94,11 +96,11 @@
         }
         .searchIcon {
           position: absolute;
-          left: 450px;
-          top: 13px;
+          left: 380px;
+          top: 16px;
           color: white;
-          width: 30px;
-          height: 30px;
+          width: 24px;
+          height: 24px;
         }
       }
     }

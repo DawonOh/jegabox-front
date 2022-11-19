@@ -135,16 +135,17 @@ function Header() {
                   <Link
                     style={{
                       borderBottom: validUnderMenu1
-                        ? '4px solid white'
+                        ? '2px solid white'
                         : 'none',
                     }}
-                    className={`${css.linkToWhere} ${css.menuMargin1}`}
+                    className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}
                   >
                     영화
                   </Link>
                   {validUnderMenu1 ? (
                     <UnderMenu
+                      margin={'280px'}
                       menu1={'전체영화'}
                       menu2={'큐레이션'}
                       menu3={'무비포스트'}
@@ -157,11 +158,11 @@ function Header() {
               <li className={css.mainMenuBar}>
                 <div onMouseOver={showUnderMenu2} onMouseOut={closeUnderMenu2}>
                   <Link
-                    className={`${css.linkToWhere} ${css.menuMargin1}`}
+                    className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}
                     style={{
                       borderBottom: validUnderMenu2
-                        ? '3.5px solid white'
+                        ? '2px solid white'
                         : 'none',
                     }}
                   >
@@ -169,7 +170,7 @@ function Header() {
                   </Link>
                   {validUnderMenu2 ? (
                     <UnderMenu
-                      margin={'430px'}
+                      margin={'360px'}
                       menu1={'빠른예매'}
                       menu2={'상영시간표'}
                       menu3={'더 부티크 프라이빗 예매'}
@@ -186,7 +187,7 @@ function Header() {
                     to={'/login'}
                     style={{
                       borderBottom: validUnderMenu3
-                        ? '3.5px solid white'
+                        ? '2px solid white'
                         : 'none',
                     }}
                   >
@@ -194,7 +195,7 @@ function Header() {
                   </Link>
                   {validUnderMenu3 ? (
                     <UnderMenu
-                      margin={'620px'}
+                      margin={'500px'}
                       menu1={'전체극장'}
                       menu2={'특별관'}
                       menu3={''}
@@ -223,7 +224,7 @@ function Header() {
                     to={'/login'}
                     style={{
                       borderBottom: validUnderMenu4
-                        ? '3.5px solid white'
+                        ? '2px solid white'
                         : 'none',
                     }}
                   >
@@ -231,7 +232,7 @@ function Header() {
                   </Link>
                   {validUnderMenu4 ? (
                     <UnderMenu
-                      margin={'1000px'}
+                      margin={'800px'}
                       menu1={'진행중 이벤트'}
                       menu2={'지난 이벤트'}
                       menu3={'당첨자발표'}
@@ -258,7 +259,7 @@ function Header() {
                     to={'/login'}
                     style={{
                       borderBottom: validUnderMenu5
-                        ? '3.5px solid white'
+                        ? '2px solid white'
                         : 'none',
                     }}
                   >
@@ -266,7 +267,7 @@ function Header() {
                   </Link>
                   {validUnderMenu5 ? (
                     <UnderMenu
-                      margin={'1250px'}
+                      margin={'1050px'}
                       menu1={'메가박스 멤버십'}
                       menu2={'제휴/할인'}
                       menu3={''}
