@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './Idfind.module.scss';
+import AlertModal from '../../AlertModal/AlertModal';
 
 const Idfind = () => {
   const [nameValue, setNameValue] = useState('');
@@ -9,6 +10,7 @@ const Idfind = () => {
   const [isPhoneWrong, setIsPhoneWrong] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [id, setId] = useState('');
+  const [joinDate, setJoinDate] = useState();
   const nameInput = useRef();
   const handleName = e => {
     let data = e.target.value;
@@ -90,10 +92,40 @@ const Idfind = () => {
       .then(res => res.json())
       .then(json => {
         setId(json.id);
+        setJoinDate(json.date);
       });
+    openAlertModal();
+    setId('ttiate1998');
+    setJoinDate('2022-11-19');
   };
+
+  //id알림 모달창
+  const [alertModal, setAlertModal] = useState(false);
+  const openAlertModal = () => {
+    setAlertModal(true);
+  };
+  const closeAlertModal = () => {
+    setAlertModal(false);
+  };
+
+  // const viewId = id => {
+  //   let newId;
+  //   newId = id.replace(/\b(?=\b{2})/g, '*');
+  //   return newId;
+  // };
+
+  // console.log('asdf1234'.replace(/\b(?=\b{2})/g, '*'));
+  // let endTwoWords = 'asdf1234'.slice(-2);
+
+  const message = [
+    { id: 1, message: `회원님의 아이디는 [${id}] 입니다.` },
+    { id: 2, message: `가입일 : ${joinDate}` },
+  ];
   return (
     <div className={css.idFindWrap}>
+      {alertModal && (
+        <AlertModal closeAlertModal={closeAlertModal} messages={message} />
+      )}
       <table>
         <tbody>
           <tr>
