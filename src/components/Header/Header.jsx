@@ -12,6 +12,8 @@ import Dropdown from './Dropdown/Dropdown';
 import { useState } from 'react';
 import GlassDropdown from './GlassDropDown/GlassDropdown';
 import UnderMenu from './UnderMenu/UnderMenu';
+import NonMember from './NonMember/NonMember';
+import { Member } from './Member/Member';
 function Header() {
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
@@ -22,6 +24,7 @@ function Header() {
   const [validUnderMenu4, setValidUnderMenu4] = useState(false);
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
 
+  const [ValidMember, setValidMember] = useState(false);
   function showUnderMenu1() {
     setValidUnderMenu1(true);
   }
@@ -53,6 +56,7 @@ function Header() {
     setValidUnderMenu5(false);
   }
   function searchShow() {
+    setValidMember(false);
     setValidMenu(false);
     setValidSearch(true);
   }
@@ -61,11 +65,20 @@ function Header() {
   }
 
   function menuSHow() {
+    setValidMember(false);
     setValidMenu(true);
     setValidSearch(false);
   }
   function menuClose() {
     setValidMenu(false);
+  }
+  function memberShow() {
+    setValidMember(true);
+    setValidSearch(false);
+    setValidMenu(false);
+  }
+  function memberClose() {
+    setValidMember(false);
   }
   return (
     <>
@@ -268,9 +281,23 @@ function Header() {
               <Link className={`${css.linkToWhere} `} to={'/login'}>
                 <FaCalendarAlt className={css.headerIcon} />
               </Link>
-              <Link className={`${css.linkToWhere}`} to={'/login'}>
-                <AiOutlineUser className={css.headerIcon} />
-              </Link>
+              <span className={`${css.linkToWhere}`} to={'/login'}>
+                {/* <AiOutlineUser
+                  className={css.headerIcon}
+                  onclick={memberShow}
+                /> */}
+                {ValidMember ? (
+                  <AiFillCloseCircle
+                    className={`${css.headIcon} ${css.closeIcon}`}
+                    onClick={memberClose}
+                  />
+                ) : (
+                  <AiOutlineUser
+                    className={css.headerIcon}
+                    onClick={memberShow}
+                  />
+                )}
+              </span>
             </li>
           </ul>
         </div>
@@ -278,6 +305,8 @@ function Header() {
       <div className={css.position}>
         {validMenu ? <Dropdown style={{ position: 'relative' }} /> : ''}
         {validSearch ? <GlassDropdown style={{ position: 'relative' }} /> : ''}
+        {ValidMember ? <NonMember /> : ''}
+        {/* <Member /> */}
       </div>
     </>
   );

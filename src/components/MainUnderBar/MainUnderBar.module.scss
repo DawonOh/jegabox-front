@@ -1,0 +1,68 @@
+.mainUnderBarWhole {
+  display: flex;
+  background-color: black;
+  margin: auto;
+  margin-top: 60px;
+  width: 1400px;
+  height: 100px;
+  align-items: center;
+  .searchIcon {
+    cursor: pointer;
+    position: absolute;
+    // left: 450px;
+    // top: 13px;
+    color: gray;
+    width: 20px;
+    height: 20px;
+  }
+  .searchBar {
+    position: relative;
+    border-bottom: 1px solid red;
+    input {
+      margin-left: 30px;
+      height: 40px;
+      width: 250px;
+      font-size: 20px;
+      color: white;
+      border: none;
+      // border-bottom: 1.5px solid white;
+      background-color: black;
+
+      &::placeholder {
+        color: gray;
+        font-size: 20px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    .searchIcon {
+      position: absolute;
+      right: 30px;
+      width: 27px;
+      height: 27px;
+    }
+  }
+  .boxes {
+    align-items: center;
+    height: 60%;
+    display: flex;
+    width: 100%;
+    border: 1px solid black;
+
+    .title {
+      color: white;
+      margin-left: 10px;
+      font-size: 21px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .icon {
+      color: white;
+      padding-left: 100px;
+      width: 33px;
+      height: 33px;
+    }
+  }
+}
