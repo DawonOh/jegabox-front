@@ -1,0 +1,65 @@
+.cardWhole {
+  position: relative;
+  margin-right: 65px;
+  .cardNumber {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-style: italic;
+    left: 20px;
+    top: 50px;
+    position: absolute;
+    color: white;
+    font-size: 50px;
+  }
+  img {
+    margin-top: 40px;
+    width: 300px;
+    height: 430px;
+  }
+
+  img {
+    border-radius: 10px;
+  }
+  .underImg {
+    margin-top: 10px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    .movieLike {
+      position: relative;
+      font-size: 17px;
+      margin-right: 5px;
+      height: 40px;
+      width: 30%;
+      border-radius: 3px;
+      border: 1px solid gray;
+      color: white;
+      span {
+        top: 12px;
+        position: absolute;
+        left: 40px;
+      }
+      .heart {
+        position: absolute;
+        top: 4px;
+        left: 0px;
+        margin-left: 13px;
+
+        padding-top: 5px;
+        width: 20px;
+        height: 20px;
+        padding-right: 5px;
+      }
+    }
+    .reservation {
+      font-size: 20px;
+      padding-top: 15px;
+      text-align: center;
+      background-color: rgb(2 123 148);
+      text-decoration: none;
+      height: 32px;
+      width: 70%;
+      border-radius: 3px;
+      color: white;
+    }
+  }
+}
