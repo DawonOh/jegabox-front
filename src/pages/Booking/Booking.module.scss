@@ -3,6 +3,7 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   box-sizing: border-box;
   background-color: #ffffff;
+
   .innerWrap {
     box-sizing: border-box;
     width: 1100px;
@@ -88,6 +89,7 @@
           float: left;
           padding: 0px 20px 17px;
           height: 515px;
+          cursor: pointer;
           .m_listArea {
             margin-top: 12px;
             width: 229px;
@@ -103,23 +105,33 @@
               margin-bottom: 10px;
             }
             .m_list {
-              // background-color: lightgray;
               height: 330px;
               overflow: scroll;
-              p {
+              span {
+                display: block;
                 height: auto;
                 font-size: 14px;
                 margin: 0 0;
                 border: none;
                 text-align: left;
+                padding-bottom: 10px;
               }
             }
           }
           .selectedMovie {
-            border: solid 1px rgb(208, 208, 208);
             margin-top: 10px;
             width: 229px;
             height: 90px;
+            display: flex;
+            justify-content: space-between;
+            .movie1 {
+              width: 100px;
+              border: solid 1px rgb(208, 208, 208);
+            }
+            .movie2 {
+              width: 100px;
+              border: solid 1px rgb(208, 208, 208);
+            }
           }
         }
         .theaterChoice {
@@ -166,20 +178,42 @@
                 border-left: rgb(208, 208, 208) 1px solid;
                 display: inline-block;
                 height: 100%;
-                padding-left: 5px;
+                padding-left: 10px;
                 p {
+                  text-align: left;
                   font-size: 14px;
                   border: none;
                   margin: 0px;
+                  cursor: pointer;
                 }
               }
             }
           }
           .selectedTheater {
+            box-sizing: border-box;
             margin-top: 10px;
+            padding: 0px 30px;
             width: 309px;
             height: 90px;
-            border: solid 1px rgb(208, 208, 208);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .theater1 {
+              background-color: #ebebeb;
+              width: 90px;
+              border-radius: 80px;
+              line-height: 88px;
+              vertical-align: center;
+              text-align: center;
+            }
+            .theater2 {
+              width: 90px;
+              line-height: 90px;
+              border-radius: 80px;
+              background-color: #ebebeb;
+              vertical-align: center;
+              text-align: center;
+            }
           }
         }
         .timeChoice {

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import css from './Booking.module.scss';
 import DayBtn from '../../components/DayBtn/DayBtn';
 import SelectSeat from '../SelectSeat/SelectSeat';
+import MovieSche from '../../components/MovieSche/MovieSche';
 function Booking() {
   let now = new Date();
   let year = now.getFullYear(); //year
   let todayMonth = now.getMonth() + 1; //month
-  let week = new Array('월', '화', '수', '목', '금', '토', '일');
+  let week = new Array('일', '월', '화', '수', '목', '금', '토');
   let date = now.getDate(); //날짜
-  let day = now.getDay(); //요일
-  const [num, setnum] = useState(0);
   const [disable, setDisable] = useState(true);
   const [movies, setMovie] = useState([]);
   const [movieId, setId] = useState();
@@ -17,25 +16,15 @@ function Booking() {
   const [locationId, setLocationId] = useState([]);
   const [cinemas, setCinema] = useState([]);
   const [cinemaId, setCinemaId] = useState();
-  const printDayBtn = num => {
-    const result = [];
-    for (let i = 0; i < 14; i++) {
-      result.push(
-        <DayBtn
-          key={i}
-          date={now.setDate(date + i + num)}
-          week={week[day + (i % 7) - day]}
-          today={date}
-        />
-      );
-    }
-    return result;
-  };
-
+  const [user_date, setDate] = useState();
+  const [data, setData] = useState([]);
+  const [userMovie, setUserMv] = useState({});
   useEffect(() => {
-    fetch('/data/movie.json')
+    fetch('http://127.0.0.1:8000/booking/', {
+      method: 'GET',
+    })
       .then(res => res.json())
-      .then(res => setMovie(res.movie));
+      .then(res => setMovie(res.data));
 
     fetch('/data/cinema.json')
       .then(res => res.json())
@@ -54,11 +43,47 @@ function Booking() {
     prtCinema(); //유저가 로케이션 클릭시 해당지역 영화관 뜨게 하기.
   }, [locationId]);
 
+  //유저가 선택한 시네마 출력하기
+
+  useEffect(() => {
+    if (user_date && movieId && cinemaId) {
+      fetch('http://127.0.0.1:8000/booking/movie-cinema', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: user_date,
+          movie_id: movieId,
+          cinema_id: cinemaId,
+        }),
+      })
+        .then(res => res.json())
+        .then(res => setData(res));
+    }
+  }, [user_date, movieId, cinemaId]);
+
   const prtMovie = () => {
     const selectMovie = movies.filter(movie => movie.id === movieId);
     let url = selectMovie[0] || {};
     url = url.movie_poster;
-    return <p>{url}</p>;
+    return url ? <img src={url} alt="poster" /> : null;
+  };
+
+  const printDayBtn = () => {
+    const result = [];
+    for (let i = 0; i < 14; i++) {
+      result.push(
+        <DayBtn
+          key={i}
+          date={now.setDate(date + i)}
+          week={week[(i + 5) % 7]}
+          today={date}
+          setDate={setDate}
+        />
+      );
+    }
+    return result;
   };
 
   const prtCinema = () => {
@@ -101,7 +126,7 @@ function Booking() {
                   {year}.{todayMonth}
                 </p>
               </div>
-              <button onClick={() => setnum(num - 1)} disabled={disable}>
+              <button disabled={disable}>
                 {' '}
                 <img
                   src="image/left-arrow.png"
@@ -110,8 +135,8 @@ function Booking() {
                   height="12px"
                 />
               </button>
-              {printDayBtn(num)}
-              <button onClick={() => setnum(num + 1)}>
+              {printDayBtn()}
+              <button>
                 {' '}
                 <img
                   src="image/right-arrow.png"
@@ -131,18 +156,22 @@ function Booking() {
                   <p>전체</p>
                   <div className={css.m_list}>
                     {movies.map((movie, idx) => (
-                      <p
+                      <span
                         key={idx}
                         onClick={() => {
                           setId(movie.id);
                         }}
                       >
                         {movie.ko_title}
-                      </p>
+                      </span>
                     ))}
                   </div>
                 </div>
-                <div className={css.selectedMovie}>{prtMovie()}</div>
+                <div className={css.selectedMovie}>
+                  <div className={css.movie1}>{prtMovie()}</div>
+                  {/* {여기 수정} */}
+                  <div className={css.movie2}>{prtMovie()}</div>
+                </div>
               </div>
               <div className={css.theaterChoice}>
                 <p>극장</p>
@@ -164,7 +193,10 @@ function Booking() {
                     <div className={css.cinema}>{prtCinema()}</div>
                   </div>
                 </div>
-                <div className={css.selectedTheater}></div>
+                <div className={css.selectedTheater}>
+                  <div className={css.theater1}>{cinemaId}</div>
+                  <div className={css.theater2}>{cinemaId}</div>
+                </div>
               </div>
               <div className={css.timeChoice}>
                 <p>시간</p>
@@ -189,13 +221,25 @@ function Booking() {
                       height="12px"
                     />
                   </button>
+                  <div className={css.movieSchedule}>
+                    {data.map((prop, idx) => (
+                      <MovieSche
+                        setDisable={setDisable}
+                        key={idx}
+                        movies={prop}
+                        setUserMv={setUserMv}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
             <div className={css.ad}>광고</div>
           </div>
         )}
-        {!disable && <SelectSeat />}
+        {!disable && (
+          <SelectSeat userMovie={userMovie} setDisable={setDisable} />
+        )}
       </div>
     </div>
   );
