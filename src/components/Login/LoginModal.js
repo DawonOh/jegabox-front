@@ -89,9 +89,18 @@ const LoginModal = ({ closeLogin }) => {
       removeCookie('rememberId');
     }
   };
+
+  //알림창 모달 메세지
+  const message = [
+    { id: 1, message: '아이디 또는 비밀번호가 맞지 않습니다.' },
+    { id: 2, message: '로그인 정보를 다시 확인바랍니다.' },
+  ];
+
   return (
     <div className={css.loginBackground}>
-      {alertModal && <AlertModal closeAlertModal={closeAlertModal} />}
+      {alertModal && (
+        <AlertModal closeAlertModal={closeAlertModal} messages={message} />
+      )}
       <div className={css.loginContainer}>
         <div className={css.loginTop}>
           <div className={css.loginTopTitle}>
