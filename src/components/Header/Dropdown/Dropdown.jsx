@@ -12,7 +12,7 @@ const Dropdown = () => {
           <div className={css.dropdownTitle}>
             <div className={`${css.firstMap} ${css.heightChange}`}>
               <div className={css.heightChange}>
-                영화
+                &nbsp; &nbsp;&nbsp;&nbsp;영화 &nbsp; &nbsp;&nbsp;&nbsp;
                 <Link
                   className={`${css.dropdownLink} ${css.borderline}`}
                   to={'/login'}
