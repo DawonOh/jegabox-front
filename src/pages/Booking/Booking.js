@@ -15,13 +15,11 @@ function Booking() {
   const [locations, setLocation] = useState([]);
   const [locationId, setLocationId] = useState([]);
   const [cinemas, setCinema] = useState([]);
-
+  const [dayClick, setDayClick] = useState(-1);
   const [cinemaIds, setCinemaIds] = useState([]);
-  //시차 때문에 20=>date로 고쳐야함
-  let today = year + '-' + todayMonth + '-' + 20;
+  let today = year + '-' + todayMonth + '-' + date;
   const [user_date, setDate] = useState(today);
   const [data, setData] = useState([]);
-  //유저가 티켓을 사기 위해 클릭한 영화
   const [userMovie, setUserMv] = useState({});
   //보류 사용
   useEffect(() => {
@@ -74,7 +72,7 @@ function Booking() {
       <div>
         <img
           className={css.closebtn}
-          src="/image/close.png"
+          src="image/close.png"
           alt="closebtn"
           onClick={() => minusMovie(movie.id)}
         />
@@ -89,16 +87,20 @@ function Booking() {
       result.push(
         <DayBtn
           key={i}
-          date={now.setDate(date + i)}
-          week={week[(i + 5) % 7]}
+          idx={i}
+          date={now.setDate(i === 0 ? now.getDate() : now.getDate() + 1)}
+          week={week[(i + 7) % 7]}
           today={date}
           setDate={setDate}
+          dayClick={dayClick}
+          setDayClick={setDayClick}
         />
       );
     }
     return result;
   };
 
+  //
   const prtCinema = () => {
     let result = [];
     const selectCinema = cinemas.filter(
@@ -108,8 +110,11 @@ function Booking() {
       result.push(
         <p
           key={idx}
+          className={`${
+            css.s_btn + (cinemaIds[idx] === cinema.id ? ' ' + css.active : '')
+          }`}
           onClick={() =>
-            cinemaIds.length < 2
+            cinemaIds.length < 2 && cinemaIds.lastIndexOf(cinema.id) === -1
               ? setCinemaIds([...cinemaIds, cinema.id])
               : null
           }
@@ -138,6 +143,7 @@ function Booking() {
       </div>
     ) : null;
   };
+
   const printTimeBtn = () => {
     const result = [];
     for (let i = 0; i < 10; i++) {
@@ -151,6 +157,9 @@ function Booking() {
     return result;
   };
 
+  const prtGrade = grade => {
+    return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
+  };
   return (
     <div className={css.container}>
       <div className={css.innerWrap}>
@@ -193,16 +202,24 @@ function Booking() {
                   <p>전체</p>
                   <div className={css.m_list}>
                     {movies.map((movie, idx) => (
-                      <span
+                      <div
                         key={idx}
+                        className={`${
+                          css.m_btn +
+                          (movieIds[idx] === movie.id ? ' ' + css.active : '')
+                        }`}
                         onClick={() => {
-                          if (movieIds.length < 2) {
+                          if (
+                            movieIds.length < 2 &&
+                            movieIds.lastIndexOf(movie.id) === -1
+                          ) {
                             setIds([...movieIds, movie.id]);
                           }
                         }}
                       >
-                        {movie.ko_title}
-                      </span>
+                        {prtGrade(movie.grade)}
+                        <span>{movie.ko_title}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -219,6 +236,10 @@ function Booking() {
                     <div className={css.location}>
                       {locations.map((location, idx) => (
                         <p
+                          className={`${
+                            css.btn +
+                            (locationId === location.id ? ' ' + css.active : '')
+                          }`}
                           key={idx}
                           onClick={() => {
                             setLocationId(location.id);
@@ -282,7 +303,11 @@ function Booking() {
                 </div>
               </div>
             </div>
-            <div className={css.ad}>AD</div>
+            <div className={css.ad}>
+              <p>AD</p>
+              <img src="/image/jsop.png" alt="jsop" />
+              <h2>제이솝, 더 새로워진 제주 팝업 스토어에서 만나요</h2>
+            </div>
           </div>
         )}
         {!disable && (

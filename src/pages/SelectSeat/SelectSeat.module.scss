@@ -53,6 +53,7 @@
       display: inline-block;
       margin-left: 20px;
       margin-right: 20px;
+      margin-top: 10px;
     }
   }
   .Select {
@@ -70,6 +71,7 @@
     margin-left: 20px;
     border-radius: 12px;
     padding: 15px 0px 0px 0px;
+
     .tit_area {
       padding-left: 10px;
       color: white;
@@ -82,6 +84,18 @@
       padding-left: 10px;
       height: 121px;
       border-bottom: 1px solid #434343;
+      position: relative;
+      img {
+        width: 70px;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        margin-left: 210px;
+        margin-top: 10px;
+      }
+      .s_time {
+        margin-top: 40px;
+      }
     }
     .choice_area {
       height: 230px;
