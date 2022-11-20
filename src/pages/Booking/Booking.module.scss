@@ -120,17 +120,21 @@
           }
           .selectedMovie {
             margin-top: 10px;
-            width: 229px;
+            width: 180px;
             height: 90px;
             display: flex;
             justify-content: space-between;
+            img {
+              width: 80px;
+              height: 90px;
+            }
             .movie1 {
-              width: 100px;
-              border: solid 1px rgb(208, 208, 208);
+              width: 90px;
+              margin-right: 50px;
+              margin-left: 10px;
             }
             .movie2 {
-              width: 100px;
-              border: solid 1px rgb(208, 208, 208);
+              width: 90px;
             }
           }
         }

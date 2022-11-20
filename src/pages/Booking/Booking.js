@@ -11,7 +11,8 @@ function Booking() {
   let date = now.getDate(); //날짜
   const [disable, setDisable] = useState(true);
   const [movies, setMovie] = useState([]);
-  const [movieId, setId] = useState();
+  //영화 선택 배열
+  const [movieIds, setIds] = useState([]);
   const [locations, setLocation] = useState([]);
   const [locationId, setLocationId] = useState([]);
   const [cinemas, setCinema] = useState([]);
@@ -37,7 +38,7 @@ function Booking() {
 
   useEffect(() => {
     prtMovie(); //영화 선택시, 밑에 영화 포스터 뜨게 하기 => 최대 3개까지 인거 생각하고 다시ㅏ찍
-  }, [movieId]);
+  }, [movieIds]);
 
   useEffect(() => {
     prtCinema(); //유저가 로케이션 클릭시 해당지역 영화관 뜨게 하기.
@@ -46,7 +47,7 @@ function Booking() {
   //유저가 선택한 시네마 출력하기
 
   useEffect(() => {
-    if (user_date && movieId && cinemaId) {
+    if (user_date && movieIds && cinemaId) {
       fetch('http://127.0.0.1:8000/booking/movie-cinema', {
         method: 'POST',
         headers: {
@@ -54,17 +55,17 @@ function Booking() {
         },
         body: JSON.stringify({
           date: user_date,
-          movie_id: movieId,
+          movie_id: movieIds,
           cinema_id: cinemaId,
         }),
       })
         .then(res => res.json())
         .then(res => setData(res));
     }
-  }, [user_date, movieId, cinemaId]);
+  }, [user_date, movieIds, cinemaId]);
 
-  const prtMovie = () => {
-    const selectMovie = movies.filter(movie => movie.id === movieId);
+  const prtMovie = id => {
+    const selectMovie = movies.filter(movie => movie.id === id);
     let url = selectMovie[0] || {};
     url = url.movie_poster;
     return url ? <img src={url} alt="poster" /> : null;
@@ -159,7 +160,7 @@ function Booking() {
                       <span
                         key={idx}
                         onClick={() => {
-                          setId(movie.id);
+                          setIds(movie.id);
                         }}
                       >
                         {movie.ko_title}
@@ -168,7 +169,7 @@ function Booking() {
                   </div>
                 </div>
                 <div className={css.selectedMovie}>
-                  <div className={css.movie1}>{prtMovie()}</div>
+                  <div className={css.movie1}>{prtMovie(movieIds)}</div>
                   {/* {여기 수정} */}
                   <div className={css.movie2}>{prtMovie()}</div>
                 </div>
