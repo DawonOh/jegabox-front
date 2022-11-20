@@ -42,7 +42,7 @@
       }
     }
     .movieTitleDiv {
-      width: 580px;
+      width: 640px;
       height: 250px;
       display: flex;
       flex-wrap: wrap;
@@ -55,10 +55,12 @@
       }
 
       .movieTitle {
-        width: 150px;
+        width: 190px;
         height: 27px;
         margin: 0 10px;
         font-size: 15px;
+        display: flex;
+        align-items: center;
         color: rgb(68, 68, 68);
         cursor: pointer;
       }

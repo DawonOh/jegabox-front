@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import css from './timeTableComponent.module.scss';
-import AreaFilter from './AreaFilterComponent';
+import AreaFilter from './FilterAreaComponent';
+import Daylist from './FilterDayComponent';
 
 function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
   const [areaClickCheck, setAreaClickCheck] = useState(1);
-  const [dayClickCheck, setDayClickCheck] = useState();
+  const [dayClickCheck, setDayClickCheck] = useState(0);
   const [dateArr, setDateArr] = useState([]);
   const [dayOfWeekArr, setDayOfWeekArr] = useState([]);
 
@@ -34,11 +35,6 @@ function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
     setDayOfWeekArr(tempArr2);
   }
 
-  function dayClick(event) {
-    const day = event.target.innerText;
-    setCurrDate(`${year}-${month + 1}-${parseInt(day)}`); // 개행 처리된 값에 split이 생각처럼 적용되지 않아서 애먹은 부분
-  }
-
   useEffect(() => {
     makeDateArr();
   }, []);
@@ -65,15 +61,19 @@ function App({ currTitle, currDate, setCurrDate, currArea, setCurrArea }) {
         </div>
         {dateArr.map((elem, idx) => {
           return (
-            <div key={idx} className={css.day} onClick={dayClick}>
-              {elem}
-              <br />
-              {elem === day
-                ? '오늘'
-                : elem === day + 1
-                ? '내일'
-                : dayOfWeekArr[idx]}
-            </div>
+            <Daylist
+              key={idx}
+              elem={elem}
+              idx={idx}
+              day={day}
+              dayOfWeekArr={dayOfWeekArr}
+              setDayClickCheck={setDayClickCheck}
+              dayClickCheck={dayClickCheck}
+              currDate={currDate}
+              setCurrDate={setCurrDate}
+              year={year}
+              month={month}
+            />
           );
         })}
         <div className={css.sideBtn}>

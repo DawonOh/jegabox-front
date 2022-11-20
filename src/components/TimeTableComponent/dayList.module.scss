@@ -1,0 +1,14 @@
+.day {
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    border-bottom: 4px solid rgb(77, 52, 145);
+  }
+}

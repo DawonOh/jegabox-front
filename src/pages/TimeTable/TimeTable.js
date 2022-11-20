@@ -24,10 +24,6 @@ function App() {
   const [screenArr, setScreenArr] = useState();
   const [processedArr, setProcessedArr] = useState([]);
 
-  // const [branchArr, setBranchArr] = useState();
-  // const [screenArr, setScreenArr] = useState();
-  // const [movieTimeArr, setMovieTimeArr] = useState();
-
   useEffect(() => {
     // 개발용 코드
     fetch('/data/movieTitle.json')

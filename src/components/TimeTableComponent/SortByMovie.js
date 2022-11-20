@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import css from './sortByMovie.module.scss';
+import MovieTitleList from './FilterTitleComponent';
 
 function App({
   titleList,
@@ -8,9 +9,7 @@ function App({
   setTitleList,
   setCurrPoster,
 }) {
-  function clickEvent(event) {
-    setCurrTitle(event.target.innerText);
-  }
+  const [movieClickCheck, setMovieClickCheck] = useState(0);
 
   return (
     <div className={css.mainDiv}>
@@ -48,9 +47,14 @@ function App({
         <div className={css.movieTitleDiv}>
           {titleList.map((elem, idx) => {
             return (
-              <div onClick={clickEvent} key={idx} className={css.movieTitle}>
-                {elem}
-              </div>
+              <MovieTitleList
+                key={idx}
+                idx={idx}
+                elem={elem}
+                setMovieClickCheck={setMovieClickCheck}
+                setCurrTitle={setCurrTitle}
+                movieClickCheck={movieClickCheck}
+              />
             );
           })}
         </div>
