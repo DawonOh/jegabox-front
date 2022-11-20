@@ -19,10 +19,14 @@ function App() {
 
   const [reqData, setReqData] = useState(); // 요청 객체(필터링 키 정보)
   const [resData, setResData] = useState(); // 응답 객체(필터링 된 상영 정보)
+  const [runningTime, setRunningTime] = useState();
 
   const [placeArr, setPlaceArr] = useState();
   const [screenArr, setScreenArr] = useState();
   const [processedArr, setProcessedArr] = useState([]);
+
+  const [posterTest, setPosterTest] = useState();
+  const [posterList, setPosterList] = useState();
 
   useEffect(() => {
     // 개발용 코드
@@ -38,6 +42,15 @@ function App() {
     //   .then(res => res.json())
     //   .then(data => {
     //     const tempArr = [];
+    //     const tempArr2 = []; //포스터 리스트
+    //     console.log(data.data);
+    //     setPosterTest(data.data[0].movie_poster);
+
+    //     for (let i = 0; i < data.data.length; i++) {
+    //       tempArr2.push(data.data[i].movie_poster);
+    //     }
+    //     setPosterList(tempArr2);
+
     //     data.data.map(elem => {
     //       if (elem.ko_title.length > 14) {
     //         let modifyElem = '';
@@ -71,27 +84,24 @@ function App() {
       });
 
     //통신용 fetch
-    // console.log(reqData);
-    // fetch('http://localhost:8000/booking/movie-location', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json', // 헤더 없으면 에러남
-    //   },
-    //   // body: JSON.stringify(reqData),
-    //   body: JSON.stringify({
-    //     date: '2022-11-15',
-    //     movie_title: '블랙 팬서: 와칸다 포에버',
-    //     loc_name: '서울',
-    //   }),
-    // })
-    //   .then(res => res.json())
-    //   .then(data => setResData(data);
-    //   );
+    console.log(reqData);
+    // if (reqData) {
+    //   if (reqData.movie_title && reqData.date && reqData.loc_name)
+    //     fetch('http://localhost:8000/booking/movie-location', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json', // 헤더 없으면 에러남
+    //       },
+    //       body: JSON.stringify(reqData),
+    //     })
+    //       .then(res => res.json())
+    //       .then(data => setResData(data));
+    // }
   }, [reqData]);
 
   useEffect(() => {
     console.log('resData', resData);
-    if (resData) setCurrPoster(resData[0].Img_url);
+    // if (resData) setCurrPoster(resData[1].Img_url);
     if (resData) {
       const tempArr1 = []; //[강남, 강동, 마곡, 화곡]
       const tempArr2 = []; //[[강남 관별 상영 정보], [강동 관별 상영 정보], [마곡 관별 상영 정보], [화곡 관별 상영 정보]]
@@ -170,6 +180,9 @@ function App() {
           setCurrTitle={setCurrTitle}
           currPoster={currPoster}
           setTitleList={setTitleList}
+          posterTest={posterTest}
+          setPosterTest={setPosterTest}
+          posterList={posterList}
         />
         <TimeTableComponent
           currTitle={currTitle}

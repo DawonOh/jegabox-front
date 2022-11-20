@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import css from './sortByMovie.module.scss';
 
-function App({ idx, elem, setCurrTitle, setMovieClickCheck, movieClickCheck }) {
+function App({
+  idx,
+  elem,
+  setCurrTitle,
+  setMovieClickCheck,
+  movieClickCheck,
+  setPosterTest,
+  posterList,
+}) {
   const [backgroundColor, setBackgroundColor] = useState();
   const [color, setColor] = useState();
 
   function clickEvent(event) {
     setCurrTitle(event.target.innerText);
     setMovieClickCheck(idx);
+    setPosterTest(posterList[idx]);
   }
 
   useEffect(() => {

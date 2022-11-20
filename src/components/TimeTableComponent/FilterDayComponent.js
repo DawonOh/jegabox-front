@@ -14,6 +14,8 @@ function App({
   year,
 }) {
   const [backgroundColor, setbackgroundColor] = useState();
+  const date = new Date();
+  const today = date.getDate();
 
   function dayClick(event) {
     const day = event.target.innerText;
@@ -37,6 +39,17 @@ function App({
       {elem}
       <br />
       {elem === day ? '오늘' : elem === day + 1 ? '내일' : dayOfWeekArr[idx]}
+
+      {`${month}${elem}` === `${month}${day}` && (
+        <div className={css.yearMonth}>
+          {year}-{month + 1}
+        </div>
+      )}
+      {elem === 1 && (
+        <div className={css.yearMonth}>
+          {month + 2 > 12 ? year + 1 : year}-{month + 2 > 12 ? 1 : month + 2}
+        </div>
+      )}
     </div>
   );
 }

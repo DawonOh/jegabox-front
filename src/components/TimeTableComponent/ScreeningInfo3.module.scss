@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   border-collapse: collapse;
+  z-index: 2;
 
   .noneHover {
     .time {
@@ -18,10 +19,25 @@
       color: rgb(50, 113, 136);
     }
   }
+}
 
-  .onHover {
-    background-color: rgb(76, 52, 145);
-    color: white;
-    padding: 30px;
+.onHover {
+  width: 98px;
+  height: 69px;
+  border: 1px solid rgb(215, 210, 210);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-collapse: collapse;
+  background-color: rgb(76, 52, 145);
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  &:hover {
+    display: none;
   }
 }

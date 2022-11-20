@@ -8,6 +8,9 @@ function App({
   currPoster,
   setTitleList,
   setCurrPoster,
+  posterTest,
+  setPosterTest,
+  posterList,
 }) {
   const [movieClickCheck, setMovieClickCheck] = useState(0);
 
@@ -54,6 +57,8 @@ function App({
                 setMovieClickCheck={setMovieClickCheck}
                 setCurrTitle={setCurrTitle}
                 movieClickCheck={movieClickCheck}
+                setPosterTest={setPosterTest}
+                posterList={posterList}
               />
             );
           })}
@@ -62,7 +67,7 @@ function App({
 
       <div
         className={css.moviePosterDiv}
-        style={{ backgroundImage: `url('${currPoster}')` }}
+        style={{ backgroundImage: `url('${posterTest}')` }}
       ></div>
     </div>
   );
