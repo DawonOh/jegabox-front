@@ -21,6 +21,7 @@ function DayBtn({ date, week, today, setDate }) {
   let year = new Date(date).getFullYear();
   let month = new Date(date).getMonth() + 1;
   let date1 = new Date(date).getDate();
+
   return (
     <div className={css.container} onClick={() => change()}>
       <button
