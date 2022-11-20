@@ -11,14 +11,17 @@ function Booking() {
   let date = now.getDate(); //날짜
   const [disable, setDisable] = useState(true);
   const [movies, setMovie] = useState([]);
-  const [movieId, setId] = useState();
+  const [movieIds, setIds] = useState([]); //영화 선택 배열
   const [locations, setLocation] = useState([]);
   const [locationId, setLocationId] = useState([]);
   const [cinemas, setCinema] = useState([]);
-  const [cinemaId, setCinemaId] = useState();
-  const [user_date, setDate] = useState();
+  const [dayClick, setDayClick] = useState(-1);
+  const [cinemaIds, setCinemaIds] = useState([]);
+  let today = year + '-' + todayMonth + '-' + date;
+  const [user_date, setDate] = useState(today);
   const [data, setData] = useState([]);
   const [userMovie, setUserMv] = useState({});
+  //보류 사용
   useEffect(() => {
     fetch('http://127.0.0.1:8000/booking/', {
       method: 'GET',
@@ -36,17 +39,7 @@ function Booking() {
   }, []);
 
   useEffect(() => {
-    prtMovie(); //영화 선택시, 밑에 영화 포스터 뜨게 하기 => 최대 3개까지 인거 생각하고 다시ㅏ찍
-  }, [movieId]);
-
-  useEffect(() => {
-    prtCinema(); //유저가 로케이션 클릭시 해당지역 영화관 뜨게 하기.
-  }, [locationId]);
-
-  //유저가 선택한 시네마 출력하기
-
-  useEffect(() => {
-    if (user_date && movieId && cinemaId) {
+    if (cinemaIds.length > 0) {
       fetch('http://127.0.0.1:8000/booking/movie-cinema', {
         method: 'POST',
         headers: {
@@ -54,20 +47,38 @@ function Booking() {
         },
         body: JSON.stringify({
           date: user_date,
-          movie_id: movieId,
-          cinema_id: cinemaId,
+          movie_id: movieIds,
+          cinema_id: cinemaIds,
         }),
       })
         .then(res => res.json())
         .then(res => setData(res));
     }
-  }, [user_date, movieId, cinemaId]);
+  }, [user_date, movieIds, cinemaIds]);
 
-  const prtMovie = () => {
-    const selectMovie = movies.filter(movie => movie.id === movieId);
-    let url = selectMovie[0] || {};
-    url = url.movie_poster;
-    return url ? <img src={url} alt="poster" /> : null;
+  const minusMovie = m_id => {
+    setIds(movieIds.filter(movie => movie !== m_id));
+  };
+
+  const minusCinema = c_id => {
+    setCinemaIds(cinemaIds.filter(cinema => cinema !== c_id));
+  };
+  const prtMovie = id => {
+    const selectMovie = movies.filter(movie => movie.id === id);
+    let movie = selectMovie[0] || {};
+    let url = movie.movie_poster;
+
+    return url ? (
+      <div>
+        <img
+          className={css.closebtn}
+          src="image/close.png"
+          alt="closebtn"
+          onClick={() => minusMovie(movie.id)}
+        />
+        <img src={url} alt="poster" />{' '}
+      </div>
+    ) : null;
   };
 
   const printDayBtn = () => {
@@ -76,29 +87,61 @@ function Booking() {
       result.push(
         <DayBtn
           key={i}
-          date={now.setDate(date + i)}
-          week={week[(i + 5) % 7]}
+          idx={i}
+          date={now.setDate(i === 0 ? now.getDate() : now.getDate() + 1)}
+          week={week[(i + 7) % 7]}
           today={date}
           setDate={setDate}
+          dayClick={dayClick}
+          setDayClick={setDayClick}
         />
       );
     }
     return result;
   };
 
+  //
   const prtCinema = () => {
     let result = [];
     const selectCinema = cinemas.filter(
       cinemas => cinemas.location_id === locationId
     );
-    selectCinema.map((cinema, idx) => {
+    selectCinema.map((cinema, idx) =>
       result.push(
-        <p key={idx} onClick={() => setCinemaId(cinema.id)}>
+        <p
+          key={idx}
+          className={`${
+            css.s_btn + (cinemaIds[idx] === cinema.id ? ' ' + css.active : '')
+          }`}
+          onClick={() =>
+            cinemaIds.length < 2 && cinemaIds.lastIndexOf(cinema.id) === -1
+              ? setCinemaIds([...cinemaIds, cinema.id])
+              : null
+          }
+        >
           {cinema.cinema_name}
         </p>
-      );
-    });
+      )
+    );
     return result;
+  };
+
+  const prtTheater = num => {
+    const selectTheater = cinemas.filter(cinema => cinema.id === num);
+    let s_cinema = selectTheater[0] || {};
+    let place = s_cinema.cinema_name;
+    return place ? (
+      <div>
+        {' '}
+        <img
+          className={css.closebtn}
+          src="/image/close.png"
+          alt="closebtn"
+          onClick={() => minusCinema(s_cinema.id)}
+        />
+        <p>{place}</p>
+      </div>
+    ) : null;
   };
 
   const printTimeBtn = () => {
@@ -114,6 +157,9 @@ function Booking() {
     return result;
   };
 
+  const prtGrade = grade => {
+    return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
+  };
   return (
     <div className={css.container}>
       <div className={css.innerWrap}>
@@ -156,21 +202,30 @@ function Booking() {
                   <p>전체</p>
                   <div className={css.m_list}>
                     {movies.map((movie, idx) => (
-                      <span
+                      <div
                         key={idx}
+                        className={`${
+                          css.m_btn +
+                          (movieIds[idx] === movie.id ? ' ' + css.active : '')
+                        }`}
                         onClick={() => {
-                          setId(movie.id);
+                          if (
+                            movieIds.length < 2 &&
+                            movieIds.lastIndexOf(movie.id) === -1
+                          ) {
+                            setIds([...movieIds, movie.id]);
+                          }
                         }}
                       >
-                        {movie.ko_title}
-                      </span>
+                        {prtGrade(movie.grade)}
+                        <span>{movie.ko_title}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
                 <div className={css.selectedMovie}>
-                  <div className={css.movie1}>{prtMovie()}</div>
-                  {/* {여기 수정} */}
-                  <div className={css.movie2}>{prtMovie()}</div>
+                  <div className={css.movie1}>{prtMovie(movieIds[0])}</div>
+                  <div className={css.movie2}>{prtMovie(movieIds[1])}</div>
                 </div>
               </div>
               <div className={css.theaterChoice}>
@@ -181,6 +236,10 @@ function Booking() {
                     <div className={css.location}>
                       {locations.map((location, idx) => (
                         <p
+                          className={`${
+                            css.btn +
+                            (locationId === location.id ? ' ' + css.active : '')
+                          }`}
                           key={idx}
                           onClick={() => {
                             setLocationId(location.id);
@@ -194,8 +253,8 @@ function Booking() {
                   </div>
                 </div>
                 <div className={css.selectedTheater}>
-                  <div className={css.theater1}>{cinemaId}</div>
-                  <div className={css.theater2}>{cinemaId}</div>
+                  <div className={css.theater1}>{prtTheater(cinemaIds[0])}</div>
+                  <div className={css.theater2}>{prtTheater(cinemaIds[1])}</div>
                 </div>
               </div>
               <div className={css.timeChoice}>
@@ -222,19 +281,33 @@ function Booking() {
                     />
                   </button>
                   <div className={css.movieSchedule}>
-                    {data.map((prop, idx) => (
-                      <MovieSche
-                        setDisable={setDisable}
-                        key={idx}
-                        movies={prop}
-                        setUserMv={setUserMv}
-                      />
-                    ))}
+                    {cinemaIds.length !== 0 ? (
+                      data.map((prop, idx) => (
+                        <MovieSche
+                          setDisable={setDisable}
+                          key={idx}
+                          movies={prop}
+                          setUserMv={setUserMv}
+                        />
+                      ))
+                    ) : (
+                      <div className={css.message}>
+                        <img src="image/sche.png" alt="sche" />
+                        <p>
+                          영화와 극장을 선택하시면 <br /> 상영시간표를 비교하여
+                          볼 수 있습니다.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-            <div className={css.ad}>광고</div>
+            <div className={css.ad}>
+              <p>AD</p>
+              <img src="/image/jsop.png" alt="jsop" />
+              <h2>제이솝, 더 새로워진 제주 팝업 스토어에서 만나요</h2>
+            </div>
           </div>
         )}
         {!disable && (

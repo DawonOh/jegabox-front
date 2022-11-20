@@ -5,21 +5,20 @@ function SelectSeat({ userMovie, setDisable }) {
   const [adult, setAdult] = useState(0);
   const [child, setChild] = useState(0);
   const [pay, setPay] = useState(0);
-  let totalNum = adult + child;
+  // let totalNum = adult + child;
   let user_seat = [];
   let [hour, minute] = userMovie.seats.time.split(':');
   let time = Number(hour) * 60 + Number(minute) + userMovie.movie_time;
   let f_time = String(Math.floor(time / 60)) + ':' + String(time % 60);
-  console.log(userMovie);
   useEffect(() => {
-    console.log(totalNum);
     setPay(adult * 14000 + child * 13000);
   }, [adult, child]);
   const handleBack = () => {
     setDisable(true);
   };
+
+  let r_seats = userMovie.seats.seats;
   const prtseat = () => {
-    //있는 좌석만 받아오기 비교해서
     const section = ['A', 'B', 'C', 'D'];
     const num = ['1', '2', '3', '4', '5'];
     const result = [];
@@ -33,10 +32,11 @@ function SelectSeat({ userMovie, setDisable }) {
             key={idx}
             onClick={() => console.log(section[i] + num[j])}
           >
-            <h2>
-              {section[i]}
-              {num[j]}{' '}
-            </h2>
+            {r_seats.map(seat => {
+              if (seat == section[i] + num[j]) {
+                console.log('on');
+              }
+            })}
           </div>
         );
       }
@@ -52,7 +52,9 @@ function SelectSeat({ userMovie, setDisable }) {
       },
       body: JSON.stringify({
         showtime_id: userMovie.id,
-        seat_count: totalNum,
+        seat_count_adult: adult,
+        seat_count_child: child,
+        price: pay,
         seat_name: user_seat,
       }),
     });
@@ -120,7 +122,11 @@ function SelectSeat({ userMovie, setDisable }) {
           {userMovie.seats.day}
           <br />
           {/**시간 선택 할수 있게 */}
-          {userMovie.seats.time}~{f_time}
+          <p className={css.s_time}>
+            {' '}
+            {userMovie.seats.time}~{f_time}
+          </p>
+          <img src={userMovie.Img_url} />
         </div>
         <div className={css.choice_area}></div>
         <div className={css.pay_area}>
