@@ -20,6 +20,8 @@ function App() {
   const [reqData, setReqData] = useState(); // 요청 객체(필터링 키 정보)
   const [resData, setResData] = useState(); // 응답 객체(필터링 된 상영 정보)
 
+  const [placeArr, setPlaceArr] = useState();
+  const [screenArr, setScreenArr] = useState();
   const [processedArr, setProcessedArr] = useState([]);
 
   // const [branchArr, setBranchArr] = useState();
@@ -137,6 +139,8 @@ function App() {
         tempArr3.push(temp);
       });
       setProcessedArr(tempArr3);
+      setPlaceArr(tempArr1);
+      setScreenArr(screenArr);
       console.log('tempArr3', tempArr3);
 
       // 강남의 스크린별 상영 정보 배열, 강동의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열
@@ -179,7 +183,15 @@ function App() {
           setCurrArea={setCurrArea}
         />
         {processedArr.map((elem, idx) => {
-          return <ScreeningInfo processedArr={processedArr} key={idx} />;
+          return (
+            <ScreeningInfo
+              processedArr={processedArr}
+              key={idx}
+              idx={idx}
+              placeArr={placeArr}
+              screenArr={screenArr}
+            />
+          );
         })}
       </div>
       <PageFooter />

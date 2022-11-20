@@ -5,9 +5,8 @@ import Main from './Main/Main';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import TimeTable from '../pages/TimeTable/TimeTable';
-import Test from './Test';
-import Test2 from './Test2';
 
+import Booking from './Booking/Booking';
 function Router() {
   return (
     <BrowserRouter>
@@ -16,6 +15,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/timetable" element={<TimeTable />} />
+        <Route path="/booking" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   );
