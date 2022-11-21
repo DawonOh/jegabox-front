@@ -30,40 +30,40 @@ function App() {
 
   useEffect(() => {
     // 개발용 코드
-    fetch('/data/movieTitle.json')
-      .then(res => res.json())
-      .then(data => {
-        setTitleList(data.data); // 1. 제목 리스트 저장
-        setCurrTitle(data.data[0]); // 1. 현제 제목 저장
-      });
-
-    // 통신용 코드
-    // fetch('http://localhost:8000/booking')
+    // fetch('/data/movieTitle.json')
     //   .then(res => res.json())
     //   .then(data => {
-    //     const tempArr = [];
-    //     const tempArr2 = []; //포스터 리스트
-    //     console.log(data.data);
-    //     setPosterTest(data.data[0].movie_poster);
-
-    //     for (let i = 0; i < data.data.length; i++) {
-    //       tempArr2.push(data.data[i].movie_poster);
-    //     }
-    //     setPosterList(tempArr2);
-
-    //     data.data.map(elem => {
-    //       if (elem.ko_title.length > 14) {
-    //         let modifyElem = '';
-    //         for (let i = 0; i < 10; i++) {
-    //           modifyElem += elem.ko_title[i];
-    //         }
-    //         modifyElem += '...';
-    //         tempArr.push(modifyElem);
-    //       } else tempArr.push(elem.ko_title);
-    //     });
-    //     setTitleList(tempArr); // 1. 제목 리스트 저장
-    //     setCurrTitle(tempArr[0]); // 1. 현제 제목 저장
+    //     setTitleList(data.data); // 1. 제목 리스트 저장
+    //     setCurrTitle(data.data[0]); // 1. 현제 제목 저장
     //   });
+
+    // 통신용 코드
+    fetch('http://localhost:8000/booking')
+      .then(res => res.json())
+      .then(data => {
+        const tempArr = [];
+        const tempArr2 = []; //포스터 리스트
+        console.log(data.data);
+        setPosterTest(data.data[0].movie_poster);
+
+        for (let i = 0; i < data.data.length; i++) {
+          tempArr2.push(data.data[i].movie_poster);
+        }
+        setPosterList(tempArr2);
+
+        data.data.map(elem => {
+          if (elem.ko_title.length > 14) {
+            let modifyElem = '';
+            for (let i = 0; i < 10; i++) {
+              modifyElem += elem.ko_title[i];
+            }
+            modifyElem += '...';
+            tempArr.push(modifyElem);
+          } else tempArr.push(elem.ko_title);
+        });
+        setTitleList(tempArr); // 1. 제목 리스트 저장
+        setCurrTitle(tempArr[0]); // 1. 현제 제목 저장
+      });
   }, []);
 
   useEffect(() => {
@@ -76,27 +76,27 @@ function App() {
 
   useEffect(() => {
     //개발용 코드
-    console.log('reqDate', reqData);
-    fetch('/data/movieInfo.json')
-      .then(res => res.json())
-      .then(data => {
-        setResData(data.movieData);
-      });
+    // console.log('reqDate', reqData);
+    // fetch('/data/movieInfo.json')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     setResData(data.movieData);
+    //   });
 
     //통신용 fetch
     console.log(reqData);
-    // if (reqData) {
-    //   if (reqData.movie_title && reqData.date && reqData.loc_name)
-    //     fetch('http://localhost:8000/booking/movie-location', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json', // 헤더 없으면 에러남
-    //       },
-    //       body: JSON.stringify(reqData),
-    //     })
-    //       .then(res => res.json())
-    //       .then(data => setResData(data));
-    // }
+    if (reqData) {
+      if (reqData.movie_title && reqData.date && reqData.loc_name)
+        fetch('http://localhost:8000/booking/movie-location', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', // 헤더 없으면 에러남
+          },
+          body: JSON.stringify(reqData),
+        })
+          .then(res => res.json())
+          .then(data => setResData(data));
+    }
   }, [reqData]);
 
   useEffect(() => {
