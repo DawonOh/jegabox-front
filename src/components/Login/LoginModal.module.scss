@@ -28,13 +28,14 @@
         width: 440px;
         height: 45px;
         & h3 {
+          font-size: 1rem;
+          font-weight: 500;
+          display: inline-block;
           color: #fff;
-          font : {
-            size: 1.2em;
-          }
           line-height: 45px;
         }
         .closeLoginBtn {
+          border: 0;
           width: 17px;
           height: 17px;
           cursor: pointer;
@@ -82,6 +83,7 @@
 
         //로그인 버튼 활성화
         .loginBtn {
+          border: 0;
           width: 380px;
           height: 40px;
           border-radius: 5px;
@@ -94,6 +96,7 @@
 
         //로그인 버튼 비활성화
         .disabledLoginBtn {
+          border: 0;
           width: 380px;
           height: 40px;
           border-radius: 5px;
@@ -118,6 +121,11 @@
           .loginLink {
             color: #666;
           }
+
+          .loginLinkTag {
+            text-decoration: none;
+          }
+
           .loginFindBoundary {
             width: 1px;
             height: 18px;
