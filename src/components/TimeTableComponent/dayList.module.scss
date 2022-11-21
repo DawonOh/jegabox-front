@@ -1,0 +1,29 @@
+.day {
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+
+  &:hover {
+    border-bottom: 4px solid rgb(77, 52, 145);
+  }
+
+  .yearMonth {
+    width: 70px;
+    height: 24px;
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    border-radius: 20px;
+    position: absolute;
+    top: -14px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+}
