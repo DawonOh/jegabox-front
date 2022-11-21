@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import crypto from 'crypto-js';
 import css from './Passfind.module.scss';
 import AlertModal from '../../AlertModal/AlertModal';
 
@@ -27,14 +26,17 @@ const Passfind = () => {
   //인증요청 -> 재요청 버튼 변경 여부
   const [tryAgain, setTryAgain] = useState(false);
 
-  //입력받은 인증번호 저장
+  //입력받은 인증번호
   const [checkRandomNum, setCheckRandomNum] = useState('');
 
-  //문자로 전송한 난수 저장
+  //문자로 전송한 인증번호
   const [isRanNum, setIsRanNum] = useState('');
 
   //인증번호 일치 여부
   const [isSame, setIsSame] = useState(false);
+
+  //인증번호 최종 확인 받았을 때 성공 여부
+  const [code, setCode] = useState('code');
 
   //타이머
   const [min, setMin] = useState(3);
@@ -71,7 +73,6 @@ const Passfind = () => {
     } else {
       setIsPhoneWrong(false);
     }
-
     setPhoneNumValue(e.target.value);
   };
 
@@ -83,13 +84,14 @@ const Passfind = () => {
 
     const numRegex = /[0-9]/;
 
-    if (!numRegex.test(e.target.value)) {
-      setCheckRandomNum(true);
+    if (numRegex.test(e.target.value)) {
+      console.log('인증번호 받은 값 저장 완료!');
+      setCheckRandomNum(e.target.value);
+      setDisabledCheckBtn(true);
     } else {
-      setCheckRandomNum(false);
+      setCheckRandomNum('');
+      setDisabledCheckBtn(false);
     }
-
-    setPhoneNumValue(e.target.value);
   };
 
   //인증요청 버튼 활성화 판단
@@ -122,91 +124,37 @@ const Passfind = () => {
   ];
 
   //입력받은 정보가 맞는지 확인 / 맞으면 타이머 시작 / 인증번호 문자 전송
-  //네이버 SENS API 호출
-  const sendSMS = () => {
-    //랜덤한 4자리 인증번호 생성
-    const randomNum = n => {
-      let str = '';
-      for (let i = 0; i < n; i++) {
-        str += Math.floor(Math.random() * 10);
-      }
-      setIsRanNum(str);
-      return str;
-    };
-
-    console.log(isRanNum);
-    console.log(randomNum(4));
-    // SENS API
-    // const date = Date.now().toString();
-    // let accessKey = 'l1znogBfJIpkIwMLJ9km';
-    // let secretKey = 'XIULG6mSvTxiEFVXFBx1PcCdcHN5259KruojgRdN';
-    // const method = 'POST';
-    // const space = ' ';
-    // const newLine = '\n';
-    // const url = `https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:296434223985:jegabox/messages`;
-    // const url2 = `/sms/v2/services/ncp:sms:kr:296434223985:jegabox/messages`;
-    // const hmac = crypto.algo.HMAC.create(crypto.algo.SHA256, secretKey);
-    // hmac.update(method);
-    // hmac.update(space);
-    // hmac.update(url2);
-    // hmac.update(newLine);
-    // hmac.update(date);
-    // hmac.update(newLine);
-    // hmac.update(accessKey);
-    // const hash = hmac.finalize();
-    // const signature = hash.toString(crypto.enc.Base64);
-    // fetch(
-    //   'https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:296434223985:jegabox/messages',
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-type': 'application/json; charset=utf-8',
-    //       'x-ncp-iam-access-key': accessKey,
-    //       'x-ncp-apigw-timestamp': date,
-    //       'x-ncp-apigw-signature-v2': signature,
-    //     },
-    //     body: JSON.stringify({
-    //       type: 'SMS',
-    //       countryCode: '82',
-    //       from: '01024599616',
-    //       content: `[제가박스] 인증번호${myNum} 를 입력해주세요.`,
-    //       messages: [{ to: `${phoneNumValue}` }],
-    //     }),
-    //   }
-    // )
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     console.log('NAVER SENS API RESULT', json);
-    //     console.log('VALIDATION NUMBER', myNum);
-    //   });
-  };
-
   const sendInfo = () => {
-    // fetch('http://localhost:8000/users/pass', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     id: id,
-    //     name: nameValue,
-    //     phoneNumber: phoneNumValue,
-    //   }),
-    // })
-    //   .then(res => res.json())
-    //   .then(json => {여기 결과 받아서 그걸로 check대신 해야 함..});
-    let check = true;
-    if (check === true) {
-      setPass(true);
-      setStartTimer(true);
-      setTryAgain(true);
-      setDisabledInput(false);
-      sendSMS();
-      return;
-    } else {
-      setStartTimer(false);
-    }
-    openAlertModal();
+    console.log('id : ', id);
+    console.log('phone : ', phoneNumValue);
+    console.log('name : ', nameValue);
+    fetch('http://localhost:8000/users/validateNumber', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone_number: phoneNumValue,
+        account_id: id,
+        name: nameValue,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.code != 200) {
+          setStartTimer(false);
+          openAlertModal();
+        } else {
+          setId(json.userID);
+          setIsRanNum(json.validation_number);
+          setPass(true);
+          setStartTimer(true);
+          setTryAgain(true);
+          setDisabledInput(false);
+          openAlertModal();
+          return;
+        }
+      });
   };
 
   // 타이머
@@ -242,10 +190,53 @@ const Passfind = () => {
     }
   }, [min, sec]);
 
+  //인증번호 맞는지 백으로 전송
+  const checkNum = () => {
+    fetch('http://localhost:8000/users/validateNumber', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        account_id: id,
+        validateNumber: checkRandomNum,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log('Result : ', json);
+        if (json.code == 200) {
+          setCode(json.code);
+        } else {
+          setCode('');
+        }
+      });
+  };
+
+  const passMessage = [{ id: 1, message: '휴대폰 인증을 완료했습니다.' }];
+
+  //비밀번호 변경
+  //input 2개 value, header에 token넣기
+  //method : PATCH
+  //body : password, passwordForCheck
+  //uri : http://localhost:8000/users/password1
+
   return (
     <div className={css.passFindWrap}>
-      {alertModal && (
-        <AlertModal closeAlertModal={closeAlertModal} messages={successSend} />
+      {alertModal &&
+        (startTimer ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={successSend}
+          />
+        ) : (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={wrongInfomessage}
+          />
+        ))}
+      {alertModal && code == 200 && (
+        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
       )}
 
       <table>
@@ -285,8 +276,10 @@ const Passfind = () => {
                 </button>
               ) : (
                 <button
-                  className={css.onCertification}
-                  disabled={isDisabledReqBtn}
+                  className={
+                    code !== 200 ? `${css.onCertification}` : `${css.getNumBtn}`
+                  }
+                  disabled={!isDisabledReqBtn}
                   onClick={sendInfo}
                 >
                   재전송
@@ -294,7 +287,7 @@ const Passfind = () => {
               )}
             </td>
           </tr>
-          <tr>
+          <tr style={{ display: code == 200 && 'none' }}>
             <th>인증번호</th>
             <td>
               <div className={css.certificationTd}>
@@ -302,12 +295,25 @@ const Passfind = () => {
                   type="text"
                   className={css.certificationInput}
                   disabled={isDisabledInput}
+                  onChange={handleNum}
+                  maxLength="6"
                 />
                 <div className={css.passFindTimer}>
                   {min}:{sec < 10 ? `0${sec}` : sec}
                 </div>
-                <button className={css.getNumBtn}>인증확인</button>
+                <button
+                  className={
+                    !isDisabledCheckBtn
+                      ? `${css.getNumBtn}`
+                      : `${css.checkOkBtn}`
+                  }
+                  onClick={checkNum}
+                  disabled={!isDisabledCheckBtn}
+                >
+                  인증확인
+                </button>
               </div>
+
               {!timeout ? (
                 <p
                   className={
@@ -324,11 +330,18 @@ const Passfind = () => {
                   인증해주세요.
                 </p>
               )}
+              {code !== 200 && timeout && (
+                <p className={css.warning}>
+                  인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
+                </p>
+              )}
             </td>
           </tr>
         </tbody>
       </table>
-      <button className={css.findPassBtn}>비밀번호 찾기</button>
+      <button className={css.findPassBtn} disabled={isDisabledBtn}>
+        비밀번호 찾기
+      </button>
     </div>
   );
 };

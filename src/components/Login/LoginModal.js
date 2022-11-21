@@ -39,20 +39,20 @@ const LoginModal = ({ closeLogin }) => {
 
   //로그인 함수(로그인버튼 onclick)
   const login = () => {
-    // fetch('http://localhost:8000/user/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ id: idValue, pw: pwValue }),
-    // })
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     if (json.token) {
-    //       localStorage.setItem('token', json.token);
-    //       setIsLogin(true);
-    //     }
-    //   });
+    fetch('http://localhost:8000/users/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ account_id: idValue, password: pwValue }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.token) {
+          localStorage.setItem('token', json.token);
+          setIsLogin(true);
+        }
+      });
     if (isLogin) {
       closeLogin();
     } else {
@@ -98,9 +98,7 @@ const LoginModal = ({ closeLogin }) => {
 
   return (
     <div className={css.loginBackground}>
-      {alertModal && (
-        <AlertModal closeAlertModal={closeAlertModal} messages={message} />
-      )}
+      {alertModal && <AlertModal closeAlertModal={closeAlertModal} />}
       <div className={css.loginContainer}>
         <div className={css.loginTop}>
           <div className={css.loginTopTitle}>

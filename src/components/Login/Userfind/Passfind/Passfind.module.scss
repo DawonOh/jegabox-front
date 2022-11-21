@@ -80,6 +80,17 @@
           background-color: #e0e0e0;
           font-size: 0.95em;
         }
+        .checkOkBtn {
+          width: 75px;
+          height: 32px;
+          margin-left: 10px;
+          border-radius: 5px;
+          color: #444;
+          border: 1px solid #c1c1c1;
+          background-color: #fff;
+          font-size: 0.95em;
+          cursor: pointer;
+        }
       }
       .certificationTd {
         display: flex;

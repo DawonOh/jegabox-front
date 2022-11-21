@@ -10,7 +10,7 @@ const Idfind = () => {
   const [isPhoneWrong, setIsPhoneWrong] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [id, setId] = useState('');
-  const [joinDate, setJoinDate] = useState();
+  const [joinDate, setJoinDate] = useState('');
   const nameInput = useRef();
   const handleName = e => {
     let data = e.target.value;
@@ -53,7 +53,6 @@ const Idfind = () => {
     } else {
       setIsPhoneWrong(false);
     }
-
     setPhoneNumValue(e.target.value);
   };
 
@@ -78,35 +77,33 @@ const Idfind = () => {
 
   //fetch로 데이터 전송 후 id받아오기
   const getId = () => {
-    // fetch('http://localhost:8000/users/ID', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     phone_number: phoneNumValue,
-    //     birthday: birthValue,
-    //     name: nameValue,
-    //   }),
-    // })
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     if(id !== undefined){
-    //       setId(json.id);
-    //     }else {
-    //       setId('');
-    //     }
-    //     setJoinDate(json.date);
-    //   });
-    openAlertModal();
-
-    if (id === undefined) {
-      setId('');
-    } else {
-      setId('ttiate1998');
-    }
-    setJoinDate('2022-11-19');
+    fetch('http://localhost:8000/users/ID', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone_number: phoneNumValue,
+        birthday: birthValue,
+        name: nameValue,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (id !== undefined) {
+          setId(id => json.userID);
+          setJoinDate(json.created_at);
+        } else {
+          setId('');
+          setJoinDate('');
+        }
+      });
   };
+  useEffect(() => {
+    if (joinDate !== '') {
+      openAlertModal();
+    }
+  }, [joinDate]);
 
   //id알림 모달창
   const [alertModal, setAlertModal] = useState(false);
