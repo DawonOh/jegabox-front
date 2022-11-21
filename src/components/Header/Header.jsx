@@ -139,7 +139,7 @@ function Header() {
                         : 'none',
                     }}
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
-                    to={'/login'}
+                    to={'/movie'}
                   >
                     영화
                   </Link>
