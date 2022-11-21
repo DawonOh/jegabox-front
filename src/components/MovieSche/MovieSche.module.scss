@@ -1,4 +1,7 @@
 .component {
+  &:hover {
+    background-color: #e5e4e4;
+  }
   cursor: pointer;
   border-top: solid 1px rgb(190, 190, 190);
   box-sizing: border-box;

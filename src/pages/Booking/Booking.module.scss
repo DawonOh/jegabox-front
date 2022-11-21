@@ -110,13 +110,15 @@
               overflow: scroll;
               margin-top: 10px;
               .grade {
-                width: 20px;
-                height: 20px;
+                width: 21px;
+                height: 21px;
+                margin-top: 3px;
                 margin-right: 5px;
                 border-radius: 2px;
+                margin-left: 3px;
               }
               div {
-                margin-bottom: 4px;
+                // margin-bottom: 4px;
                 display: table;
               }
               span {
@@ -131,8 +133,12 @@
               }
               .m_btn {
                 &.active {
+                  span {
+                    width: 100%;
+                  }
                   background-color: #6a6a6a !important;
                   color: white;
+                  text-align: left !important;
                 }
               }
             }

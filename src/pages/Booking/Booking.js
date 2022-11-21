@@ -100,7 +100,6 @@ function Booking() {
     return result;
   };
 
-  //
   const prtCinema = () => {
     let result = [];
     const selectCinema = cinemas.filter(
@@ -116,7 +115,7 @@ function Booking() {
           onClick={() =>
             cinemaIds.length < 2 && cinemaIds.lastIndexOf(cinema.id) === -1
               ? setCinemaIds([...cinemaIds, cinema.id])
-              : null
+              : alert('지역은 2개까지 선택하실 수 있습니다.')
           }
         >
           {cinema.cinema_name}
@@ -201,26 +200,33 @@ function Booking() {
                 <div className={css.m_listArea}>
                   <p>전체</p>
                   <div className={css.m_list}>
-                    {movies.map((movie, idx) => (
-                      <div
-                        key={idx}
-                        className={`${
-                          css.m_btn +
-                          (movieIds[idx] === movie.id ? ' ' + css.active : '')
-                        }`}
-                        onClick={() => {
-                          if (
-                            movieIds.length < 2 &&
-                            movieIds.lastIndexOf(movie.id) === -1
-                          ) {
-                            setIds([...movieIds, movie.id]);
-                          }
-                        }}
-                      >
-                        {prtGrade(movie.grade)}
-                        <span>{movie.ko_title}</span>
-                      </div>
-                    ))}
+                    {movies.map(function (movie, idx) {
+                      return (
+                        <div
+                          key={idx}
+                          className={`${
+                            css.m_btn +
+                            (movieIds[0] === movie.id ||
+                            movieIds[1] === movie.id
+                              ? ' ' + css.active
+                              : '')
+                          }`}
+                          onClick={() => {
+                            if (
+                              movieIds.length < 2 &&
+                              movieIds.lastIndexOf(movie.id) === -1
+                            ) {
+                              setIds([...movieIds, movie.id]);
+                            } else {
+                              alert('영화는 2개까지 선택하실 수 있습니다.');
+                            }
+                          }}
+                        >
+                          {prtGrade(movie.grade)}
+                          <span>{movie.ko_title}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className={css.selectedMovie}>
