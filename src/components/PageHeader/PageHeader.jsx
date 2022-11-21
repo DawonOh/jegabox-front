@@ -7,7 +7,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import '../../components/ResetSubin.scss';
 import css from './PageHeader.module.scss';
 import { Link } from 'react-router-dom';
-import mainImg from '../../img/jegabox.jpg';
+
 import Dropdown from './Dropdown/Dropdown';
 import { useState } from 'react';
 import GlassDropdown from './GlassDropDown/GlassDropdown';
@@ -145,7 +145,8 @@ function PageHeader() {
                   </Link>
                   {validUnderMenu1 ? (
                     <UnderMenu
-                      margin={'280px'}
+                      style={{ position: 'relative' }}
+                      margin={'1900px'}
                       menu1={'전체영화'}
                       menu2={'큐레이션'}
                       menu3={'무비포스트'}
@@ -156,7 +157,11 @@ function PageHeader() {
                 </div>
               </li>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu2} onMouseOut={closeUnderMenu2}>
+                <div
+                  className={css.save}
+                  onMouseOver={showUnderMenu2}
+                  onMouseOut={closeUnderMenu2}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}
@@ -170,7 +175,8 @@ function PageHeader() {
                   </Link>
                   {validUnderMenu2 ? (
                     <UnderMenu
-                      margin={'360px'}
+                      style={{ position: 'relative' }}
+                      margin={'1900px'}
                       menu1={'빠른예매'}
                       menu2={'상영시간표'}
                       menu3={'더 부티크 프라이빗 예매'}
@@ -181,7 +187,11 @@ function PageHeader() {
                 </div>
               </li>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu3} onMouseOut={closeUnderMenu3}>
+                <div
+                  className={css.save}
+                  onMouseOver={showUnderMenu3}
+                  onMouseOut={closeUnderMenu3}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin1}  ${css.menuMargin3}`}
                     to={'/login'}
@@ -195,7 +205,8 @@ function PageHeader() {
                   </Link>
                   {validUnderMenu3 ? (
                     <UnderMenu
-                      margin={'500px'}
+                      style={{ position: 'relative' }}
+                      margin={'2000px'}
                       menu1={'전체극장'}
                       menu2={'특별관'}
                       menu3={''}
@@ -218,7 +229,11 @@ function PageHeader() {
             </div>
             <div className={css.mainMenuBarColumn}>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu4} onMouseOut={closeUnderMenu4}>
+                <div
+                  className={css.save}
+                  onMouseOver={showUnderMenu4}
+                  onMouseOut={closeUnderMenu4}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}
@@ -232,7 +247,7 @@ function PageHeader() {
                   </Link>
                   {validUnderMenu4 ? (
                     <UnderMenu
-                      margin={'800px'}
+                      margin={'1900px'}
                       menu1={'진행중 이벤트'}
                       menu2={'지난 이벤트'}
                       menu3={'당첨자발표'}
@@ -253,7 +268,11 @@ function PageHeader() {
                 </Link>
               </li>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu5} onMouseOut={closeUnderMenu5}>
+                <div
+                  className={css.save}
+                  onMouseOver={showUnderMenu5}
+                  onMouseOut={closeUnderMenu5}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}
@@ -267,7 +286,8 @@ function PageHeader() {
                   </Link>
                   {validUnderMenu5 ? (
                     <UnderMenu
-                      margin={'1050px'}
+                      style={{ position: 'relative' }}
+                      margin={'1900px'}
                       menu1={'메가박스 멤버십'}
                       menu2={'제휴/할인'}
                       menu3={''}
@@ -307,6 +327,7 @@ function PageHeader() {
         {validMenu ? <Dropdown style={{ position: 'relative' }} /> : ''}
         {validSearch ? <GlassDropdown style={{ position: 'relative' }} /> : ''}
         {ValidMember ? <NonMember /> : ''}
+
         {/* <Member /> */}
       </div>
     </>
