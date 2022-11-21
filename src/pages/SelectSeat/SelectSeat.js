@@ -5,11 +5,13 @@ function SelectSeat({ userMovie, setDisable }) {
   const [adult, setAdult] = useState(0);
   const [child, setChild] = useState(0);
   const [pay, setPay] = useState(0);
-  // let totalNum = adult + child;
+  const [s_seat, setSeat] = useState([]);
+  let totalNum = adult + child;
   let user_seat = [];
   let [hour, minute] = userMovie.seats.time.split(':');
   let time = Number(hour) * 60 + Number(minute) + userMovie.movie_time;
   let f_time = String(Math.floor(time / 60)) + ':' + String(time % 60);
+  let r_seats = userMovie.seats.seats;
   useEffect(() => {
     setPay(adult * 14000 + child * 13000);
   }, [adult, child]);
@@ -17,7 +19,29 @@ function SelectSeat({ userMovie, setDisable }) {
     setDisable(true);
   };
 
-  let r_seats = userMovie.seats.seats;
+  const handleSeat = seat => {
+    if (s_seat.length < totalNum) {
+      if (s_seat.includes(seat) === true) {
+        alert('이미 선택한 좌석 입니다.');
+      } else {
+        setSeat([...s_seat, seat]);
+      }
+    } else {
+      alert('인원 수 만큼 좌석을 선택 할 수 있습니다.');
+    }
+  };
+
+  const prtS_seats = () => {
+    let result = [];
+    for (let i = 0; i < 8; i++) {
+      result.push(
+        <p key={i} className={css.eachSeat}>
+          {s_seat[i] ? s_seat[i] : '  '}
+        </p>
+      );
+    }
+    return result;
+  };
   const prtseat = () => {
     const section = ['A', 'B', 'C', 'D'];
     const num = ['1', '2', '3', '4', '5'];
@@ -25,23 +49,36 @@ function SelectSeat({ userMovie, setDisable }) {
     let idx = 0;
     for (let i = 0; i < section.length; i++) {
       for (let j = 0; j < num.length; j++) {
-        idx++;
+        ++idx;
+
         result.push(
           <div
-            className={css.seat}
+            className={`${
+              css.seat +
+              (s_seat.includes(section[i] + num[j]) ? ' ' + css.sell : ' ')
+            }`}
             key={idx}
-            onClick={() => console.log(section[i] + num[j])}
+            onClick={() => handleSeat(section[i] + num[j])}
           >
-            {r_seats.map(seat => {
-              if (seat == section[i] + num[j]) {
-                console.log('on');
+            <button
+              className={`${
+                css.s_seat +
+                (r_seats.includes(section[i] + num[j]) !== false
+                  ? ''
+                  : ' ' + css.empty)
+              }`}
+              disabled={
+                r_seats.includes(section[i] + num[j]) !== false ? false : true
               }
-            })}
+            >
+              {section[i] + num[j]}
+            </button>
           </div>
         );
       }
       result.push();
     }
+
     return result;
   };
   const buy = () => {
@@ -66,7 +103,14 @@ function SelectSeat({ userMovie, setDisable }) {
           -
         </button>
         <button className={css.prtNum}>{num}</button>
-        <button onClick={() => plus(num, setFunc)} className={css.right}>
+        <button
+          onClick={() =>
+            totalNum < 8
+              ? plus(num, setFunc)
+              : alert('최대 8명까지 구매 가능합니다')
+          }
+          className={css.right}
+        >
           +
         </button>
       </div>
@@ -78,16 +122,23 @@ function SelectSeat({ userMovie, setDisable }) {
       setFunc(--num);
     }
   };
+  const init = () => {
+    setSeat([]);
+    setAdult(0);
+    setChild(0);
+  };
 
   const plus = (num, setFunc) => {
-    setFunc(++num);
+    if (totalNum < 9) {
+      setFunc(num + 1);
+    }
   };
   return (
     <div className={css.container}>
       <div className={css.seatSelection}>
         <div className={css.m_title}>
           <h3>관람인원선택</h3>
-          <button>초기화</button>
+          <button onClick={() => init()}>초기화</button>
         </div>
         <div className={css.selectDisplay}>
           <div className={css.SelectPeople}>
@@ -126,13 +177,28 @@ function SelectSeat({ userMovie, setDisable }) {
             {' '}
             {userMovie.seats.time}~{f_time}
           </p>
-          <img src={userMovie.Img_url} />
+          <img src={userMovie.Img_url} alt="poster" />
         </div>
-        <div className={css.choice_area}></div>
+        <div className={css.choice_area}>
+          <div className={css.w_seat}>
+            <div className={css.seatImg}>
+              <img src="/image/can.png" alt="can" width="20px" height="20px" />
+              <p> 좌석 선택 가능</p>
+              <img
+                src="/image/cannot.png"
+                alt="can"
+                width="20px"
+                height="20px"
+              />
+              <p> 좌석 선택 불가능</p>
+            </div>
+            <div className={css.selectedSeat}>{prtS_seats()}</div>
+          </div>
+        </div>
         <div className={css.pay_area}>
           <span className={css.total_money}>최종결제금액</span>{' '}
           <span className={css.price}>
-            <span className={css.money}>{pay}</span>원
+            <span className={css.money}>{pay.toLocaleString()}</span>원
           </span>
         </div>
         <div className={css.btn_group}>
