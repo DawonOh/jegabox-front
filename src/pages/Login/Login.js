@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import css from './Login.module.scss';
 import LoginModal from '../../components/Login/LoginModal';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function Login() {
   // 로그인 모달창 상태값

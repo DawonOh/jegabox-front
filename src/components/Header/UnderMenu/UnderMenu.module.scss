@@ -1,0 +1,23 @@
+.undermenu {
+  position: absolute;
+  z-index: 100;
+  left: -200px;
+  top: 44px;
+  padding-top: 13px;
+
+  height: 36px;
+  background-color: black;
+  span {
+    color: white;
+    margin-right: 13px;
+    text-align: center;
+    font-size: 15px;
+    &:first-child {
+      margin-left: 300px;
+    }
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
