@@ -27,13 +27,14 @@
         width: 370px;
         height: 45px;
         & h3 {
+          font-size: 1rem;
+          font-weight: 500;
+          display: inline-block;
           color: #fff;
-          font : {
-            size: 1.2em;
-          }
           line-height: 45px;
         }
         .closeAlertModal {
+          border: 0;
           width: 17px;
           height: 17px;
           cursor: pointer;
@@ -57,6 +58,11 @@
         justify-content: center;
         flex-direction: column;
         font-size: 0.9em;
+        & P {
+          margin: 0;
+          padding: 0;
+          line-height: 1.2em;
+        }
       }
       .checkAlertModal {
         width: 55px;
