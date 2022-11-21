@@ -164,7 +164,7 @@ function PageHeader() {
                 >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
-                    to={'/login'}
+                    to={'/booking'}
                     style={{
                       borderBottom: validUnderMenu2
                         ? '2px solid white'
