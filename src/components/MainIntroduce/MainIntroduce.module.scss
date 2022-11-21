@@ -1,21 +1,21 @@
 .position {
   .wholeIntroduce {
     margin: auto;
-    width: 1400px;
-    height: 700px;
+    width: 1100px;
+    height: 550px;
     .title {
-      margin: 70px 0;
-      font-size: 40px;
+      margin: 56px 0;
+      font-size: 28px;
       color: rgb(54 31 103);
     }
     .imgContainer {
       display: flex;
       img {
         filter: grayscale(100%);
-        border-radius: 30px;
-        padding-left: 20px;
-        width: 210px;
-        height: 210px;
+        border-radius: 20px;
+        margin-left: 20px;
+        width: 170px;
+        height: 170px;
         margin-bottom: 60px;
         &:hover {
           filter: grayscale(0%);
@@ -23,24 +23,25 @@
       }
     }
     .notice {
-      border-top: 1px solid gray;
-      border-bottom: 1px solid gray;
+      border-top: 1px solid rgb(226 226 226);
+      border-bottom: 1px solid rgb(226 226 226);
       display: flex;
-      padding: 20px 0;
+      //padding: 20px 0;
       .name {
-        border-right: 1px solid gray;
+        padding-left: 5px;
+        padding-top: 20px;
+        border-right: 1px solid rgb(226 226 226);
         padding-right: 25px;
-        font-size: 20px;
+        font-size: 16px;
       }
       .noticeContent {
         display: flex;
+        padding: 20px 20px;
+        font-size: 16px;
 
-        font-size: 18px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-right: 1px solid gray;
+        border-right: 1px solid rgb(226 226 226);
         .noticeTitle {
-          margin-right: 800px;
+          margin-right: 500px;
           .special {
             padding-right: 10px;
             font-weight: 600;
@@ -49,6 +50,7 @@
         }
       }
       .plus {
+        padding-top: 20px;
         padding-left: 20px;
       }
     }
@@ -56,20 +58,21 @@
       .icon {
         margin-top: 40px;
         img {
-          width: 1400px;
+          margin: auto;
+          width: 1100px;
         }
       }
     }
     .iconName {
       margin-top: 10px;
       span {
-        font-size: 20px;
+        font-size: 16px;
       }
       .span {
-        margin-right: 155px;
+        margin-right: 120px;
       }
       .span2 {
-        margin-right: 75px;
+        margin-right: 60px;
       }
     }
   }

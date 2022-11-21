@@ -4,24 +4,24 @@
   background-color: black;
   .mainWhole {
     background-color: black;
-    width: 1400px;
+    width: 1100px;
     height: 1000px;
     margin: auto;
     .mainTitle {
       display: flex;
       justify-content: space-between;
       padding-left: 100px;
-      padding-top: 100px;
+      padding-top: 80px;
       text-align: center;
       .boxOffice {
         margin-left: 40px;
         padding-bottom: 3px;
         border-bottom: 1px solid gray;
-        font-size: 21px;
+        font-size: 17px;
         color: white;
       }
       .elseMovie {
-        font-size: 20px;
+        font-size: 16px;
         padding-right: 4px;
         color: gray;
         .plus {
@@ -32,7 +32,7 @@
     .moviecards {
       display: flex;
       .moviecard1 {
-        margin-left: 50px;
+        margin-left: 20px;
       }
     }
   }

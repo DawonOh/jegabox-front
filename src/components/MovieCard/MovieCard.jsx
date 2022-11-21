@@ -15,9 +15,9 @@ const MovieCard = () => {
             <AiOutlineHeart className={css.heart} />
             <span>245</span>
           </div>
-          <Link className={css.reservation} to={'/login'}>
-            예매
-          </Link>
+          <div className={css.reservation}>
+            <span>예매</span>
+          </div>
         </div>
       </div>
     </>
