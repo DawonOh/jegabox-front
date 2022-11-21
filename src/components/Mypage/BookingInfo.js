@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import css from './BookingInfo.module.scss';
 
 function App() {
   return (
-    <div>
-      <div>예매 구매 내역</div>
-      <div>
-        <div>예매</div>
-        <div>구매</div>
+    <div className={css.main}>
+      <div className={css.title}>예매/구매 내역</div>
+      <div className={css.booking}>
+        <div className={css.bookingBtn}>예매</div>
+        <div className={css.bookingBtn}>구매</div>
       </div>
-      <div>
-        <div>구분</div>
+      <div className={css.filterDiv}>
+        <div className={css.filterDivTitle}>구분</div>
         <div>
           <input type="radio"></input>
           <label>예매내역</label>
@@ -27,7 +28,7 @@ function App() {
           <button>조회</button>
         </div>
       </div>
-      <div>예매 내역이 없습니다</div>
+      <div className={css.bookingDone}>예매 내역이 없습니다</div>
     </div>
   );
 }

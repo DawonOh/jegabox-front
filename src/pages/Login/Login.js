@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import css from './Login.module.scss';
 import LoginModal from '../../components/Login/LoginModal';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function Login() {
   // 로그인 모달창 상태값
@@ -17,6 +18,7 @@ function Login() {
 
   return (
     <div className={css.container}>
+      <PageHeader />
       {/* 로그인 모달창 부분*/}
       {openLoginModal && <LoginModal closeLogin={closeLogin} />}
       <div onClick={openLogin}>로그인</div>
