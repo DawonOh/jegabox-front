@@ -1,12 +1,11 @@
 .position {
   height: 300px;
-  width: 1600px;
+  width: 100%;
 
   background-color: rgb(2 123 148);
   position: absolute;
   z-index: 200;
   .nonMemberWhole {
-    margin-right: 120px;
     padding-top: 50px;
     text-align: center;
     p {
