@@ -1,0 +1,398 @@
+.container {
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #ffffff;
+
+  .innerWrap {
+    box-sizing: border-box;
+    width: 1100px;
+    height: 830px;
+    margin: 0px auto;
+    padding: 40px 0px 100px;
+
+    h2 {
+      margin: 0px 0px;
+      padding: 0px 0px 25px;
+      font-size: 1.8666em;
+      font-weight: lighter;
+    }
+
+    .bookTable {
+      border-top: solid 1px #676767;
+      border-right: solid 1px rgb(208, 208, 208);
+      border-bottom: solid 1px rgb(208, 208, 208);
+      border-left: solid 1px rgb(208, 208, 208);
+      height: 571px;
+
+      .timeSchedule {
+        height: 40px;
+        border-bottom: solid 1px rgb(208, 208, 208);
+        position: relative;
+        p {
+          display: inline-block;
+        }
+        button {
+          width: 30px;
+          height: 39px;
+          border: none;
+          background-color: #ffffff;
+          cursor: pointer;
+          img {
+            border: none;
+          }
+        }
+        .cal {
+          display: inline-block;
+          width: 58px;
+          img {
+            width: 26px;
+            height: 26px;
+            padding-left: 11px;
+            line-height: 39px;
+            vertical-align: middle;
+            cursor: pointer;
+          }
+        }
+        .year {
+          border: solid 1px rgb(208, 208, 208);
+          width: 70px;
+          height: 20px;
+          border-radius: 10px;
+          bottom: 28px;
+          left: 30px;
+          display: inline-block;
+          position: absolute;
+          background-color: white;
+          text-align: center;
+          p {
+            margin: 0px 0px;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            color: rgb(56, 56, 56);
+            font-weight: 100;
+          }
+        }
+      }
+      .choiceArea {
+        height: 531px;
+        box-sizing: border-box;
+        p {
+          height: 30px;
+          margin: 0px 0px;
+          font-size: 18px;
+          line-height: 38px;
+          vertical-align: middle;
+        }
+        .movieChoice {
+          display: inline-block;
+          width: 229px;
+          float: left;
+          padding: 0px 20px 17px;
+          height: 515px;
+
+          .m_listArea {
+            margin-top: 5px;
+            width: 229px;
+            height: 370px;
+            cursor: pointer;
+            p {
+              vertical-align: middle;
+              text-align: center;
+              font-size: 16px;
+              border-left: 1px solid rgb(208, 208, 208);
+              border-top: 1px solid rgb(208, 208, 208);
+              border-right: 1px solid rgb(208, 208, 208);
+              margin-bottom: 4px;
+            }
+            .m_list {
+              height: 330px;
+              overflow: scroll;
+              margin-top: 10px;
+              .grade {
+                width: 21px;
+                height: 21px;
+                margin-top: 3px;
+                margin-right: 5px;
+                border-radius: 2px;
+                margin-left: 3px;
+              }
+              div {
+                // margin-bottom: 4px;
+                display: table;
+              }
+              span {
+                border: none !important;
+                height: auto;
+                font-size: 14px;
+                margin: 0px 0px;
+                text-align: left;
+                line-height: 20px !important;
+                display: table-cell;
+                vertical-align: middle;
+              }
+              .m_btn {
+                &.active {
+                  span {
+                    width: 100%;
+                  }
+                  background-color: #6a6a6a !important;
+                  color: white;
+                  text-align: left !important;
+                }
+              }
+            }
+          }
+          .selectedMovie {
+            margin-left: 24px;
+            margin-top: 10px;
+            width: 180px;
+            height: 90px;
+            display: flex;
+            img {
+              width: 80px;
+              height: 100px;
+            }
+
+            .movie1 {
+              width: 80px;
+              margin-right: 20px;
+              height: 100px;
+              position: relative;
+              border: solid 1px rgb(208, 208, 208);
+
+              .closebtn {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+                background-color: #676767;
+              }
+            }
+            .movie2 {
+              width: 80px;
+              height: 100px;
+              position: relative;
+              border: solid 1px rgb(208, 208, 208);
+
+              .closebtn {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 15px;
+                height: 15px;
+                background-color: #676767;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .theaterChoice {
+          border-left: solid 1px rgb(208, 208, 208);
+          display: inline-block;
+          width: 309px;
+          padding: 0px 20px 20px;
+          float: left;
+          height: 511px;
+          .t_listArea {
+            margin-top: 12px;
+            width: 309px;
+            height: 370px;
+            p {
+              line-height: 31px;
+              vertical-align: middle;
+              height: 30px;
+              text-align: center;
+              font-size: 16px;
+              border-left: 1px solid rgb(208, 208, 208);
+              border-top: 1px solid rgb(208, 208, 208);
+              border-right: 1px solid rgb(208, 208, 208);
+              margin-bottom: 10px;
+            }
+            .t_list {
+              height: 330px;
+              display: flex;
+              .location {
+                width: 50%;
+                display: inline-block;
+                height: 100%;
+
+                p {
+                  margin: 0px;
+                  border: 0px;
+                  font-size: 14px;
+                  text-align: left;
+                  padding: 3px 10px;
+                  cursor: pointer;
+                  margin: 0px;
+                }
+              }
+              .btn {
+                &.active {
+                  background-color: #dfdfdf !important;
+                }
+              }
+              .cinema {
+                width: 50%;
+                border-left: rgb(208, 208, 208) 1px solid;
+                display: inline-block;
+                height: 100%;
+
+                img {
+                  background-color: #676767;
+                  width: 15px;
+                  height: 15px;
+                }
+                p {
+                  text-align: left;
+                  font-size: 14px;
+                  border: none;
+                  margin: 0px;
+                  cursor: pointer;
+                  padding-left: 10px;
+                }
+                .s_btn {
+                  &.active {
+                    background-color: #6a6a6a !important;
+                    color: white;
+                  }
+                }
+              }
+            }
+          }
+          .selectedTheater {
+            box-sizing: border-box;
+            margin-top: 10px;
+            padding: 0px 30px;
+            width: 309px;
+            height: 90px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .theater1 {
+              background-color: #ebebeb;
+              width: 90px;
+              border-radius: 80px;
+              vertical-align: center;
+              text-align: center;
+              position: relative;
+              img {
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                border-radius: 75px;
+                background-color: #676767;
+                width: 15px;
+                height: 15px;
+              }
+              p {
+                line-height: 90px;
+                vertical-align: center;
+                font-size: 13px;
+              }
+            }
+            .theater2 {
+              font-size: 12px;
+              width: 90px;
+              line-height: 90px;
+              border-radius: 80px;
+              background-color: #ebebeb;
+              vertical-align: center;
+              text-align: center;
+              position: relative;
+              img {
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                border-radius: 75px;
+                background-color: #676767;
+                width: 15px;
+                height: 15px;
+              }
+              p {
+                line-height: 90px;
+                vertical-align: center;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+        .timeChoice {
+          display: inline-block;
+          width: 478px;
+          border-left: solid 1px rgb(208, 208, 208);
+          float: left;
+          height: 531px;
+          p {
+            padding-left: 20px;
+          }
+          .h_listArea {
+            margin-top: 12px;
+            height: 30px;
+            border-top: solid 1px rgb(208, 208, 208);
+            border-bottom: solid 1px rgb(208, 208, 208);
+            text-align: center;
+            button {
+              height: 30px;
+              width: 35px;
+              color: #b0b0b0;
+              border: none;
+              font-size: 19px;
+              background-color: white;
+              cursor: pointer;
+            }
+          }
+          .movieSchedule {
+            height: 457px;
+            overflow-y: scroll;
+            .message {
+              text-align: center;
+              margin-top: 120px;
+              img {
+                width: 70px;
+                height: 70px;
+              }
+              p {
+                width: 270px;
+                margin: auto;
+                padding: 0px 0px !important;
+              }
+            }
+          }
+        }
+      }
+      .ad {
+        width: 1100px;
+        height: 90px;
+        margin-top: 15px;
+        position: relative;
+        p {
+          color: #676767;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 30px;
+          text-align: center;
+          background-color: #a3a3a3;
+          padding: 2px;
+        }
+
+        img {
+          width: 1100px;
+          height: 90px;
+        }
+        h2 {
+          font-size: 25px;
+          color: #ebebeb;
+          position: absolute;
+          top: 30px;
+          right: 170px;
+        }
+      }
+    }
+  }
+}

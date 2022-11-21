@@ -1,0 +1,79 @@
+.position {
+  .wholeIntroduce {
+    margin: auto;
+    width: 1100px;
+    height: 550px;
+    .title {
+      margin: 56px 0;
+      font-size: 28px;
+      color: rgb(54 31 103);
+    }
+    .imgContainer {
+      display: flex;
+      img {
+        filter: grayscale(100%);
+        border-radius: 20px;
+        margin-left: 20px;
+        width: 170px;
+        height: 170px;
+        margin-bottom: 60px;
+        &:hover {
+          filter: grayscale(0%);
+        }
+      }
+    }
+    .notice {
+      border-top: 1px solid rgb(226 226 226);
+      border-bottom: 1px solid rgb(226 226 226);
+      display: flex;
+      //padding: 20px 0;
+      .name {
+        padding-left: 5px;
+        padding-top: 20px;
+        border-right: 1px solid rgb(226 226 226);
+        padding-right: 25px;
+        font-size: 16px;
+      }
+      .noticeContent {
+        display: flex;
+        padding: 20px 20px;
+        font-size: 16px;
+
+        border-right: 1px solid rgb(226 226 226);
+        .noticeTitle {
+          margin-right: 500px;
+          .special {
+            padding-right: 10px;
+            font-weight: 600;
+            color: rgb(44, 133, 149);
+          }
+        }
+      }
+      .plus {
+        padding-top: 20px;
+        padding-left: 20px;
+      }
+    }
+    .iconContainer {
+      .icon {
+        margin-top: 40px;
+        img {
+          margin: auto;
+          width: 1100px;
+        }
+      }
+    }
+    .iconName {
+      margin-top: 10px;
+      span {
+        font-size: 16px;
+      }
+      .span {
+        margin-right: 120px;
+      }
+      .span2 {
+        margin-right: 60px;
+      }
+    }
+  }
+}

@@ -4,11 +4,11 @@
 .headerContainer {
   position: relative;
 
-  background-color: black;
+  background-color: white;
   border-bottom: 0.5px solid #888;
 }
 .header {
-  background-color: black;
+  background-color: white;
   margin: auto;
   width: 1100px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -20,7 +20,7 @@
     span {
       padding-top: 18px;
       font-size: 13px;
-      color: #888;
+      color: rgb(60 60 60);
       float: left;
       margin-right: 19px;
     }
@@ -50,10 +50,10 @@
       .linkToWhere {
         font-size: 18px;
         text-decoration-line: none;
-        color: rgb(214 213 214);
+        color: rgb(60 60 60);
         .closeIcon {
           cursor: pointer;
-          color: rgb(214 213 214);
+          color: rgb(60 60 60);
           margin-top: 0px;
           margin-left: 16px;
           width: 22px;
@@ -66,12 +66,12 @@
           height: 22px;
         }
         img {
-          top: -30px;
-          left: 452px;
+          top: -20px;
+          left: 460px;
           position: absolute;
           display: block;
-          width: 170px;
-          height: 64px;
+          width: 150px;
+          height: 50px;
           margin: 0;
           padding: 0;
           font-size: 0;
