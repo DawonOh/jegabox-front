@@ -38,7 +38,7 @@ const Dropdown = () => {
                   >
                     빠른예매
                   </Link>
-                  <Link className={css.dropdownLink} to={'/login'}>
+                  <Link className={css.dropdownLink} to={'/timetable'}>
                     상영시간표
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>
