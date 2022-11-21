@@ -2,8 +2,8 @@
   display: flex;
   background-color: black;
   margin: auto;
-  margin-top: 60px;
-  width: 1400px;
+  margin-top: 40px;
+  width: 1100px;
   height: 100px;
   align-items: center;
   .searchIcon {
@@ -12,25 +12,25 @@
     // left: 450px;
     // top: 13px;
     color: gray;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
   .searchBar {
     position: relative;
-    border-bottom: 1px solid red;
+
     input {
       margin-left: 30px;
       height: 40px;
-      width: 250px;
-      font-size: 20px;
+      width: 220px;
+      font-size: 16px;
       color: white;
       border: none;
-      // border-bottom: 1.5px solid white;
+      border-bottom: 1.5px solid white;
       background-color: black;
 
       &::placeholder {
         color: gray;
-        font-size: 20px;
+        font-size: 16px;
       }
       &:focus {
         outline: none;
@@ -53,7 +53,7 @@
     .title {
       color: white;
       margin-left: 10px;
-      font-size: 21px;
+      font-size: 16px;
       &:hover {
         text-decoration: underline;
       }

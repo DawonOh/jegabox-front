@@ -1,17 +1,17 @@
 .position {
-  height: 380px;
-  width: 1800px;
+  height: 320px;
+  width: 100%;
   background-color: rgb(2 123 148);
   position: absolute;
   z-index: 200;
   .wholeContainer {
     margin: auto;
-    width: 1400px;
+    width: 1100px;
     height: 100%;
     display: flex;
     .twoContainer {
-      padding-right: 30px;
-      margin-bottom: 50px;
+      // padding-right: 30px;
+      // margin-bottom: 50px;
 
       margin-top: 60px;
       p,
@@ -20,29 +20,31 @@
         color: white;
       }
       .hello {
-        font-size: 21px;
+        font-size: 16px;
         margin-bottom: 17px;
       }
       .member1 {
         margin-bottom: 12px;
       }
       .name {
-        font-size: 24px;
+        font-size: 20px;
       }
       .date {
-        margin-bottom: 100px;
+        font-size: 14px;
+        margin-bottom: 87px;
       }
       .btn {
+        padding: 5px 12px;
         cursor: pointer;
         color: white;
         font-weight: 600;
         border-radius: 5px;
         border: 1.5px solid white;
         background-color: rgb(2 123 148);
-        font-size: 18px;
-        width: 150px;
-        height: 47px;
-        margin-top: 25px;
+        font-size: 16px;
+        //width: 120px;
+        height: 36px;
+        // margin-top: 25px;
         margin-bottom: 60px;
       }
     }
@@ -53,31 +55,33 @@
       span {
         text-align: center;
         display: block;
-        margin-bottom: 42px;
+        margin-bottom: 25px;
       }
       .component {
-        padding-left: 90px;
+        padding-left: 60px;
         .title {
           margin-top: 24px;
-          font-size: 21px;
-          margin-bottom: 50px;
+          font-size: 18px;
+          margin-bottom: 30px;
         }
         .content {
-          font-size: 56px;
+          height: 70px;
+          font-size: 45px;
+        }
+        .fontSize {
+          font-size: 26px;
         }
         .btn2 {
-          .btn60 {
-            margin-left: 7px;
-            width: 100px;
-          }
+          display: flex;
+          //   .btn60 {
+          //     margin-left: 7px;
+          //     width: 100px;
+          //   }
         }
         .btn10 {
-          margin-left: 30px;
+          margin-left: 60px;
         }
-        .content1 {
-          margin-bottom: 70px;
-          font-size: 28px;
-        }
+
         .gun {
           display: inline;
           font-size: 25px;

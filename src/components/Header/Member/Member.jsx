@@ -6,7 +6,7 @@ export const Member = () => {
     <div className={css.position}>
       <div className={css.wholeContainer}>
         <div className={css.twoContainer}>
-          <div>
+          <div style={{ width: '250px' }}>
             <p className={css.hello}>안녕하세요!</p>
             <p className={css.member1}>
               <span className={css.name}>오뚜니&nbsp;</span>회원님
@@ -28,12 +28,19 @@ export const Member = () => {
             <span className={css.content}>1/0</span>
             <div className={css.btn2}>
               <button className={`${css.btn} ${css.btn60}`}>쿠폰</button>
-              <button className={`${css.btn} ${css.btn60}`}>관람권</button>
+              <button
+                style={{ marginLeft: '10px' }}
+                className={`${css.btn} ${css.btn60}`}
+              >
+                관람권
+              </button>
             </div>
           </div>
           <div className={css.component}>
             <span className={css.title}>예매율</span>
-            <span className={css.content1}>예매내역이 없어요!</span>
+            <span className={`${css.content} ${css.fontSize}`}>
+              예매내역이 없어요!
+            </span>
             <button className={`${css.btn} ${css.btn10}`}>예매내역</button>
           </div>
           <div className={css.component}>
