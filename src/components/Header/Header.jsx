@@ -218,7 +218,11 @@ function Header() {
             </div>
             <div className={css.mainMenuBarColumn}>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu4} onMouseOut={closeUnderMenu4}>
+                <div
+                  className={css.tie}
+                  onMouseOver={showUnderMenu4}
+                  onMouseOut={closeUnderMenu4}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}

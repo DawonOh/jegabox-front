@@ -33,8 +33,12 @@
       display: flex;
       justify-content: space-between;
     }
+    .tie {
+      display: relative;
+    }
     .mainMenuBar {
       display: flex;
+
       .menuMargin1 {
         padding-bottom: 18px;
         margin-right: 80px;
@@ -66,7 +70,7 @@
           height: 22px;
         }
         img {
-          top: -30px;
+          top: -35px;
           left: 452px;
           position: absolute;
           display: block;
