@@ -14,6 +14,7 @@ import GlassDropdown from './GlassDropDown/GlassDropdown';
 import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
+
 function Header() {
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
@@ -159,7 +160,7 @@ function Header() {
                 <div onMouseOver={showUnderMenu2} onMouseOut={closeUnderMenu2}>
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
-                    to={'/login'}
+                    to={'/booking'}
                     style={{
                       borderBottom: validUnderMenu2
                         ? '2px solid white'

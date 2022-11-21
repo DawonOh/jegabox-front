@@ -34,7 +34,7 @@ const Dropdown = () => {
                   예매
                   <Link
                     className={`${css.dropdownLink} ${css.borderline}`}
-                    to={'/login'}
+                    to={'/booking'}
                   >
                     빠른예매
                   </Link>
