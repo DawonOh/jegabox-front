@@ -59,7 +59,10 @@ function Booking() {
         }),
       })
         .then(res => res.json())
-        .then(res => setData(res));
+        .then(res => {
+          console.log(res);
+          setData(res);
+        });
     }
   }, [user_date, movieId, cinemaId]);
 
