@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import css from './DayBtn.module.scss';
-function DayBtn({ date, week, today, setDate }) {
-  const [dayClick, setDayClick] = useState(false);
+function DayBtn({ date, week, today, setDate, idx, dayClick, setDayClick }) {
   const [btnDisable, setBtnDisable] = useState(false);
   useEffect(() => {
     new Date(date).getDate() <= today + 4 && new Date(date).getDate() >= today
@@ -9,9 +8,6 @@ function DayBtn({ date, week, today, setDate }) {
       : setBtnDisable(true);
   }, []);
 
-  const change = () => {
-    setDayClick(true);
-  };
   if (new Date(date).getDate() === today) {
     week = '오늘';
   }
@@ -21,12 +17,22 @@ function DayBtn({ date, week, today, setDate }) {
   let year = new Date(date).getFullYear();
   let month = new Date(date).getMonth() + 1;
   let date1 = new Date(date).getDate();
+
+  const change = e => {
+    e.preventDefault();
+    setDayClick(e.target.value);
+  };
+
   return (
-    <div className={css.container} onClick={() => change()}>
+    <div
+      className={css.container}
+      onClick={() => setDate(year + '-' + month + '-' + date1)}
+    >
       <button
+        onClick={change}
+        className={`${css.btn + (idx == dayClick ? ' ' + css.active : '')}`}
+        value={idx}
         disabled={btnDisable}
-        onClick={() => setDate(year + '-' + month + '-' + date1)}
-        style={dayClick ? { backgroundColor: 'gray' } : null}
       >
         {new Date(date).getDate()}
         <img src="image/square.png" alt="square" width="3px" height="3px" />
