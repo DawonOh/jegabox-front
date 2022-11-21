@@ -1,6 +1,6 @@
 .main {
-  width: 98px;
-  height: 69px;
+  width: 97px;
+  height: 68px;
   border: 1px solid rgb(215, 210, 210);
   display: flex;
   flex-direction: column;
@@ -36,8 +36,7 @@
   top: 0;
   left: 0;
   z-index: 1;
-
-  &:hover {
-    display: none;
-  }
+  // &:hover {
+  //   display: none;
+  // }
 }
