@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import css from './SelectSeat.module.scss';
-
+import { useNavigate } from 'react-router-dom';
 function SelectSeat({ userMovie, setDisable }) {
   const [adult, setAdult] = useState(0);
   const [child, setChild] = useState(0);
   const [pay, setPay] = useState(0);
   const [s_seat, setSeat] = useState([]);
+
+  const navigate = useNavigate();
   let totalNum = adult + child;
   let user_seat = [];
   let [hour, minute] = userMovie.seats.time.split(':');
@@ -17,6 +19,7 @@ function SelectSeat({ userMovie, setDisable }) {
   }, [adult, child]);
   const handleBack = () => {
     setDisable(true);
+    navigate('/booking');
   };
 
   const handleSeat = seat => {
