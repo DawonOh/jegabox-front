@@ -14,6 +14,7 @@ import GlassDropdown from './GlassDropDown/GlassDropdown';
 import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
+import LoginModal from '../../components/Login/LoginModal';
 function PageHeader() {
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
@@ -23,6 +24,16 @@ function PageHeader() {
   const [validUnderMenu3, setValidUnderMenu3] = useState(false);
   const [validUnderMenu4, setValidUnderMenu4] = useState(false);
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
+
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  // 모달창 여는 함수
+  const openLogin = () => {
+    setOpenLoginModal(true);
+  };
+  // 모달창 닫는 함수
+  const closeLogin = () => {
+    setOpenLoginModal(false);
+  };
 
   const [ValidMember, setValidMember] = useState(false);
   function showUnderMenu1() {
@@ -91,7 +102,7 @@ function PageHeader() {
               <span>고객센터</span>
             </div>
             <div className={css.memberBar}>
-              <span>로그인</span>
+              <span onClick={openLogin}>로그인</span>
               <span>회원가입</span>
               <span>빠른예매</span>
             </div>
@@ -125,6 +136,7 @@ function PageHeader() {
                 </span>
               </div>
             </li>
+            {openLoginModal && <LoginModal closeLogin={closeLogin} />}
             <div className={css.mainMenuBarColumn}>
               <li className={css.mainMenuBar}>
                 <div
