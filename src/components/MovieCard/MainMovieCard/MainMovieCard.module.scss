@@ -7,17 +7,38 @@
     left: 20px;
     top: 50px;
     position: absolute;
-    color: black;
+    color: white;
     font-size: 40px;
   }
-  img {
-    margin-top: 32px;
+
+  .moviePoster {
+    margin-top: 30px;
+    margin-bottom: 10px;
     width: 240px;
     height: 344px;
   }
-
-  img {
-    border-radius: 10px;
+  .movieInformation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    .age {
+      width: 22px;
+      height: 22px;
+    }
+    .movieTitle {
+      margin-left: 5px;
+      font-size: 20px;
+    }
+  }
+  .movieInfo {
+    display: flex;
+    .moviePeople {
+      border-right: 1px solid rgb(198, 198, 198);
+      padding-right: 8px;
+    }
+    .movieDate {
+      padding-left: 7px;
+    }
   }
   .underImg {
     margin-top: 10px;
@@ -25,20 +46,26 @@
     display: flex;
     align-items: center;
     .movieLike {
+      display: flex;
+      align-items: center;
+      border-radius: 3px;
       position: relative;
       font-size: 14px;
       margin-right: 5px;
-      height: 32px;
+      height: 33px;
       width: 35%;
-      border-radius: 3px;
+
       border: 1px solid gray;
       color: black;
       span {
-        top: 10px;
+        font-weight: 600;
+        color: rgb(80 51 150);
+        top: 8px;
         position: absolute;
         left: 40px;
       }
       .heart {
+        color: gray;
         position: absolute;
         top: 1px;
         left: 0px;
@@ -52,22 +79,25 @@
     }
 
     .reservation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(80 51 150);
       position: relative;
       width: 65%;
-      font-size: 16px;
+      font-size: 15px;
       //padding-top: 10px;
       text-align: center;
-      background-color: rgb(2 123 148);
-      text-decoration: none;
-      height: 32px;
 
+      text-decoration: none;
+      height: 35px;
       border-radius: 3px;
-      color: black;
+      color: white;
       span {
-        left: 63px;
-        font-size: 15px;
-        position: absolute;
-        top: 10px;
+        // left: 63px;
+        // font-size: 15px;
+        // position: absolute;
+        // top: 10px;
       }
     }
   }
