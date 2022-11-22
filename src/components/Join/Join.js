@@ -102,6 +102,7 @@ const Join = () => {
 
   //4-1. 아이디 중복 확인
   const alreadyUseId = () => {
+    setTryCheckId('');
     fetch('http://localhost:8000/users/userID', {
       method: 'POST',
       headers: {
@@ -187,7 +188,6 @@ const Join = () => {
       isBirthWrong === false &&
       isPhoneWrong === false &&
       isIdWrong === false &&
-      passId === true &&
       checkPassRegex === true &&
       checkPassAgainRegex === true &&
       same == 'same' &&
@@ -205,7 +205,6 @@ const Join = () => {
       isBirthWrong === true ||
       isPhoneWrong === true ||
       isIdWrong === true ||
-      passId === false ||
       checkPassRegex === false ||
       checkPassAgainRegex === false ||
       same !== 'same' ||
@@ -223,7 +222,6 @@ const Join = () => {
     isBirthWrong,
     isPhoneWrong,
     isIdWrong,
-    passId,
     checkPassRegex,
     checkPassAgainRegex,
     same,
@@ -231,8 +229,10 @@ const Join = () => {
   ]);
 
   //회원가입 버튼 클릭
+  const [tryCheckId, setTryCheckId] = useState('');
   const join = () => {
     if (passId === false) {
+      setTryCheckId('none');
       openAlertModal();
     } else {
       fetch('http://localhost:8000/users/userID', {
@@ -292,8 +292,9 @@ const Join = () => {
       ) : (
         <></>
       )}
+
       {alertModal ? (
-        passId === false ? (
+        tryCheckId === 'none' ? (
           <AlertModal closeAlertModal={closeAlertModal} messages={tryIdCheck} />
         ) : (
           <></>
@@ -301,6 +302,7 @@ const Join = () => {
       ) : (
         <></>
       )}
+
       {alertModal ? (
         success == '성공' ? (
           <AlertModal
@@ -308,11 +310,21 @@ const Join = () => {
             messages={successJoin}
           />
         ) : (
-          <AlertModal closeAlertModal={closeAlertModal} messages={failJoin} />
+          <></>
         )
       ) : (
         <></>
       )}
+      {alertModal ? (
+        success == '실패' ? (
+          <AlertModal closeAlertModal={closeAlertModal} messages={failJoin} />
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
+
       <h1 className={css.joinTitle}>회원님 안녕하세요.</h1>
       <p className={css.joinTitleContent}>회원정보를 입력해주세요.</p>
       <table>
@@ -379,7 +391,7 @@ const Join = () => {
             <th>비밀번호</th>
             <td className={css.nameInputTd}>
               <input
-                type="text"
+                type="password"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
                 onChange={handlePass}
               />
@@ -401,7 +413,7 @@ const Join = () => {
             <th>비밀번호 확인</th>
             <td className={css.nameInputTd}>
               <input
-                type="text"
+                type="password"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
                 onChange={handleCheckPass}
               />
@@ -453,12 +465,15 @@ const Join = () => {
           </tr>
         </tbody>
       </table>
-      <button
-        className={isDisabledBtn ? `${css.disjoinBtn}` : `${css.joinBtn}`}
-        disabled={isDisabledBtn}
-      >
-        회원가입
-      </button>
+      <div>
+        <button
+          className={isDisabledBtn ? `${css.disjoinBtn}` : `${css.joinBtn}`}
+          disabled={isDisabledBtn}
+          onClick={join}
+        >
+          회원가입
+        </button>
+      </div>
     </div>
   );
 };
