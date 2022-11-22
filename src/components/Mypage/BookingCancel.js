@@ -21,7 +21,7 @@ function App() {
       <div className={css.alertDiv}>
         <div className={css.alertSpan}>이용안내</div>
         <div className={css.alertSpan2}>
-          <i class="fa-solid fa-chevron-down"></i>
+          <i className="fa-solid fa-chevron-down"></i>
         </div>
       </div>
     </div>

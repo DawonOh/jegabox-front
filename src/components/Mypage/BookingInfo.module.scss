@@ -9,14 +9,15 @@
 
   .booking {
     display: flex;
+    border-bottom: 1px solid rgb(232, 232, 232);
 
     .bookingBtn {
       width: 166px;
-      height: 36px;
-      border: solid black 1px;
+      height: 34px;
       display: flex;
       justify-content: center;
       align-items: center;
+      border: 1px solid rgb(232, 232, 232);
     }
   }
 

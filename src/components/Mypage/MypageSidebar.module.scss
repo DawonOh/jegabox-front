@@ -1,6 +1,6 @@
 .cidebarMain {
   width: 200px;
-  border: 1px solid black;
+  border: 1.5px solid rgba(128, 128, 128, 0.195);
   border-radius: 15px;
 
   .titleDiv {
@@ -21,12 +21,18 @@
     background-color: rgb(242, 242, 242);
     height: 40px;
     width: 200px;
-    border-top: rgba(128, 128, 128, 0.398) 1px solid;
-    border-bottom: rgba(128, 128, 128, 0.406) 1px solid;
+    border-top: rgba(128, 128, 128, 0.101) 1px solid;
+    border-bottom: rgba(128, 128, 128, 0.127) 1px solid;
 
     .middleSpan {
       margin-left: 8px;
+      color: #222222;
+      &:hover {
+        color: rgb(81, 135, 180);
+      }
     }
+
+    cursor: pointer;
   }
 
   .whiteDiv {
@@ -35,9 +41,14 @@
     justify-content: center;
 
     .whiteDivMargin {
-      margin: 15px 0;
+      margin: 20px 0;
       .whiteCell {
-        margin: 0 8px;
+        margin: 5px 8px;
+        color: rgb(102, 102, 102);
+        &:hover {
+          color: rgb(81, 135, 180);
+        }
+        cursor: pointer;
       }
     }
   }

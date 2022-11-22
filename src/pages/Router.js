@@ -6,6 +6,7 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import TimeTable from '../pages/TimeTable/TimeTable';
 import Mypage from '../pages/Mypage/Mypage';
+import Test from '../pages/Test';
 
 import Booking from './Booking/Booking';
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
         <Route path="/timetable" element={<TimeTable />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
