@@ -5,7 +5,7 @@ import TimeTableComponent from '../../components/TimeTableComponent/TimeTableCom
 import ScreeningInfo from '../../components/TimeTableComponent/ScreeningInfo1';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import PageFooter from '../../components/Footer/Footer';
-
+import SelectSeat from '../SelectSeat/SelectSeat';
 function App() {
   const [titleList, setTitleList] = useState([]); // SortByMovie에 뿌릴 타이틀 정보
 
@@ -211,7 +211,6 @@ function App() {
         </a>
         <h2>누구나 작가가 될 수 있다고 생각합니까? 될 수 있으니 각오해라</h2>
       </div>
-
       <PageFooter />
     </>
   );
