@@ -1,7 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './Changepass.module.scss';
 
-const Changepass = () => {
+const Changepass = ({ id }) => {
+  //비밀번호, 비밀번호 확인 input value
+  const [pass, setPass] = useState('');
+  const [checkPass, setCheckPass] = useState('');
+
+  //변경 완료 확인용 code 저장
+  const [code, setCode] = useState('');
+
+  //확인 버튼 활성화 여부
+  const [disabled, setDisabled] = useState(true);
+
+  //새 비밀번호와 비밀번호 확인이 같은 지 여부
+  const [same, setSame] = useState('');
+
+  //입력받은 값이 조건에 맞는지 확인 여부
+  const [checkRegex, setCheckRegex] = useState(false);
+
+  let token = localStorage.getItem('token');
+
+  const handlePass = e => {
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+      e.target.value
+    );
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    if (!(check1 || check2 || check3)) {
+      setCheckRegex(false);
+    } else {
+      setCheckRegex(true);
+      setCheckPass(e.target.value);
+    }
+    console.log(checkRegex);
+  };
+
+  const handleCheckPass = e => {
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+      e.target.value
+    );
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    if (!(check1 || check2 || check3)) {
+      setCheckRegex(false);
+    } else {
+      setCheckRegex(true);
+      setPass(e.target.value);
+    }
+  };
+  const changePass = () => {
+    fetch('http://localhost:8000/users/password1', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        token: token,
+      },
+      body: JSON.stringify({
+        password: pass,
+        passwordForCheck: checkPass,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.code == 200) {
+          setCode(json.code);
+          localStorage.removeItem('token');
+          localStorage.removeItem('code');
+          localStorage.removeItem('id');
+          window.location.href = '/';
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (pass === checkPass && checkPass) {
+      setSame('same');
+    } else {
+      setSame('none');
+    }
+  }, [pass, checkPass]);
+  console.log(same);
+
+  //확인 버튼 활성화 판단
+  // useEffect(() => {
+  //   if (pass && checkPass && isPhoneWrong === false) {
+  //     setIsDisabledReqBtn(false);
+  //   } else if (id || nameValue || phoneNumValue || isPhoneWrong === false) {
+  //     setIsDisabledReqBtn(true);
+  //   }
+  // }, [id, nameValue, phoneNumValue, isPhoneWrong]);
   return (
     <div className={css.changePassWrap}>
       <h1>비밀번호 재설정</h1>
@@ -12,14 +99,16 @@ const Changepass = () => {
         <tbody>
           <tr>
             <th>아이디</th>
-            <td>asdf</td>
+            <td>{id}</td>
           </tr>
           <tr>
             <th>새 비밀번호</th>
             <td>
               <input
-                type="password"
+                type="text"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
+                onChange={handlePass}
+                maxLength="16"
               />
             </td>
           </tr>
@@ -27,13 +116,29 @@ const Changepass = () => {
             <th>새 비밀번호 확인</th>
             <td>
               <input
-                type="password"
+                type="text"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
+                onChange={handleCheckPass}
+                maxLength="16"
               />
-              <p>
-                비밀번호는 영문,숫자,특수기호 중 2가지 이상 조합하여 10자리 이상
-                16자리 이하 입니다.
-              </p>
+              {!checkRegex && (
+                <p className={css.warning}>
+                  비밀번호는 영문,숫자,특수기호 중 2가지 이상 조합하여 10자리
+                  이상 16자리 이하 입니다.
+                </p>
+              )}
+
+              {same != 'same' ? (
+                checkPass.length > 10 ? (
+                  <p className={css.warning}>
+                    비밀번호와 비밀번호 확인의 입력값이 일치하지 않습니다.
+                  </p>
+                ) : (
+                  <div></div>
+                )
+              ) : (
+                <div></div>
+              )}
             </td>
           </tr>
         </tbody>
@@ -57,7 +162,17 @@ const Changepass = () => {
           입니다.
         </li>
       </ul>
-      <button className={css.changePassBtn}>확인</button>
+      <div>
+        <button
+          className={
+            same !== 'same' ? `${css.dischangePassBtn}` : `${css.changePassBtn}`
+          }
+          onClick={changePass}
+          disabled={same === 'same' ? false : true}
+        >
+          확인
+        </button>
+      </div>
     </div>
   );
 };
