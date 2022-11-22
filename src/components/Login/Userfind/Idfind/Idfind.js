@@ -33,10 +33,8 @@ const Idfind = () => {
     // 정규식 통과못하거나 현재 연도보다 입력받은 연도가 더 크다면 no
     if (!birthRegex.test(e.target.value) || usersBirthYear > todayYear) {
       setIsBirthWrong(true);
-      console.log(birthRegex.test(e.target.value));
     } else {
       setIsBirthWrong(false);
-      console.log(birthRegex.test(e.target.value));
     }
     setBirthValue(e.target.value);
   };
@@ -90,13 +88,8 @@ const Idfind = () => {
     })
       .then(res => res.json())
       .then(json => {
-        if (id !== undefined) {
-          setId(id => json.userID);
-          setJoinDate(json.created_at);
-        } else {
-          setId('');
-          setJoinDate('');
-        }
+        setId(json.userID);
+        setJoinDate(json.created_at);
       });
   };
   useEffect(() => {
@@ -134,13 +127,13 @@ const Idfind = () => {
   return (
     <div className={css.idFindWrap}>
       {alertModal &&
-        (id !== '' ? (
-          <AlertModal closeAlertModal={closeAlertModal} messages={message} />
-        ) : (
+        (id === undefined ? (
           <AlertModal
             closeAlertModal={closeAlertModal}
             messages={wrongIDmessage}
           />
+        ) : (
+          <AlertModal closeAlertModal={closeAlertModal} messages={message} />
         ))}
       <table>
         <tbody>

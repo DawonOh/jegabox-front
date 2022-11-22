@@ -1,37 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import css from './Userfind.module.scss';
 import { Link } from 'react-router-dom';
-import Idfind from '../../../components/Login/Userfind/Idfind/Idfind';
-import Passfind from '../../../components/Login/Userfind/Passfind/Passfind';
+import UserfindMain from '../../../components/Login/Userfind/Userfind/Userfind';
+import ChangePass from '../../../components/Login/Userfind/Passfind/ChangePass/Changepass';
 
 const Userfind = () => {
-  const [isOn, setIsOn] = useState(true);
-  const [getInnerText, setGetInnerText] = useState('아이디 찾기');
-  const handleOn = e => {
-    setIsOn(!isOn);
-    setGetInnerText(e.target.innerText);
-  };
-
+  const id = localStorage.getItem('id');
+  const code = localStorage.getItem('code');
   return (
     <div className={css.idfindBackground}>
       <div className={css.idfindContainer}>
-        <Link to={'/main'}>
+        <Link to="/">
           <div className={css.userfindLogo}>
             <div className={css.gotoMainLogo} />
           </div>
         </Link>
-        <div className={css.userfindTitle}>
-          <h1>아이디/비밀번호 찾기</h1>
-        </div>
-        <div className={css.userfindBtn}>
-          <div className={isOn ? css.on : css.off} onClick={handleOn}>
-            아이디 찾기
-          </div>
-          <div className={!isOn ? css.on : css.off} onClick={handleOn}>
-            비밀번호 찾기
-          </div>
-        </div>
-        {getInnerText === '아이디 찾기' ? <Idfind /> : <Passfind />}
+        {code == 200 ? <ChangePass id={id} /> : <UserfindMain />}
       </div>
     </div>
   );

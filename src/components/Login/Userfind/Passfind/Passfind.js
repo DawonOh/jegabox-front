@@ -9,7 +9,7 @@ const Passfind = () => {
   const [isPhoneWrong, setIsPhoneWrong] = useState(false);
 
   // 비밀번호 찾기 버튼 비활성화
-  const [isDisabledBtn, setIsDisabledBtn] = useState(false);
+  const [isDisabledBtn, setIsDisabledBtn] = useState(true);
 
   // 인증요청 버튼, 인증번호 input 비활성화
   const [isDisabledReqBtn, setIsDisabledReqBtn] = useState(false);
@@ -20,20 +20,14 @@ const Passfind = () => {
   //인증확인 input 비활성화
   const [isDisabledInput, setDisabledInput] = useState(true);
 
-  // input 정보 넘겼을 때 통과 여부
-  const [pass, setPass] = useState(false);
-
-  //인증요청 -> 재요청 버튼 변경 여부
+  //인증요청 -> 재전송 버튼 변경 여부
   const [tryAgain, setTryAgain] = useState(false);
 
   //입력받은 인증번호
   const [checkRandomNum, setCheckRandomNum] = useState('');
 
-  //문자로 전송한 인증번호
-  const [isRanNum, setIsRanNum] = useState('');
-
   //인증번호 일치 여부
-  const [isSame, setIsSame] = useState(false);
+  const [isSame, setIsSame] = useState('');
 
   //인증번호 최종 확인 받았을 때 성공 여부
   const [code, setCode] = useState('code');
@@ -43,8 +37,6 @@ const Passfind = () => {
   const [sec, setSec] = useState(0);
   const [startTimer, setStartTimer] = useState(false);
   const [timeout, setTimeout] = useState(false);
-
-  //인증번호
 
   //아이디 유효성검사
   const handelId = e => {
@@ -125,9 +117,7 @@ const Passfind = () => {
 
   //입력받은 정보가 맞는지 확인 / 맞으면 타이머 시작 / 인증번호 문자 전송
   const sendInfo = () => {
-    console.log('id : ', id);
-    console.log('phone : ', phoneNumValue);
-    console.log('name : ', nameValue);
+    console.log('sendInfo 작동');
     fetch('http://localhost:8000/users/validateNumber', {
       method: 'POST',
       headers: {
@@ -141,20 +131,27 @@ const Passfind = () => {
     })
       .then(res => res.json())
       .then(json => {
-        if (json.code != 200) {
-          setStartTimer(false);
-          openAlertModal();
-        } else {
+        if (json.code == 200) {
+          console.log('인증번호 받아오기 성공!');
           setId(json.userID);
-          setIsRanNum(json.validation_number);
-          setPass(true);
-          setStartTimer(true);
+          setStartTimer(startTimerFunc);
           setTryAgain(true);
           setDisabledInput(false);
+          setIsSame('pass');
+          openAlertModal();
+          return;
+        } else {
+          console.log('인증번호 받아오기 실패..');
+          setStartTimer(false);
+          setIsSame('none');
           openAlertModal();
           return;
         }
       });
+  };
+
+  const startTimerFunc = () => {
+    setStartTimer(true);
   };
 
   // 타이머
@@ -162,6 +159,7 @@ const Passfind = () => {
   const timerId = useRef(null);
   useEffect(() => {
     if (startTimer === true) {
+      console.log('타이머 시작!');
       timerId.current = setInterval(() => {
         if (sec > 0) {
           setSec(sec - 1);
@@ -176,6 +174,7 @@ const Passfind = () => {
         time.current -= 1;
       }, 1000);
       return () => {
+        console.log('타이머 끝!');
         clearInterval(timerId.current);
       };
     }
@@ -183,12 +182,43 @@ const Passfind = () => {
 
   useEffect(() => {
     if (time.current <= 0) {
+      console.log('타이머 초기화!');
       setMin(3);
       setSec(0);
       clearInterval(timerId.current);
       setTimeout(true);
+      setDisabledInput(true);
+      setStartTimer(false);
+      time.current = 180;
     }
   }, [min, sec]);
+
+  const clickReSend = () => {
+    fetch('http://localhost:8000/users/validateNumber', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone_number: phoneNumValue,
+        account_id: id,
+        name: nameValue,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.code == 200) {
+          console.log('재전송버튼 클릭!');
+          setMin(3);
+          setSec(0);
+          setStartTimer(true);
+          setDisabledInput(false);
+          setTimeout(false);
+          console.log(time.current);
+          openAlertModal();
+        }
+      });
+  };
 
   //인증번호 맞는지 백으로 전송
   const checkNum = () => {
@@ -206,11 +236,26 @@ const Passfind = () => {
       .then(json => {
         console.log('Result : ', json);
         if (json.code == 200) {
+          console.log('인증번호 통과!');
           setCode(json.code);
+          setIsDisabledBtn(false);
+          openAlertModal();
+          return;
         } else {
+          console.log('인증번호 통과못함..');
           setCode('');
+          setIsDisabledReqBtn(false);
         }
       });
+  };
+
+  //비밀번호 변경 페이지 이동을 위한 정보 저장
+  //localStorage에 code가 있으면 userfind페이지에서 컴포넌트 변경
+  //id 저장해놓고 비밀번호 변경 페이지에서 띄워야 함
+  const goToChangePass = () => {
+    localStorage.setItem('code', 200);
+    localStorage.setItem('id', id);
+    window.location.reload();
   };
 
   const passMessage = [{ id: 1, message: '휴대폰 인증을 완료했습니다.' }];
@@ -221,13 +266,26 @@ const Passfind = () => {
   //body : password, passwordForCheck
   //uri : http://localhost:8000/users/password1
 
+  console.log('인증요청 -> 재전송 버튼 변경 여부(tryAgain) : ', tryAgain);
+  console.log(
+    '인증번호 input disabled 여부(isDisabledInput) : ',
+    isDisabledInput
+  );
+  console.log(
+    '인증확인 버튼 disabled(!isDisabledCheckBtn) : ',
+    !isDisabledCheckBtn
+  );
+  console.log('비밀번호 찾기 버튼 disabled(isDisabledBtn) : ', isDisabledBtn);
+  console.log('타이머 시작 여부(startTimer) : ', startTimer);
+  console.log('==================================================');
+
   return (
     <div className={css.passFindWrap}>
       {alertModal &&
         (startTimer ? (
           <AlertModal
             closeAlertModal={closeAlertModal}
-            messages={successSend}
+            messages={passMessage}
           />
         ) : (
           <AlertModal
@@ -235,10 +293,6 @@ const Passfind = () => {
             messages={wrongInfomessage}
           />
         ))}
-      {alertModal && code == 200 && (
-        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
-      )}
-
       <table>
         <tbody>
           <tr>
@@ -279,8 +333,11 @@ const Passfind = () => {
                   className={
                     code !== 200 ? `${css.onCertification}` : `${css.getNumBtn}`
                   }
-                  disabled={!isDisabledReqBtn}
-                  onClick={sendInfo}
+                  disabled={isDisabledReqBtn}
+                  onClick={() => {
+                    // sendInfo();
+                    clickReSend();
+                  }}
                 >
                   재전송
                 </button>
@@ -313,7 +370,14 @@ const Passfind = () => {
                   인증확인
                 </button>
               </div>
-
+              {alertModal && isSame === 'pass' ? (
+                <AlertModal
+                  closeAlertModal={closeAlertModal}
+                  messages={successSend}
+                />
+              ) : (
+                <div />
+              )}
               {!timeout ? (
                 <p
                   className={
@@ -330,7 +394,7 @@ const Passfind = () => {
                   인증해주세요.
                 </p>
               )}
-              {code !== 200 && timeout && (
+              {code == '' && (
                 <p className={css.warning}>
                   인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
                 </p>
@@ -339,7 +403,13 @@ const Passfind = () => {
           </tr>
         </tbody>
       </table>
-      <button className={css.findPassBtn} disabled={isDisabledBtn}>
+      <button
+        className={
+          !isDisabledBtn ? `${css.goFindPassBtn}` : `${css.findPassBtn}`
+        }
+        disabled={isDisabledBtn}
+        onClick={goToChangePass}
+      >
         비밀번호 찾기
       </button>
     </div>

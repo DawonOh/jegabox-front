@@ -4,20 +4,40 @@
   justify-content: center;
 }
 
-.passFindWrap {
+.changePassWrap {
   @include flexcenter();
+  box-sizing: border-box;
   flex-direction: column;
   width: 510px;
   height: 480px;
+  margin-top: 70px;
+  & h1 {
+    font-size: 1.7em;
+    color: #503396;
+    font-weight: 400;
+  }
+  .infoMessage {
+    margin: 40px 90px 20px 0;
+    font-size: 0.9em;
+    color: #01738b;
+  }
+  .infoMessage::before {
+    content: '•';
+    margin-right: 3px;
+  }
   table {
+    margin: 0;
+    padding: 0;
     border-collapse: collapse;
     border-top: 1px solid #444;
     font-size: 0.9em;
     tr {
-      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       border-bottom: 1px solid #d1d5dd;
       th {
         box-sizing: border-box;
+        margin: 0;
         width: 130px;
         height: 50px;
         background-color: #f7f8f9;
@@ -26,12 +46,13 @@
       }
       td {
         box-sizing: border-box;
+        margin: 0;
         width: 380px;
         height: 50px;
         padding: 10px;
         & input {
           box-sizing: border-box;
-          width: 230px;
+          width: 350px;
           height: 30px;
           border: 1px solid #d8d9db;
           text-indent: 10px;
@@ -39,76 +60,20 @@
         & input:focus {
           outline: none;
         }
-
-        .passFindTimer {
-          box-sizing: border-box;
-          width: 50px;
-          height: 34px;
-          line-height: 25px;
-          text-align: center;
-          color: #e81002;
-          border: 1px solid #d8d9db;
-          border-left: none;
-        }
-
         .warning {
           margin-top: 5px;
           color: #e81002;
         }
-
         .warningOn {
           display: block;
         }
         .warningOff {
           display: none;
         }
-
-        .onCertification {
-          width: 75px;
-          height: 32px;
-          margin-left: 10px;
-          border-radius: 5px;
-          color: #fff;
-          border: none;
-          background-color: #666;
-          font-size: 0.95em;
-          cursor: pointer;
-        }
-
-        .getNumBtn {
-          width: 75px;
-          height: 32px;
-          margin-left: 10px;
-          border-radius: 5px;
-          color: #777;
-          border: none;
-          background-color: #e0e0e0;
-          font-size: 0.95em;
-        }
-        .checkOkBtn {
-          width: 75px;
-          height: 32px;
-          margin-left: 10px;
-          border-radius: 5px;
-          color: #444;
-          border: 1px solid #c1c1c1;
-          background-color: #fff;
-          font-size: 0.95em;
-          cursor: pointer;
-        }
-      }
-      .certificationTd {
-        display: flex;
-        .certificationInput {
-          width: 180px;
-          height: 34px;
-          border-right: none;
-          box-sizing: border-box;
-        }
       }
     }
   }
-  .goFindPassBtn {
+  .changePassBtn {
     width: 200px;
     height: 46px;
     color: #fff;
@@ -119,7 +84,8 @@
     margin-top: 50px;
     cursor: pointer;
   }
-  .findPassBtn {
+
+  .disabledFindIdBtn {
     width: 200px;
     height: 46px;
     color: #777;
