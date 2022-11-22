@@ -27,7 +27,13 @@ const Join = () => {
   const [same, setSame] = useState('');
   //이메일
   const [email, setEmail] = useState('');
-  const [isEmailWrong, setIsEmailWrong] = useState('');
+  const [isEmailWrong, setIsEmailWrong] = useState(false);
+
+  //회원가입 버튼 활성화 여부
+  const [isDisabledBtn, setIsDisabledBtn] = useState(true);
+
+  //회원가입 성공 여부
+  const [success, setSuccess] = useState('');
 
   //0. 알림 모달창
   const [alertModal, setAlertModal] = useState(false);
@@ -161,12 +167,113 @@ const Join = () => {
     const phoneRegex = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/;
 
     if (!phoneRegex.test(e.target.value)) {
-      setIsEmailWrong(true);
-    } else {
       setIsEmailWrong(false);
+    } else {
+      setIsEmailWrong(true);
     }
     setEmail(e.target.value);
   };
+
+  //회원가입 버튼 활성화 판단
+  useEffect(() => {
+    if (
+      birthValue &&
+      phoneNumValue &&
+      nameValue &&
+      id &&
+      pass &&
+      checkPass &&
+      email &&
+      isBirthWrong === false &&
+      isPhoneWrong === false &&
+      isIdWrong === false &&
+      passId === true &&
+      checkPassRegex === true &&
+      checkPassAgainRegex === true &&
+      same == 'same' &&
+      isEmailWrong === true
+    ) {
+      setIsDisabledBtn(false);
+    } else if (
+      !birthValue ||
+      !phoneNumValue ||
+      !nameValue ||
+      !id ||
+      !pass ||
+      !checkPass ||
+      !email ||
+      isBirthWrong === true ||
+      isPhoneWrong === true ||
+      isIdWrong === true ||
+      passId === false ||
+      checkPassRegex === false ||
+      checkPassAgainRegex === false ||
+      same !== 'same' ||
+      isEmailWrong === false
+    ) {
+      setIsDisabledBtn(true);
+    }
+  }, [
+    birthValue,
+    phoneNumValue,
+    id,
+    pass,
+    checkPass,
+    email,
+    isBirthWrong,
+    isPhoneWrong,
+    isIdWrong,
+    passId,
+    checkPassRegex,
+    checkPassAgainRegex,
+    same,
+    isEmailWrong,
+  ]);
+
+  //회원가입 버튼 클릭
+  const join = () => {
+    if (passId === false) {
+      openAlertModal();
+    } else {
+      fetch('http://localhost:8000/users/userID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          birthday: birthValue,
+          phone_number: phoneNumValue,
+          account_id: id,
+          password: pass,
+          passwordForCheck: checkPass,
+          email: email,
+          name: nameValue,
+        }),
+      })
+        .then(response => response.json())
+        .then(json => {
+          let result = json.message;
+          if (result.includes('SIGNED UP')) {
+            setSuccess('성공');
+            openAlertModal();
+            setTimeout(function () {
+              window.location.href = '/';
+            }, 3000);
+          } else {
+            setSuccess('실패');
+            openAlertModal();
+          }
+        });
+    }
+  };
+
+  const tryIdCheck = [{ id: 1, message: '아이디 중복확인을 진행해 주세요' }];
+
+  const successJoin = [
+    { id: 1, message: '회원가입이 완료되었습니다.' },
+    { id: 2, message: '3초 후에 메인페이지로 이동됩니다.' },
+  ];
+  const failJoin = [{ id: 1, message: '다시 시도해주세요.' }];
 
   return (
     <div className={css.joinWrap}>
@@ -181,6 +288,27 @@ const Join = () => {
             closeAlertModal={closeAlertModal}
             messages={failpassIdMessage}
           />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        passId === false ? (
+          <AlertModal closeAlertModal={closeAlertModal} messages={tryIdCheck} />
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        success == '성공' ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={successJoin}
+          />
+        ) : (
+          <AlertModal closeAlertModal={closeAlertModal} messages={failJoin} />
         )
       ) : (
         <></>
@@ -310,16 +438,27 @@ const Join = () => {
                 placeholder="이메일 주소를 입력해 주세요"
                 onChange={handleEmail}
               />
-              {isEmailWrong && (
-                <p className={css.warning}>
-                  올바른 이메일 형식으로 입력해주세요.
-                </p>
+              {!isEmailWrong ? (
+                email.length > 0 ? (
+                  <p className={css.warning}>
+                    올바른 이메일 형식으로 입력해주세요.
+                  </p>
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
               )}
             </td>
           </tr>
         </tbody>
       </table>
-      <button className={css.disjoinBtn}>회원가입</button>
+      <button
+        className={isDisabledBtn ? `${css.disjoinBtn}` : `${css.joinBtn}`}
+        disabled={isDisabledBtn}
+      >
+        회원가입
+      </button>
     </div>
   );
 };
