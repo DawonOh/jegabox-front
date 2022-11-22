@@ -8,6 +8,7 @@ import TimeTable from '../pages/TimeTable/TimeTable';
 import Userfind from './Login/Userfind/Userfind';
 import DetailPage from './DetailPage/DetailPage';
 import Booking from './Booking/Booking';
+import Join from './Join/Join';
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/timetable" element={<TimeTable />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/detail" element={<DetailPage />} />
+        <Route path="/join" element={<Join />} />
       </Routes>
     </BrowserRouter>
   );

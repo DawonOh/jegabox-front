@@ -161,7 +161,9 @@ const LoginModal = ({ closeLogin }) => {
                   <span className={css.loginLink}>ID / PW 찾기</span>
                 </Link>
                 <div className={css.loginFindBoundary} />
-                <span className={css.loginLink}>회원가입</span>
+                <Link to="/join" className={css.loginLinkTag}>
+                  <span className={css.loginLink}>회원가입</span>
+                </Link>
               </div>
             </div>
           </div>

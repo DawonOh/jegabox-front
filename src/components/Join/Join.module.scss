@@ -1,0 +1,36 @@
+@mixin flexcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.userfindTitle {
+  @include flexcenter();
+  margin-top: 70px;
+  & h1 {
+    font-size: 1.7em;
+    color: #503396;
+    font-weight: 400;
+  }
+}
+.userfindBtn {
+  @include flexcenter();
+  margin-top: 40px;
+  & div {
+    width: 250px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #f5f5f5;
+    font-size: 0.95em;
+    cursor: pointer;
+  }
+  .on {
+    border: 1px solid #503396;
+    border-bottom: none;
+    color: #42326b;
+  }
+
+  .off {
+    border-bottom: 1px solid #503396;
+  }
+}
