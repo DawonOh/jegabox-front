@@ -1,5 +1,6 @@
 .cidebarMain {
   width: 200px;
+  height: 750px;
   border: 1.5px solid rgba(128, 128, 128, 0.195);
   border-radius: 15px;
 
@@ -23,9 +24,11 @@
     width: 200px;
     border-top: rgba(128, 128, 128, 0.101) 1px solid;
     border-bottom: rgba(128, 128, 128, 0.127) 1px solid;
+    font-size: 15px;
 
     .middleSpan {
-      margin-left: 8px;
+      margin-left: 14px;
+      font-weight: 600;
       color: #222222;
       &:hover {
         color: rgb(81, 135, 180);
@@ -43,7 +46,8 @@
     .whiteDivMargin {
       margin: 20px 0;
       .whiteCell {
-        margin: 5px 8px;
+        font-size: 15px;
+        margin: 5px 14px;
         color: rgb(102, 102, 102);
         &:hover {
           color: rgb(81, 135, 180);

@@ -9,8 +9,15 @@ function App({ processedArr, idx, idx2, idx3 }) {
   function onMouseOut() {
     setHoverCheck(false);
   }
+
+  function moveBooking() {
+    console.log(processedArr[idx][idx2][idx3]);
+  }
   return (
-    <div style={{ position: 'relative', width: '98px', height: '69px' }}>
+    <div
+      style={{ position: 'relative', width: '98px', height: '69px' }}
+      onClick={moveBooking}
+    >
       {hoverCheck && (
         <div className={css.onHover} onMouseOut={onMouseOut}></div>
       )}

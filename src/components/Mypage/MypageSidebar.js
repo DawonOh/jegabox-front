@@ -1,8 +1,14 @@
 import React from 'react';
 import BookingInfo from '../../components/Mypage/BookingInfo';
 import css from './MypageSidebar.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate();
+  function moveMovieStory() {
+    navigate('/mypage/moviestory');
+  }
+
   return (
     <div className={css.cidebarMain}>
       <div className={css.titleDiv}>나의 메가박스</div>
@@ -31,7 +37,7 @@ function App() {
           <div className={css.whiteCell}>MiL.K포인트</div>
         </div>
       </div>
-      <div className={css.middleDiv}>
+      <div className={css.middleDiv} onClick={moveMovieStory}>
         <span className={css.middleSpan}>나의 무비 스토리</span>
       </div>
       <div className={css.middleDiv}>

@@ -9,6 +9,7 @@
   .alert {
     font-size: 14px;
     margin: 15px 0;
+    color: rgba(128, 128, 128, 0.856);
   }
 
   .titleDiv {
@@ -38,13 +39,15 @@
   .alertDiv {
     width: 838px;
     height: 39px;
-    border: 1px solid rgb(241, 241, 241);
+    border: 1px solid rgb(218, 215, 215);
     border-radius: 8px;
     display: flex;
     align-items: center;
-    color: rgb(92, 147, 249);
+    color: rgba(0, 0, 0, 0.726);
+    font-weight: 600;
     margin: 60px 0 0 0;
     position: relative;
+    cursor: pointer;
     .alertSpan {
       margin: 0 15px;
     }
@@ -53,6 +56,17 @@
       position: absolute;
       right: 25px;
       color: gray;
+    }
+  }
+
+  .alertModal {
+    width: 840px;
+    margin: 0 0 50px 0;
+
+    .alertModalCell {
+      margin: 15px;
+      font-size: 15px;
+      line-height: 22px;
     }
   }
 }
