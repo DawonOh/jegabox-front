@@ -235,7 +235,7 @@ const Join = () => {
       setTryCheckId('none');
       openAlertModal();
     } else {
-      fetch('http://localhost:8000/users/userID', {
+      fetch('http://localhost:8000/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -259,6 +259,9 @@ const Join = () => {
             setTimeout(function () {
               window.location.href = '/';
             }, 3000);
+          } else if (result.includes('PHONE NUMBER')) {
+            setSuccess('전화번호오류');
+            openAlertModal();
           } else {
             setSuccess('실패');
             openAlertModal();
@@ -274,6 +277,8 @@ const Join = () => {
     { id: 2, message: '3초 후에 메인페이지로 이동됩니다.' },
   ];
   const failJoin = [{ id: 1, message: '다시 시도해주세요.' }];
+
+  const checkPhoneNum = [{ id: 1, message: '전화번호를 다시 확인해주세요.' }];
 
   return (
     <div className={css.joinWrap}>
@@ -324,7 +329,18 @@ const Join = () => {
       ) : (
         <></>
       )}
-
+      {alertModal ? (
+        success == '전화번호오류' ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={checkPhoneNum}
+          />
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
       <h1 className={css.joinTitle}>회원님 안녕하세요.</h1>
       <p className={css.joinTitleContent}>회원정보를 입력해주세요.</p>
       <table>
