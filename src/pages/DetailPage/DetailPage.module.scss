@@ -1,0 +1,122 @@
+.container {
+  .photo {
+    height: 520px;
+    width: 100vw;
+    background-color: rgb(0, 0, 0);
+
+    .head {
+      position: relative;
+      box-sizing: border-box;
+      width: 1100px;
+      height: 520px;
+      margin-left: auto;
+      margin-right: auto;
+
+      .title {
+        padding-top: 90px;
+        position: absolute;
+        color: rgb(255, 255, 255);
+        font-size: 46px;
+        top: 0;
+        z-index: 6;
+      }
+      .en_title {
+        padding-top: 155px;
+        position: absolute;
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        top: 0;
+        z-index: 6;
+      }
+      .bg_img {
+        width: 1100px;
+        height: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        z-index: 1;
+        position: relative;
+      }
+      .black {
+        width: 1100px;
+        height: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+      }
+
+      .poster {
+        padding-top: 55px;
+        position: absolute;
+        right: 0px;
+        width: 260px !important;
+        height: 374px !important;
+        border-radius: 10px;
+        z-index: 10;
+      }
+      .grade {
+        position: absolute;
+        width: 23px;
+        height: 23px;
+        right: 230px;
+        bottom: 435px;
+        z-index: 10;
+        border-radius: 2px;
+      }
+      .booking {
+        z-index: 4;
+        position: absolute;
+        width: 260px;
+        height: 41px;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        background-color: #319eb0;
+        font-weight: bold;
+        font-size: 17px;
+        color: white;
+        right: 0px;
+        bottom: 40px;
+      }
+    }
+  }
+  .info {
+    width: 1100px;
+    height: auto;
+    background-color: rgb(106, 176, 211);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+
+    .m_info {
+      border-top: solid 1px #503396 !important;
+    }
+    button {
+      width: 550px;
+      height: 41px;
+      background-color: #ffffff;
+      outline: none;
+      border: none;
+    }
+    .desc {
+      width: 1100px;
+      height: auto;
+      margin-top: 40px;
+      background-color: rgb(226, 255, 255);
+      border-bottom: 1px solid #d6d6d6;
+      padding: 30px 0px;
+    }
+
+    .infoContent {
+      width: 1100px;
+      height: auto;
+      background-color: rgb(231, 91, 198);
+      border-bottom: 1px solid #d6d6d6;
+      padding: 30px 0px;
+      font-weight: bold;
+    }
+  }
+}

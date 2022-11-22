@@ -3,6 +3,9 @@ import css from './Booking.module.scss';
 import DayBtn from '../../components/DayBtn/DayBtn';
 import SelectSeat from '../SelectSeat/SelectSeat';
 import MovieSche from '../../components/MovieSche/MovieSche';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import Footer from '../../components/Footer/Footer';
+import Ad from '../../components/Ad/Ad';
 function Booking() {
   let now = new Date();
   let year = now.getFullYear(); //year
@@ -164,6 +167,7 @@ function Booking() {
   };
   return (
     <div className={css.container}>
+      <PageHeader />
       <div className={css.innerWrap}>
         <h2>빠른 예매</h2>
         {disable && (
@@ -313,9 +317,11 @@ function Booking() {
               </div>
             </div>
             <div className={css.ad}>
-              <p>AD</p>
-              <img src="/image/jsop.png" alt="jsop" />
-              <h2>제이솝, 더 새로워진 제주 팝업 스토어에서 만나요</h2>
+              <Ad
+                link={'http://35.183.33.193:3000/'}
+                url={'/image/jsop.png'}
+                desc={'제이솝, 더 새로워진 제주 팝업 스토어에서 만나요'}
+              />
             </div>
           </div>
         )}
@@ -323,6 +329,7 @@ function Booking() {
           <SelectSeat userMovie={userMovie} setDisable={setDisable} />
         )}
       </div>
+      <Footer />
     </div>
   );
 }
