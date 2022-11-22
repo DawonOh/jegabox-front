@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import css from './Changepass.module.scss';
+import AlertModal from '../../../AlertModal/AlertModal';
 
 const Changepass = ({ id }) => {
   //비밀번호, 비밀번호 확인 input value
@@ -18,7 +19,7 @@ const Changepass = ({ id }) => {
   //입력받은 값이 조건에 맞는지 확인 여부
   const [checkRegex, setCheckRegex] = useState(false);
 
-  let token = localStorage.getItem('token');
+  let token = localStorage.getItem('passToken');
 
   const handlePass = e => {
     let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
@@ -64,10 +65,16 @@ const Changepass = ({ id }) => {
       .then(json => {
         if (json.code == 200) {
           setCode(json.code);
-          localStorage.removeItem('token');
+          openAlertModal();
+          localStorage.removeItem('passToken');
           localStorage.removeItem('code');
           localStorage.removeItem('id');
-          window.location.href = '/';
+          setTimeout(function () {
+            window.location.href = '/';
+          }, 3000);
+        } else {
+          openAlertModal();
+          setCode('');
         }
       });
   };
@@ -81,16 +88,33 @@ const Changepass = ({ id }) => {
   }, [pass, checkPass]);
   console.log(same);
 
-  //확인 버튼 활성화 판단
-  // useEffect(() => {
-  //   if (pass && checkPass && isPhoneWrong === false) {
-  //     setIsDisabledReqBtn(false);
-  //   } else if (id || nameValue || phoneNumValue || isPhoneWrong === false) {
-  //     setIsDisabledReqBtn(true);
-  //   }
-  // }, [id, nameValue, phoneNumValue, isPhoneWrong]);
+  //알림 모달창
+  const [alertModal, setAlertModal] = useState(false);
+  const openAlertModal = () => {
+    setAlertModal(true);
+  };
+  const closeAlertModal = () => {
+    setAlertModal(false);
+  };
+  const successSend = [
+    { id: 1, message: '비밀번호 변경이 완료되었습니다.' },
+    { id: 2, message: '3초 후에 메인페이지로 이동됩니다.' },
+  ];
+  const failSend = [{ id: 1, message: '잠시 후 다시 시도해주세요.' }];
   return (
     <div className={css.changePassWrap}>
+      {alertModal ? (
+        code == 200 ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={successSend}
+          />
+        ) : (
+          <AlertModal closeAlertModal={closeAlertModal} messages={failSend} />
+        )
+      ) : (
+        <></>
+      )}
       <h1>비밀번호 재설정</h1>
       <p className={css.infoMessage}>
         보안인증이 완료되었습니다. 새로 사용하실 비밀번호를 입력해주세요.
@@ -105,7 +129,7 @@ const Changepass = ({ id }) => {
             <th>새 비밀번호</th>
             <td>
               <input
-                type="text"
+                type="password"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
                 onChange={handlePass}
                 maxLength="16"
@@ -116,7 +140,7 @@ const Changepass = ({ id }) => {
             <th>새 비밀번호 확인</th>
             <td>
               <input
-                type="text"
+                type="password"
                 placeholder="영문,숫자,특수기호 중 2가지 이상 조합"
                 onChange={handleCheckPass}
                 maxLength="16"
