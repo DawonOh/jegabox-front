@@ -77,7 +77,6 @@ const Passfind = () => {
     const numRegex = /[0-9]/;
 
     if (numRegex.test(e.target.value)) {
-      console.log('인증번호 받은 값 저장 완료!');
       setCheckRandomNum(e.target.value);
       setDisabledCheckBtn(true);
     } else {
@@ -117,7 +116,6 @@ const Passfind = () => {
 
   //입력받은 정보가 맞는지 확인 / 맞으면 타이머 시작 / 인증번호 문자 전송
   const sendInfo = () => {
-    console.log('sendInfo 작동');
     fetch('http://localhost:8000/users/validateNumber', {
       method: 'POST',
       headers: {
@@ -132,7 +130,6 @@ const Passfind = () => {
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
-          console.log('인증번호 받아오기 성공!');
           setId(json.userID);
           setStartTimer(startTimerFunc);
           setTryAgain(true);
@@ -141,7 +138,6 @@ const Passfind = () => {
           openAlertModal();
           return;
         } else {
-          console.log('인증번호 받아오기 실패..');
           setStartTimer(false);
           setIsSame('none');
           openAlertModal();
@@ -159,7 +155,6 @@ const Passfind = () => {
   const timerId = useRef(null);
   useEffect(() => {
     if (startTimer === true) {
-      console.log('타이머 시작!');
       timerId.current = setInterval(() => {
         if (sec > 0) {
           setSec(sec - 1);
@@ -174,7 +169,6 @@ const Passfind = () => {
         time.current -= 1;
       }, 1000);
       return () => {
-        console.log('타이머 끝!');
         clearInterval(timerId.current);
       };
     }
@@ -182,7 +176,6 @@ const Passfind = () => {
 
   useEffect(() => {
     if (time.current <= 0) {
-      console.log('타이머 초기화!');
       setMin(3);
       setSec(0);
       clearInterval(timerId.current);
@@ -208,13 +201,11 @@ const Passfind = () => {
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
-          console.log('재전송버튼 클릭!');
           setMin(3);
           setSec(0);
           setStartTimer(true);
           setDisabledInput(false);
           setTimeout(false);
-          console.log(time.current);
           openAlertModal();
         }
       });
@@ -234,15 +225,12 @@ const Passfind = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log('Result : ', json);
         if (json.code == 200) {
-          console.log('인증번호 통과!');
           setCode(json.code);
           setIsDisabledBtn(false);
           openAlertModal();
           return;
         } else {
-          console.log('인증번호 통과못함..');
           setCode('');
           setIsDisabledReqBtn(false);
         }
@@ -259,25 +247,6 @@ const Passfind = () => {
   };
 
   const passMessage = [{ id: 1, message: '휴대폰 인증을 완료했습니다.' }];
-
-  //비밀번호 변경
-  //input 2개 value, header에 token넣기
-  //method : PATCH
-  //body : password, passwordForCheck
-  //uri : http://localhost:8000/users/password1
-
-  console.log('인증요청 -> 재전송 버튼 변경 여부(tryAgain) : ', tryAgain);
-  console.log(
-    '인증번호 input disabled 여부(isDisabledInput) : ',
-    isDisabledInput
-  );
-  console.log(
-    '인증확인 버튼 disabled(!isDisabledCheckBtn) : ',
-    !isDisabledCheckBtn
-  );
-  console.log('비밀번호 찾기 버튼 disabled(isDisabledBtn) : ', isDisabledBtn);
-  console.log('타이머 시작 여부(startTimer) : ', startTimer);
-  console.log('==================================================');
 
   return (
     <div className={css.passFindWrap}>
