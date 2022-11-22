@@ -203,6 +203,15 @@ function App() {
           );
         })}
       </div>
+
+      <div className={css.ad}>
+        <p>AD</p>
+        <a href="http://54.180.151.218:3000/">
+          <img src="/image/photo.png" alt="jsop" />
+        </a>
+        <h2>누구나 작가가 될 수 있다고 생각합니까? 될 수 있으니 각오해라</h2>
+      </div>
+
       <PageFooter />
     </>
   );

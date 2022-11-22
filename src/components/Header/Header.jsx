@@ -14,6 +14,7 @@ import GlassDropdown from './GlassDropDown/GlassDropdown';
 import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
+
 function Header() {
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
@@ -139,7 +140,7 @@ function Header() {
                         : 'none',
                     }}
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
-                    to={'/login'}
+                    to={'/movie'}
                   >
                     영화
                   </Link>
@@ -159,7 +160,7 @@ function Header() {
                 <div onMouseOver={showUnderMenu2} onMouseOut={closeUnderMenu2}>
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
-                    to={'/login'}
+                    to={'/booking'}
                     style={{
                       borderBottom: validUnderMenu2
                         ? '2px solid white'
@@ -218,7 +219,11 @@ function Header() {
             </div>
             <div className={css.mainMenuBarColumn}>
               <li className={css.mainMenuBar}>
-                <div onMouseOver={showUnderMenu4} onMouseOut={closeUnderMenu4}>
+                <div
+                  className={css.tie}
+                  onMouseOver={showUnderMenu4}
+                  onMouseOut={closeUnderMenu4}
+                >
                   <Link
                     className={`${css.linkToWhere} ${css.menuMargin2}`}
                     to={'/login'}

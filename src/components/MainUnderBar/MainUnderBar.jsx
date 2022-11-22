@@ -4,7 +4,9 @@ import { BiSearch } from 'react-icons/bi';
 import { IoCalendarOutline } from 'react-icons/io5';
 import { MdLocalMovies } from 'react-icons/md';
 import { IoTicketOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 const MainUnderBar = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className={css.mainUnderBarWhole}>
@@ -15,7 +17,9 @@ const MainUnderBar = () => {
         </div>
         <div className={css.boxes}>
           <IoCalendarOutline className={css.icon} />
-          <span className={css.title}>상영시간표</span>
+          <span className={css.title} onClick={() => navigate('/timetable')}>
+            상영시간표
+          </span>
         </div>
         <div className={css.boxes}>
           <MdLocalMovies className={css.icon} />
@@ -23,7 +27,9 @@ const MainUnderBar = () => {
         </div>
         <div className={css.boxes}>
           <IoTicketOutline className={css.icon} />
-          <span className={css.title}>빠른예매</span>
+          <span className={css.title} onClick={() => navigate('/booking')}>
+            빠른예매
+          </span>
         </div>
       </div>
     </div>

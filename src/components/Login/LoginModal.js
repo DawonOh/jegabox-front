@@ -11,10 +11,11 @@ const LoginModal = ({ closeLogin }) => {
   //로그인 여부 상태값
   const [isLogin, setIsLogin] = useState(false);
 
-  //아이디 저장
-  // const [id, setId] = useState('');
-  // const [isRemember, setIsRemember] = useState(false);
-  // const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
+  //체크박스 클릭 여부
+  const [isRemember, setIsRemember] = useState(false);
+
+  //쿠키 이름
+  const [cookies, setCookie, removeCookie] = useCookies(['rememberId']);
 
   //로그인 모달 띄우는 기준 나누기 위한 상태값
   const [check, setCheck] = useState(true);
@@ -29,6 +30,25 @@ const LoginModal = ({ closeLogin }) => {
   };
   const getPwValue = e => {
     setPwValue(e.target.value);
+  };
+
+  //처음 렌더링 시 쿠키 확인
+  useEffect(() => {
+    //쿠키값이 있다면?
+    if (cookies.rememberId !== undefined) {
+      setIdValue(cookies.rememberId);
+      setIsRemember(true);
+    }
+  }, []);
+
+  //아이디 저장 클릭할 때 실행될 함수
+  const handleOnChange = e => {
+    setIsRemember(e.target.check);
+    if (isRemember === false) {
+      setIsRemember(true);
+    } else {
+      setIsRemember(false);
+    }
   };
 
   //아이디,비밀번호 둘 다 값이 존재해야 로그인 버튼 활성화
@@ -52,8 +72,11 @@ const LoginModal = ({ closeLogin }) => {
       .then(res => res.json())
       .then(json => {
         if (json.token) {
-          console.log('로그인 통과');
           localStorage.setItem('token', json.token);
+          setCookie('rememberId', idValue);
+          if (!isRemember) {
+            removeCookie('rememberId');
+          }
           setIsLogin(true);
           closeLogin();
         } else {
@@ -73,24 +96,6 @@ const LoginModal = ({ closeLogin }) => {
   const closeAlertModal = () => {
     setAlertModal(false);
   };
-
-  //쿠키 - 아이디 가져오기
-  // useEffect(() => {
-  //   if (cookies.rememberId !== undefined) {
-  //     setId(cookies.rememberId);
-  //     setIsRemember(true);
-  //   }
-  // }, []);
-
-  //아이디 저장 클릭할 때 실행될 함수
-  // const handleOnChange = e => {
-  //   setIsRemember(e.target.check);
-  //   if (e.target.check) {
-  //     setCookie('rememberId', idValue, { maxAge: 2592000 });
-  //   } else {
-  //     removeCookie('rememberId');
-  //   }
-  // };
 
   //알림창 모달 메세지
   const message = [
@@ -119,6 +124,7 @@ const LoginModal = ({ closeLogin }) => {
                 className={css.loginInputStyle}
                 ref={idInput}
                 onChange={getIdValue}
+                defaultValue={idValue}
               />
               <input
                 type="password"
@@ -128,16 +134,18 @@ const LoginModal = ({ closeLogin }) => {
                 onChange={getPwValue}
               />
             </div>
-            {/* <label htmlFor="saveIdRadio" className={css.loginCheckboxArea}>
+            <label htmlFor="saveIdRadio" className={css.loginCheckboxArea}>
               <input
                 type="checkbox"
                 name="saveIdRadio"
                 className={css.loginChekboxStyle}
-                defaultChecked={isRemember}
-                onChange={handleOnChange}
+                onChange={e => {
+                  handleOnChange(e);
+                }}
+                checked={isRemember}
               />
               아이디 저장
-            </label> */}
+            </label>
             <button
               className={
                 !disabled ? `${css.loginBtn}` : `${css.disabledLoginBtn}`
@@ -149,7 +157,7 @@ const LoginModal = ({ closeLogin }) => {
             </button>
             <div className={css.loginFindInfo}>
               <div className={css.loginFIndInfoCenter}>
-                <Link to={'/userfind'}>
+                <Link to={'/userfind'} className={css.loginLinkTag}>
                   <span className={css.loginLink}>ID / PW 찾기</span>
                 </Link>
                 <div className={css.loginFindBoundary} />
