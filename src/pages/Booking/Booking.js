@@ -6,7 +6,8 @@ import MovieSche from '../../components/MovieSche/MovieSche';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Footer from '../../components/Footer/Footer';
 import Ad from '../../components/Ad/Ad';
-function Booking() {
+
+function Booking({ movie }) {
   let now = new Date();
   let year = now.getFullYear(); //year
   let todayMonth = now.getMonth() + 1; //month
@@ -24,6 +25,13 @@ function Booking() {
   const [user_date, setDate] = useState(today);
   const [data, setData] = useState([]);
   const [userMovie, setUserMv] = useState({});
+
+  useEffect(() => {
+    if (movie) {
+      setUserMv(movie);
+      setDisable(false);
+    }
+  }, []);
   //보류 사용
   useEffect(() => {
     fetch('http://127.0.0.1:8000/booking/', {
@@ -56,7 +64,6 @@ function Booking() {
       })
         .then(res => res.json())
         .then(res => {
-          console.log(res);
           setData(res);
         });
     }

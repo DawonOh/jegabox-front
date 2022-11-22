@@ -14,6 +14,7 @@ import GlassDropdown from './GlassDropDown/GlassDropdown';
 import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
+import LoginModal from '../../components/Login/LoginModal';
 
 function Header() {
   const [validSearch, setValidSearch] = useState(false);
@@ -26,6 +27,16 @@ function Header() {
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
 
   const [ValidMember, setValidMember] = useState(false);
+
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  // 모달창 여는 함수
+  const openLogin = () => {
+    setOpenLoginModal(true);
+  };
+  // 모달창 닫는 함수
+  const closeLogin = () => {
+    setOpenLoginModal(false);
+  };
   function showUnderMenu1() {
     setValidUnderMenu1(true);
   }
@@ -92,7 +103,8 @@ function Header() {
               <span>고객센터</span>
             </div>
             <div className={css.memberBar}>
-              <span>로그인</span>
+              <span onClick={openLogin}>로그인</span>
+              {openLoginModal && <LoginModal closeLogin={closeLogin} />}
               <span>회원가입</span>
               <span>빠른예매</span>
             </div>

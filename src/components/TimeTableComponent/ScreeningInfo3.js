@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import css from './ScreeningInfo3.module.scss';
-
+import { useNavigate, Link } from 'react-router-dom';
 function App({ processedArr, idx, idx2, idx3 }) {
   const [hoverCheck, setHoverCheck] = useState(false);
   function onMouseOver() {

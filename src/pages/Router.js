@@ -5,9 +5,13 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import WholeMovie from './WholeMovie/WholeMovie';
 import TimeTable from '../pages/TimeTable/TimeTable';
+<<<<<<< HEAD
 import Mypage from '../pages/Mypage/Mypage';
 import MovieStory from '../pages/MypageMovieStory/MypageMovieStory';
 
+=======
+import Userfind from './Login/Userfind/Userfind';
+>>>>>>> develop
 import DetailPage from './DetailPage/DetailPage';
 import Booking from './Booking/Booking';
 
@@ -18,6 +22,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/userfind" element={<Userfind />} />
         <Route path="/movie" element={<WholeMovie />} />
         <Route path="/timetable" element={<TimeTable />} />
         <Route path="/booking" element={<Booking />} />

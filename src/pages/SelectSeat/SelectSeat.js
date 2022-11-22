@@ -9,7 +9,6 @@ function SelectSeat({ userMovie, setDisable }) {
 
   const navigate = useNavigate();
   let totalNum = adult + child;
-  let user_seat = [];
   let [hour, minute] = userMovie.seats.time.split(':');
   let time = Number(hour) * 60 + Number(minute) + userMovie.movie_time;
   let f_time = String(Math.floor(time / 60)) + ':' + String(time % 60);
@@ -89,15 +88,17 @@ function SelectSeat({ userMovie, setDisable }) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify({
         showtime_id: userMovie.id,
         seat_count_adult: adult,
         seat_count_child: child,
         price: pay,
-        seat_name: user_seat,
+        seat_name: s_seat,
       }),
     });
+    navigate('/');
   };
   const prtbtn = (num, setFunc) => {
     return (
@@ -198,6 +199,8 @@ function SelectSeat({ userMovie, setDisable }) {
             <div className={css.selectedSeat}>{prtS_seats()}</div>
           </div>
         </div>
+        <div className={css.child_area}>청소년:{child}</div>
+        <div className={css.adult_area}>어른:{adult}</div>
         <div className={css.pay_area}>
           <span className={css.total_money}>최종결제금액</span>{' '}
           <span className={css.price}>
