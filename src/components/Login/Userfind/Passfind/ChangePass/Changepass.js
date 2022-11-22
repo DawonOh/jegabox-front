@@ -23,11 +23,11 @@ const Changepass = ({ id }) => {
 
   const handlePass = e => {
     setPass(e.target.value);
-    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
-    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,16}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,16}$/.test(
       e.target.value
     );
-    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,16}$/.test(e.target.value);
     if (!(check1 || check2 || check3)) {
       setCheckRegex(false);
     } else {
@@ -37,11 +37,11 @@ const Changepass = ({ id }) => {
 
   const handleCheckPass = e => {
     setCheckPass(e.target.value);
-    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
-    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,16}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,16}$/.test(
       e.target.value
     );
-    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,16}$/.test(e.target.value);
     if (!(check1 || check2 || check3)) {
       setCheckRegex(false);
     } else {
