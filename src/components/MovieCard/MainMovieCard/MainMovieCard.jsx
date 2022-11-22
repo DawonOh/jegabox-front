@@ -2,19 +2,20 @@ import React from 'react';
 import css from './MainMovieCard.module.scss';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
+import age from '../../../img/12.png';
 const MainMovieCard = () => {
   return (
     <>
       <div className={css.cardWhole}>
         <span className={css.cardNumber}>1</span>
         <div className={css.img}>
-          <img src="https://ifh.cc/g/y9vG5f.jpg" />
+          <img className={css.moviePoster} src="https://ifh.cc/g/y9vG5f.jpg" />
         </div>
         <div className={css.movieInformation}>
-          <img src="" />
+          <img className={css.age} src={age} />
           <span className={css.movieTitle}>올빼미</span>
         </div>
-        <div className={css.movieInfor}>
+        <div className={css.movieInfo}>
           <div className={css.moviePeople}>
             관객수 <span>12.2k</span>
           </div>

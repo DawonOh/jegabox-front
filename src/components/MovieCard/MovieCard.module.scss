@@ -10,15 +10,27 @@
     color: white;
     font-size: 40px;
   }
-  img {
-    margin-top: 32px;
-    width: 240px;
-    height: 344px;
+  .img {
+    .story {
+      display: inline-block;
+      padding-right: 5px;
+
+      top: 50px;
+      left: 30px;
+      position: absolute;
+      color: white;
+    }
+    img {
+      border-radius: 10px;
+      margin-top: 32px;
+      width: 240px;
+      height: 344px;
+      &:hover {
+        filter: brightness(0.3);
+      }
+    }
   }
 
-  img {
-    border-radius: 10px;
-  }
   .underImg {
     margin-top: 10px;
     width: 240px;
@@ -34,7 +46,7 @@
       border: 1px solid gray;
       color: white;
       span {
-        top: 10px;
+        top: 8px;
         position: absolute;
         left: 40px;
       }
@@ -52,6 +64,9 @@
     }
 
     .reservation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
       width: 65%;
       font-size: 16px;
@@ -59,16 +74,19 @@
       text-align: center;
       background-color: rgb(2 123 148);
       text-decoration: none;
-      height: 32px;
+      height: 35px;
 
       border-radius: 3px;
       color: white;
       span {
-        left: 63px;
+        // left: 63px;
         font-size: 15px;
-        position: absolute;
-        top: 10px;
+        // position: absolute;
+        // top: 10px;
       }
     }
   }
+}
+.none {
+  display: none;
 }
