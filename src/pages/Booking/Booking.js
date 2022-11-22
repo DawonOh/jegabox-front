@@ -43,10 +43,12 @@ function Booking() {
 
   useEffect(() => {
     if (cinemaIds.length > 0) {
+      const token = localStorage.getItem('token');
       fetch('http://127.0.0.1:8000/booking/movie-cinema', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          authorization: token,
         },
         body: JSON.stringify({
           date: user_date,

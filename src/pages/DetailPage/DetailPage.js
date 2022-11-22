@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './DetailPage.module.scss';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Footer from '../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 function DetailPage() {
   const [onDesc, setOnDesc] = useState(true);
+  const [comment, setComment] = useState('');
+  const [rate, setRate] = useState(0);
   const navigate = useNavigate();
+  const commentValue = useRef();
+  const rateNum = useRef();
+  const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const data = [
     {
       id: 1,
@@ -31,6 +36,24 @@ function DetailPage() {
   ];
   const prtGrade = grade => {
     return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
+  };
+  const sendComment = () => {
+    const token = localStorage.getItem('token');
+    fetch('http://127.0.0.1:8000/comments/addComment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+      body: JSON.stringify({
+        movie_id: data[0].id,
+        rate: rate,
+        comment: comment,
+      }),
+    });
+    setRate(0);
+    commentValue.current.value = '';
+    rateNum.current.value = '';
   };
 
   return (
@@ -121,10 +144,25 @@ function DetailPage() {
               <p>MEGA_BOX</p>
             </div>
             <div className={css.write_zone}>
+              <select
+                className={css.rate_area}
+                ref={rateNum}
+                onChange={e => setRate(e.target.value)}
+              >
+                {nums.map((num, idx) => (
+                  <option key={idx} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
               <input
+                ref={commentValue}
+                onChange={e => setComment(e.target.value)}
                 placeholder={`${data[0].ko_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.`}
-              ></input>
-              <button className={css.submit}>관람평 쓰기</button>
+              />
+              <button className={css.submit} onClick={sendComment}>
+                관람평 쓰기
+              </button>
             </div>
           </div>
         </div>
