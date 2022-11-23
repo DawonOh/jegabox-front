@@ -165,6 +165,10 @@
       }
     }
   }
+  .changeInfoBtns {
+    margin: 0 auto;
+    margin-top: 50px;
+  }
   .cancleBtn {
     width: 85px;
     height: 42px;
@@ -183,11 +187,6 @@
     border: none;
     border-radius: 3px;
     background-color: #42326b;
-    margin-top: 50px;
     cursor: pointer;
-  }
-  .changeInfoBtns {
-    margin: 0 auto;
-    margin-top: 50px;
   }
 }
