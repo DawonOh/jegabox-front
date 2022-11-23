@@ -146,9 +146,9 @@ const Passfind = () => {
       });
   };
 
-  const startTimerFunc = () => {
-    setStartTimer(true);
-  };
+  // const startTimerFunc = () => {
+  //   setStartTimer(true);
+  // };
 
   // 타이머
   const time = useRef(180);
