@@ -1,0 +1,61 @@
+.mainDiv {
+  margin: 20px 0;
+  .outArea {
+    margin: 10px 0;
+  }
+
+  .bookingInfo {
+    width: 840px;
+    height: 300px;
+    border: 2px solid rgba(128, 128, 128, 0.261);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .imgDiv {
+      width: 180px;
+      height: 250px;
+    }
+
+    .infoDiv {
+      width: 600px;
+      height: 250px;
+      margin: 0 0 0 20px;
+
+      .infoCell {
+        width: 580px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        .elemValue {
+          margin: 0 0 0 15px;
+        }
+
+        .infoCellSingle {
+          margin: 0 0 0 20px;
+        }
+
+        .infoCellLeft {
+          width: 300px;
+          margin: 0 20px;
+          display: flex;
+          align-items: center;
+        }
+
+        .infoCellRight {
+          margin: 0 20px;
+        }
+      }
+
+      .infoBtnDiv {
+        justify-content: flex-end;
+        margin: 15px 0 0 0;
+
+        .infoBtn {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}

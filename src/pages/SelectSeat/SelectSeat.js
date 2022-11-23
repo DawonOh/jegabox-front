@@ -97,8 +97,11 @@ function SelectSeat({ userMovie, setDisable }) {
         price: pay,
         seat_name: s_seat,
       }),
-    });
-    navigate('/');
+    })
+      .then(res => res.json(res))
+      .then(data => {
+        if (data.message === '예매완료') navigate('/mypage');
+      });
   };
   const prtbtn = (num, setFunc) => {
     return (

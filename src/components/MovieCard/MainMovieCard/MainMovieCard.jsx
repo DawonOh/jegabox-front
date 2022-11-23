@@ -1,32 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './MainMovieCard.module.scss';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import age from '../../../img/12.png';
-const MainMovieCard = () => {
+import age12 from '../../../img/12.png';
+import age15 from '../../../img/15.png';
+import age18 from '../../../img/18.png';
+import ageAll from '../../../img/all.png';
+import { useState } from 'react';
+const MainMovieCard = props => {
+  const { id, img, cnt, description, date, title, age, viewer } = props;
+  const [grade, setGrade] = useState('');
+  const [story, setStory] = useState(false);
+  const makeStory = () => {
+    setStory(true);
+  };
+  const outStory = () => {
+    setStory(false);
+  };
+
+  useEffect(() => {
+    if (age == '12세이상관람가') {
+      setGrade(age12);
+    } else if (age == '15세이상관람가') {
+      setGrade(age15);
+    } else if (age == '18세이상관람가') {
+      setGrade(age18);
+    } else {
+      setGrade(ageAll);
+    }
+  }, []);
+
   return (
     <>
       <div className={css.cardWhole}>
-        <span className={css.cardNumber}>1</span>
+        <span className={css.cardNumber}>{id}</span>
         <div className={css.img}>
-          <img className={css.moviePoster} src="https://ifh.cc/g/y9vG5f.jpg" />
+          <img
+            className={css.moviePoster}
+            onMouseOut={outStory}
+            onMouseOver={makeStory}
+            src={img}
+          />
+          <span className={story ? `${css.story}` : `${css.none}`}>
+            {description}
+          </span>
         </div>
         <div className={css.movieInformation}>
-          <img className={css.age} src={age} />
-          <span className={css.movieTitle}>올빼미</span>
+          <img className={css.age} src={grade} />
+          <span className={css.movieTitle}>{title}</span>
         </div>
         <div className={css.movieInfo}>
           <div className={css.moviePeople}>
-            관객수 <span>12.2k</span>
+            관객수 <span>{viewer}</span>
           </div>
           <div className={css.movieDate}>
-            개봉일 <span>2022.11.27</span>
+            개봉일 <span>{date}</span>
           </div>
         </div>
         <div className={css.underImg}>
           <div className={css.movieLike}>
             <AiOutlineHeart className={css.heart} />
-            <span>245</span>
+            <span>{cnt}</span>
           </div>
           <div className={css.reservation}>
             <span>예매</span>
