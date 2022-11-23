@@ -14,9 +14,9 @@ function Main() {
       <div className={css.ad}>
         <p>AD</p>
         <a href="http://54.180.128.213:3000/">
-          <img src="/image/market.png" alt="jsop" />
+          <img style={{ height: '120px' }} src="/image/market.png" alt="jsop" />
         </a>
-        <h2> 먹거리 쇼핑은 어디? 구멍마켓</h2>
+        <h2> 드루와 구멍으로 드루와</h2>
       </div>
       <Footer />
     </>

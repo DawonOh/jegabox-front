@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './MainComponent.module.scss';
 import MovieCard from '../MovieCard/MovieCard';
 import { BsPlusLg } from 'react-icons/bs';
+
 import MainUnderBar from '../MainUnderBar/MainUnderBar';
 const MainComponent = () => {
+  const [movieArray, setMovieArray] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:8000/movie/main')
+      .then(res => res.json())
+
+      .then(res => setMovieArray(res.data));
+  }, []);
   return (
     <>
       <div className={css.coverblack}>
@@ -17,10 +25,17 @@ const MainComponent = () => {
             </span>
           </div>
           <div className={css.moviecards}>
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {movieArray.map(movie => {
+              return (
+                <MovieCard
+                  key={movie.id}
+                  id={movie.id}
+                  img={movie.movie_poster}
+                  cnt={movie.cnt}
+                  description={movie.description}
+                />
+              );
+            })}
           </div>
           <div>
             <MainUnderBar />

@@ -11,6 +11,7 @@
   }
 }
 .movieWhole {
+  cursor: pointer;
   margin: auto;
   width: 1100px;
 
@@ -32,7 +33,7 @@
       height: 36px;
       width: 180px;
       .myname {
-        font-weight: 900;
+        font-size: 900;
         color: rgb(52 163 183);
       }
     }
@@ -94,7 +95,7 @@
 .cardList {
   display: flex;
   flex-wrap: wrap;
-  height: 3000px;
+  height: 2000px;
   width: 1100px;
   margin: auto;
 }
