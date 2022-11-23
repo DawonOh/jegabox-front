@@ -7,10 +7,34 @@ import age15 from '../../../img/15.png';
 import age18 from '../../../img/18.png';
 import ageAll from '../../../img/all.png';
 import { useState } from 'react';
+import { AiFillHeart } from 'react-icons/ai';
 const MainMovieCard = props => {
-  const { id, img, cnt, description, date, title, age, viewer } = props;
+  const [like, setlike] = useState(false);
+  const [likeNum, setLikeNum] = useState(1);
+  const { id, img, cnt, description, date, title, age, viewer, onClick } =
+    props;
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
+  const [movieArray, setMovieArray] = useState([]);
+  // useEffect(() => {
+  //   //fetch('http://localhost:8000/movie/main');
+  //   fetch('/data/mainMovie.json')
+  //     .then(res => res.json())
+  //     .then(res => setMovieArray(res.mainMovie));
+  //   // .then(res => setMovieArray(res.data));
+  // }, []);
+  const sendMovieInfo = () => {
+    console.log(movieArray);
+  };
+  const makeLikeNum = () => {
+    setLikeNum(likeNum + 1);
+    if (likeNum % 2 == 0) {
+      console.log(likeNum);
+      setlike(false);
+    }
+    if (likeNum % 2 == 1) setlike(true);
+    console.log(likeNum);
+  };
   const makeStory = () => {
     setStory(true);
   };
@@ -40,6 +64,7 @@ const MainMovieCard = props => {
             onMouseOut={outStory}
             onMouseOver={makeStory}
             src={img}
+            onClick={onclick}
           />
           <span className={story ? `${css.story}` : `${css.none}`}>
             {description}
@@ -58,8 +83,15 @@ const MainMovieCard = props => {
           </div>
         </div>
         <div className={css.underImg}>
-          <div className={css.movieLike}>
-            <AiOutlineHeart className={css.heart} />
+          <div className={css.movieLike} onClick={makeLikeNum}>
+            {like ? (
+              <AiFillHeart
+                style={{ color: 'rgb(2 123 148)' }}
+                className={like ? `${css.heart}` : `${css.none}`}
+              />
+            ) : (
+              <AiOutlineHeart className={css.heart} />
+            )}
             <span>{cnt}</span>
           </div>
           <div className={css.reservation}>

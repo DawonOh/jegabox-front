@@ -13,7 +13,9 @@ const PlanningMovie = () => {
   const navigate = useNavigate();
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/movie/comingsoon')
+    fetch('http://localhost:8000/movie/comingsoon', {
+      method: 'POST',
+    })
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);
@@ -73,13 +75,13 @@ const PlanningMovie = () => {
         </div>
       </div>
       <div className={css.cardList}>
-        {movieArray.map(movie => {
+        {movieArray.map((movie, i) => {
           return (
             <MainMovieCard
               age={movie.grade}
               title={movie.ko_title}
               key={movie.id}
-              id={movie.id}
+              id={i + 1}
               img={movie.movie_poster}
               cnt={movie.cnt}
               description={movie.description}

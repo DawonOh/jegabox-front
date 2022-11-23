@@ -15,8 +15,10 @@ import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
 import LoginModal from '../../components/Login/LoginModal';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
 
@@ -26,6 +28,9 @@ function Header() {
   const [validUnderMenu4, setValidUnderMenu4] = useState(false);
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
 
+  const clickJoin = () => {
+    navigate('/join');
+  };
   const [ValidMember, setValidMember] = useState(false);
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -105,7 +110,7 @@ function Header() {
             <div className={css.memberBar}>
               <span onClick={openLogin}>로그인</span>
               {openLoginModal && <LoginModal closeLogin={closeLogin} />}
-              <span>회원가입</span>
+              <span onClick={clickJoin}>회원가입</span>
               <span>빠른예매</span>
             </div>
           </div>

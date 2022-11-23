@@ -7,11 +7,13 @@ import MainUnderBar from '../MainUnderBar/MainUnderBar';
 const MainComponent = () => {
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/movie/main')
+    //fetch('http://localhost:8000/movie/main');
+    fetch('/data/mainMovie.json')
       .then(res => res.json())
-
-      .then(res => setMovieArray(res.data));
+      .then(res => setMovieArray(res.mainMovie));
+    // .then(res => setMovieArray(res.data));
   }, []);
+
   return (
     <>
       <div className={css.coverblack}>
@@ -25,9 +27,12 @@ const MainComponent = () => {
             </span>
           </div>
           <div className={css.moviecards}>
-            {movieArray.map(movie => {
+            {movieArray.map((movie, i) => {
               return (
                 <MovieCard
+                  movie={movie}
+                  number={i}
+                  onClick={sendMovieInfo}
                   key={movie.id}
                   id={movie.id}
                   img={movie.movie_poster}
