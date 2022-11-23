@@ -18,7 +18,107 @@
         margin-left: 50px;
       }
       .userInfoMain {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+        flex-direction: column;
         width: 840px;
+        height: 480px;
+        margin-top: 80px;
+        & h2 {
+          font-weight: 400;
+          font-size: 1.2em;
+          margin-left: 50px;
+          margin-bottom: 5px;
+        }
+        table {
+          color: #444;
+          margin: 0;
+          padding: 0;
+          margin-left: 50px;
+          border-collapse: collapse;
+          border-top: 1px solid #444;
+          font-size: 0.9em;
+          tr {
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #d1d5dd;
+            th {
+              box-sizing: border-box;
+              margin: 0;
+              width: 200px;
+              height: 50px;
+              background-color: #f7f8f9;
+              text-align: start;
+              padding-left: 20px;
+            }
+            td {
+              box-sizing: border-box;
+              margin: 0;
+              width: 840px;
+              height: 50px;
+              padding: 10px;
+              & span {
+                font-size: 0.9em;
+                margin-left: 5px;
+              }
+              & input {
+                box-sizing: border-box;
+                width: 170px;
+                height: 30px;
+                border: 1px solid #d8d9db;
+                text-indent: 10px;
+              }
+              & input:focus {
+                outline: none;
+              }
+              .warning {
+                margin-top: 5px;
+                color: #e81002;
+              }
+              .warningOn {
+                display: block;
+              }
+              .warningOff {
+                display: none;
+              }
+            }
+          }
+        }
+        .changeInfoBtns {
+          margin: 0 auto;
+          margin-top: 50px;
+          .cancleBtn {
+            width: 85px;
+            height: 42px;
+            margin-right: 5px;
+            color: #503396;
+            border: 1px solid #503396;
+            background-color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+          }
+          .disgoodbytJegaBoxBtn {
+            box-sizing: border-box;
+            width: 85px;
+            height: 42px;
+            color: #777;
+            border: none;
+            border-radius: 3px;
+            background-color: #e0e0e0;
+          }
+          .goodbytJegaBoxBtn {
+            box-sizing: border-box;
+            width: 85px;
+            height: 42px;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            background-color: #42326b;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
