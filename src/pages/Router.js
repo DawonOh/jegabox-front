@@ -13,6 +13,8 @@ import Booking from './Booking/Booking';
 import PlanningMovie from './WholeMovie/PlanningMovie/PlanningMovie';
 import Join from './Join/Join';
 import Userinfo from './Userinfo/Userinfo';
+import Goodbye from './Userinfo/Goodbye';
+import Userpasschange from './Userinfo/Userpasschange';
 
 function Router() {
   return (
@@ -31,6 +33,8 @@ function Router() {
         <Route path="/movie/comingsoon" element={<PlanningMovie />} />
         <Route path="/join" element={<Join />} />
         <Route path="/mypage/userinfo" element={<Userinfo />} />
+        <Route path="/mypage/goodbye-jegabox" element={<Goodbye />} />
+        <Route path="/mypage/userpasschange" element={<Userpasschange />} />
       </Routes>
     </BrowserRouter>
   );

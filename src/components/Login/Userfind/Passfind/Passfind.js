@@ -238,6 +238,14 @@ const Passfind = () => {
       });
   };
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('passToken');
+      localStorage.removeItem('code');
+      localStorage.removeItem('id');
+    };
+  }, []);
+
   //비밀번호 변경 페이지 이동을 위한 정보 저장
   //localStorage에 code가 있으면 userfind페이지에서 컴포넌트 변경
   //id 저장해놓고 비밀번호 변경 페이지에서 띄워야 함

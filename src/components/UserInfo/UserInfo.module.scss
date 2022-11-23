@@ -4,8 +4,8 @@
   justify-content: center;
 }
 .userinfoContainer {
-  margin-bottom: 80px;
-  margin-left: 50px;
+  margin: 0 auto;
+  padding: 200px;
   @include flexcenter();
   flex-direction: column;
   .userinfomessage {
@@ -118,9 +118,9 @@
       }
     }
   }
-  .goChangeInfoBtn {
-    width: 200px;
-    height: 46px;
+  .goFindPassBtn {
+    width: 85px;
+    height: 42px;
     color: #fff;
     font-size: 1.2em;
     border: none;
@@ -128,16 +128,6 @@
     background-color: #42326b;
     margin-top: 50px;
     cursor: pointer;
-  }
-  .findPassBtn {
-    width: 200px;
-    height: 46px;
-    color: #777;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 3px;
-    background-color: #e0e0e0;
-    margin-top: 50px;
   }
 
   .myInfoBtns {
@@ -154,7 +144,7 @@
     }
 
     .goToMyPage:hover {
-      background-color: #eeeeee;
+      background-color: #f3f3f3;
     }
 
     .disConfirm {
@@ -164,6 +154,18 @@
       color: #777;
       background-color: #e0e0e0;
       border-radius: 3px;
+    }
+
+    .goChangeInfoBtn {
+      box-sizing: border-box;
+      width: 85px;
+      height: 42px;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      background-color: #42326b;
+      margin-top: 50px;
+      cursor: pointer;
     }
   }
 }
