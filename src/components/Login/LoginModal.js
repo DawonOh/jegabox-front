@@ -73,6 +73,8 @@ const LoginModal = ({ closeLogin }) => {
       .then(json => {
         if (json.token) {
           localStorage.setItem('token', json.token);
+          localStorage.setItem('account_id', json.account_id);
+          localStorage.setItem('phone_number', json.phone_number);
           setCookie('rememberId', idValue);
           if (!isRemember) {
             removeCookie('rememberId');

@@ -9,6 +9,7 @@ import Userfind from './Login/Userfind/Userfind';
 import DetailPage from './DetailPage/DetailPage';
 import Booking from './Booking/Booking';
 import Join from './Join/Join';
+import Userinfo from './Userinfo/Userinfo';
 
 function Router() {
   return (
@@ -23,6 +24,7 @@ function Router() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/mypage/userinfo" element={<Userinfo />} />
       </Routes>
     </BrowserRouter>
   );
