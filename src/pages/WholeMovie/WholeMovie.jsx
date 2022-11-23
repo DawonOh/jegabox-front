@@ -33,7 +33,6 @@ const WholeMovie = () => {
         released: '전체',
       }),
     })
-
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);

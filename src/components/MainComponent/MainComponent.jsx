@@ -32,7 +32,7 @@ const MainComponent = () => {
                 <MovieCard
                   movie={movie}
                   number={i}
-                  onClick={sendMovieInfo}
+                  // onClick={sendMovieInfo}
                   key={movie.id}
                   id={movie.id}
                   img={movie.movie_poster}
