@@ -14,7 +14,6 @@ import PlanningMovie from './WholeMovie/PlanningMovie/PlanningMovie';
 import Join from './Join/Join';
 import Userinfo from './Userinfo/Userinfo';
 
-
 function Router() {
   return (
     <BrowserRouter>

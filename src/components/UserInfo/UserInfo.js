@@ -205,43 +205,48 @@ const UserInfo = () => {
 
   return (
     <Fragment>
-      <p className={css.userinfomessage}>
-        회원님의 개인정보 보호를 위해 등록된 휴대폰 번호로 인증을 하셔야 합니다.
-      </p>
-      <table>
-        <tbody>
-          <tr>
-            <th>휴대폰 번호</th>
-            <td>
-              <input type="text" disabled value={phone_number} />
-              <button className={css.onCertification}>인증요청</button>
-            </td>
-          </tr>
-          <tr>
-            <th>인증번호</th>
-            <td>
-              <div className={css.certificationTd}>
-                <input type="text" className={css.certificationInput} />
-                <div className={css.passFindTimer}>
-                  {min}:{sec < 10 ? `0${sec}` : sec}
+      <div className={css.userinfoContainer}>
+        <p className={css.userinfomessage}>
+          회원님의 개인정보 보호를 위해 등록된 휴대폰 번호로 인증을 하셔야
+          합니다.
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <th>휴대폰 번호</th>
+              <td>
+                <input type="text" disabled value={phone_number} />
+                <button className={css.onCertification}>인증요청</button>
+              </td>
+            </tr>
+            <tr>
+              <th>인증번호</th>
+              <td>
+                <div className={css.certificationTd}>
+                  <input type="text" className={css.certificationInput} />
+                  <div className={css.passFindTimer}>
+                    {min}:{sec < 10 ? `0${sec}` : sec}
+                  </div>
+                  <button className={css.getNumBtn} disabled>
+                    인증확인
+                  </button>
                 </div>
-                <button className={css.getNumBtn} disabled>
-                  인증확인
-                </button>
-              </div>
-
-              <p className={css.warning}>
-                유효시간이 초과되었습니다. 인증번호 재전송을 통해서 다시
-                인증해주세요.
-              </p>
-
-              <p className={css.warning}>
-                인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                {/* <p className={css.warning}>
+                  유효시간이 초과되었습니다. 인증번호 재전송을 통해서 다시
+                  인증해주세요.
+                </p>
+                <p className={css.warning}>
+                  인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
+                </p> */}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div className={css.myInfoBtns}>
+          <button className={css.goToMyPage}>취소</button>
+          <button className={css.disConfirm}>확인</button>
+        </div>
+      </div>
     </Fragment>
   );
 };

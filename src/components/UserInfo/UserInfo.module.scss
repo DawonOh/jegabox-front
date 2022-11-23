@@ -3,20 +3,11 @@
   align-items: center;
   justify-content: center;
 }
-
-.userinfoWrap {
-  display: flex;
-  justify-content: center;
+.userinfoContainer {
+  margin-bottom: 80px;
+  margin-left: 50px;
+  @include flexcenter();
   flex-direction: column;
-  width: 840px;
-  height: 800px;
-  margin: 0 auto;
-  .userInfoTitle {
-    font-weight: 400;
-    margin-bottom: 150px;
-    font-size: 1.8em;
-    margin-left: 20px;
-  }
   .userinfomessage {
     font-size: 0.9em;
     font-weight: 700;
@@ -147,5 +138,32 @@
     border-radius: 3px;
     background-color: #e0e0e0;
     margin-top: 50px;
+  }
+
+  .myInfoBtns {
+    margin-top: 80px;
+    .goToMyPage {
+      width: 85px;
+      height: 42px;
+      margin-right: 5px;
+      color: #503396;
+      border: 1px solid #503396;
+      background-color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .goToMyPage:hover {
+      background-color: #eeeeee;
+    }
+
+    .disConfirm {
+      width: 85px;
+      height: 42px;
+      border: none;
+      color: #777;
+      background-color: #e0e0e0;
+      border-radius: 3px;
+    }
   }
 }
