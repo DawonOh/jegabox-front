@@ -7,12 +7,12 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import '../../components/ResetSubin.scss';
 import css from './PageHeader.module.scss';
 import { Link } from 'react-router-dom';
-import Dropdown from './Dropdown/Dropdown';
+import Dropdown from '../Header/Dropdown/Dropdown';
 import { useState } from 'react';
-import GlassDropdown from './GlassDropDown/GlassDropdown';
-import UnderMenu from './UnderMenu/UnderMenu';
-import NonMember from './NonMember/NonMember';
-import { Member } from './Member/Member';
+import GlassDropdown from '../Header/GlassDropDown/GlassDropdown';
+import UnderMenu from '../PageHeader/UnderMenu/UnderMenu';
+import NonMember from '../Header/NonMember/NonMember';
+import { Member } from '../Header/Member/Member';
 import LoginModal from '../../components/Login/LoginModal';
 function PageHeader() {
   const [validSearch, setValidSearch] = useState(false);

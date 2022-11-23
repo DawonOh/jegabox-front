@@ -1,7 +1,13 @@
 import React from 'react';
 import css from './Member.module.scss';
-
+import { useState } from 'react';
+import { useEffect } from 'react';
 export const Member = () => {
+  const [name, setname] = useState('');
+  const myname = window.localStorage.getItem('name');
+  useEffect(() => {
+    setname(myname);
+  }, []);
   return (
     <div className={css.position}>
       <div className={css.wholeContainer}>
@@ -9,10 +15,7 @@ export const Member = () => {
           <div style={{ width: '250px' }}>
             <p className={css.hello}>안녕하세요!</p>
             <p className={css.member1}>
-              <span className={css.name}>오뚜니&nbsp;</span>회원님
-            </p>
-            <p className={css.date}>
-              마지막 접속일:<span>2022-10-13 10:00:00</span>
+              <span className={css.name}>{name}&nbsp;</span>회원님
             </p>
           </div>
           <button className={css.btn}>나의 제가박스</button>
