@@ -63,8 +63,8 @@ const PlanningMovie = () => {
             </label>
             <span className={css.switchName}>개봉작만</span>
             <span className={css.movienumber}>
-              <span className={css.highlightFont}>121</span>개의 영화가
-              검색되었습니다.
+              <span className={css.highlightFont}>{movieArray.length}</span>개의
+              영화가 검색되었습니다.
             </span>
           </div>
 

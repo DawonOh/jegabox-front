@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-const GlassDropdown = () => {
+const GlassDropdown = props => {
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
     fetch('http://localhost:8000/movie/main')
