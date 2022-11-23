@@ -1,6 +1,6 @@
 .cardWhole {
   position: relative;
-  margin-right: 40px;
+  margin-right: 30px;
   .cardNumber {
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     font-style: italic;
@@ -10,7 +10,26 @@
     color: white;
     font-size: 40px;
   }
+  .img {
+    .story {
+      display: inline-block;
+      padding-right: 5px;
 
+      top: 50px;
+      left: 30px;
+      position: absolute;
+      color: white;
+    }
+    img {
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 240px;
+      height: 344px;
+      &:hover {
+        filter: brightness(0.3);
+      }
+    }
+  }
   .moviePoster {
     margin-top: 30px;
     margin-bottom: 10px;
@@ -101,4 +120,7 @@
       }
     }
   }
+}
+.none {
+  display: none;
 }

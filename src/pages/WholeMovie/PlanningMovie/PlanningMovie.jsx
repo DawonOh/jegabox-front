@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import Footer from '../../components/Footer/Footer';
-import PageHeader from '../../components/PageHeader/PageHeader';
-import css from './WholeMovie.module.scss';
+import React from 'react';
+import Footer from '../../../components/Footer/Footer';
+import PageHeader from '../../../components/PageHeader/PageHeader';
+import css from './PlanningMovie.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import { AiFillHome } from 'react-icons/ai';
 import { RiArrowRightSLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
-
+import MainMovieCard from '../../../components/MovieCard/MainMovieCard/MainMovieCard';
+import { useState } from 'react';
 import { useEffect } from 'react';
-import MainMovieCard from '../../components/MovieCard/MainMovieCard/MainMovieCard';
-const WholeMovie = () => {
+const PlanningMovie = () => {
   const navigate = useNavigate();
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/movie/list')
+    fetch('http://localhost:8000/movie/comingsoon')
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);
@@ -36,16 +36,16 @@ const WholeMovie = () => {
           <span>전체영화</span>
         </div>
         <div className={css.menu}>
-          <div className={`${css.pointer} ${css.highlight}`}>박스오피스</div>
           <div
             className={css.pointer}
             onClick={e => {
-              navigate('/movie/comingsoon');
+              navigate('/movie');
             }}
-            style={{ borderLeft: 'none' }}
+            style={{ borderRight: 'none' }}
           >
-            상영예정작
+            박스오피스
           </div>
+          <div className={`${css.pointer} ${css.highlight}`}>상영예정작</div>
           <div style={{ borderLeft: 'none' }}>특별상영</div>
           <div style={{ borderLeft: 'none' }}>필름소사이어티</div>
           <div style={{ borderLeft: 'none' }}>클래식소사이어티</div>
@@ -94,4 +94,4 @@ const WholeMovie = () => {
   );
 };
 
-export default WholeMovie;
+export default PlanningMovie;
