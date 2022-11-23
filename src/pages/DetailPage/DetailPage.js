@@ -3,14 +3,19 @@ import css from './DetailPage.module.scss';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Footer from '../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 function DetailPage() {
+  // const location = useLocation();
   const [onDesc, setOnDesc] = useState(true);
   const [comment, setComment] = useState('');
+  const [commentArr, setCommentArr] = useState([]);
+  const [commentArr_l, setCommentAr_l] = useState([]);
   const [rate, setRate] = useState(0);
   const navigate = useNavigate();
   const commentValue = useRef();
   const rateNum = useRef();
   const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // console.log(location.search);
   const data = [
     {
       id: 1,
@@ -27,13 +32,14 @@ function DetailPage() {
       genre: '액션',
       grade: '12세이상관람가',
       review: '9.5',
-      viewer: 0,
+      viewer: 8,
       release_date: '2022-11-15T15:00:00.000Z',
       cnt: 667,
       reviewer: 0,
       type: ['2D', '2D ATMOS'],
     },
   ];
+
   const prtGrade = grade => {
     return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
   };
@@ -52,9 +58,23 @@ function DetailPage() {
       }),
     });
     setRate(0);
+    setCommentAr_l(...commentArr_l, comment);
     commentValue.current.value = '';
     rateNum.current.value = '';
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch(`http://localhost:8000/comments?pstMovieNo=${data[0].id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => setCommentArr(res.data));
+  }, [commentArr_l]);
 
   return (
     <div className={css.container}>
@@ -131,39 +151,59 @@ function DetailPage() {
             </div>
           </div>
         )}
-
-        <div className={css.reviewComment}>
-          <p>
-            {data[0].ko_title}에 대한{' '}
-            <span className={css.reviewNum}>{data[0].reviewer}</span>개의
-            이야기가 있어요!
-          </p>
-          <div className={css.comment_area}>
-            <div className={css.userProfile}>
-              <div className={css.mega_profile}>M</div>
-              <p>MEGA_BOX</p>
+        <div className={css.comment_zone}>
+          <div className={css.reviewComment}>
+            <p>
+              {data[0].ko_title}에 대한{' '}
+              <span className={css.reviewNum}>{data[0].reviewer}</span>개의
+              이야기가 있어요!
+            </p>
+            <div className={css.comment_area}>
+              <div className={css.userProfile}>
+                <div className={css.mega_profile}>M</div>
+                <p>MEGA_BOX</p>
+              </div>
+              <div className={css.write_zone}>
+                <select
+                  className={css.rate_area}
+                  ref={rateNum}
+                  onChange={e => setRate(e.target.value)}
+                >
+                  {nums.map((num, idx) => (
+                    <option key={idx} value={num}>
+                      {num}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  ref={commentValue}
+                  onChange={e => setComment(e.target.value)}
+                  placeholder={`${data[0].ko_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.`}
+                />
+                <button className={css.submit} onClick={sendComment}>
+                  관람평 쓰기
+                </button>
+              </div>
             </div>
-            <div className={css.write_zone}>
-              <select
-                className={css.rate_area}
-                ref={rateNum}
-                onChange={e => setRate(e.target.value)}
-              >
-                {nums.map((num, idx) => (
-                  <option key={idx} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-              <input
-                ref={commentValue}
-                onChange={e => setComment(e.target.value)}
-                placeholder={`${data[0].ko_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.`}
-              />
-              <button className={css.submit} onClick={sendComment}>
-                관람평 쓰기
-              </button>
-            </div>
+          </div>
+          <div className={css.userComment_area}>
+            {commentArr
+              ? commentArr.map((comment, idx) => (
+                  <div key={idx} className={css.comment_area}>
+                    <div className={css.userProfile}>
+                      <div className={css.mega_profile}>
+                        {comment.account_id[0]}
+                      </div>
+                      <p>{comment.account_id}</p>
+                    </div>
+                    <div className={css.write_zone}>
+                      <div className={css.review}>관람평</div>
+                      <div className={css.commentRate}>{comment.rating}</div>
+                      <div className={css.commentDesc}>{comment.comment}</div>
+                    </div>
+                  </div>
+                ))
+              : null}
           </div>
         </div>
       </div>

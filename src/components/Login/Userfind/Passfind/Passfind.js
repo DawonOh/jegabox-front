@@ -116,7 +116,7 @@ const Passfind = () => {
 
   //입력받은 정보가 맞는지 확인 / 맞으면 타이머 시작 / 인증번호 문자 전송
   const sendInfo = () => {
-    fetch('http://localhost:8000/users/validateNumber', {
+    fetch('http://localhost:8000/users/validateNumber1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ const Passfind = () => {
       .then(json => {
         if (json.code == 200) {
           setId(json.userID);
-          setStartTimer(startTimerFunc);
+          setStartTimer(true);
           setTryAgain(true);
           setDisabledInput(false);
           setIsSame('pass');
@@ -146,9 +146,9 @@ const Passfind = () => {
       });
   };
 
-  const startTimerFunc = () => {
-    setStartTimer(true);
-  };
+  // const startTimerFunc = () => {
+  //   setStartTimer(true);
+  // };
 
   // 타이머
   const time = useRef(180);
@@ -187,7 +187,7 @@ const Passfind = () => {
   }, [min, sec]);
 
   const clickReSend = () => {
-    fetch('http://localhost:8000/users/validateNumber', {
+    fetch('http://localhost:8000/users/validateNumber1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

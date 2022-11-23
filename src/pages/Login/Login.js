@@ -18,6 +18,7 @@ function Login() {
 
   return (
     <div className={css.container}>
+      <PageHeader />
       {/* 로그인 모달창 부분*/}
       {openLoginModal && <LoginModal closeLogin={closeLogin} />}
       <div onClick={openLogin}>로그인</div>
