@@ -8,6 +8,18 @@ function App() {
   const [bookingList, setBookingList] = useState([]);
   const [cancelList, setCancelList] = useState([]);
 
+  const [bChecked, setChecked] = useState(false);
+
+  const checkHandler = event => {
+    console.log(event.target.checked);
+    if (bChecked) setChecked(true);
+    if (!bChecked) setChecked(false);
+  };
+
+  useEffect(() => {
+    console.log(bChecked);
+  }, [bChecked]);
+
   useEffect(() => {
     fetch('http://127.0.0.1:8000/mypage/bookinglist', {
       headers: {
@@ -41,6 +53,7 @@ function App() {
         <BookingInfo bookingList={bookingList} />
         <BookingCancle cancelList={cancelList} />
       </div>
+      <input type="checkbox" onChange={e => checkHandler(e)} />;
     </div>
   );
 }

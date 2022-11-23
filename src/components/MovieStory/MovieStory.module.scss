@@ -1,11 +1,37 @@
 .main {
-  border: 1px solid black;
   width: 840px;
-  height: 600px;
+  margin: 0 0 0 40px;
 
   .title {
+    font-size: 28px;
+  }
+
+  .filterDiv {
+    width: 840px;
+    display: flex;
+    margin: 30px 0;
+
+    .filter {
+      width: 167px;
+      height: 34px;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      border: 1px solid;
+    }
   }
 
   .cardList {
+    .total {
+      margin: 40px 0 20px 0;
+    }
+
+    .cardListMain {
+      display: flex;
+      flex-wrap: wrap;
+      width: 840px;
+    }
   }
 }
