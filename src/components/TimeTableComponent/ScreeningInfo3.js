@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import css from './ScreeningInfo3.module.scss';
 import { useNavigate, Link } from 'react-router-dom';
 function App({ processedArr, idx, idx2, idx3 }) {
@@ -14,12 +14,17 @@ function App({ processedArr, idx, idx2, idx3 }) {
     console.log(processedArr[idx][idx2][idx3]);
   }
   return (
-    <div
+    <Link
+      className={css.link}
+      to={`/booking`}
+      state={{ movie: processedArr[idx][idx2][idx3] }}
       style={{ position: 'relative', width: '98px', height: '69px' }}
       onClick={moveBooking}
     >
       {hoverCheck && (
-        <div className={css.onHover} onMouseOut={onMouseOut}></div>
+        <div className={css.onHover} onMouseOut={onMouseOut}>
+          test
+        </div>
       )}
       {!hoverCheck && (
         <div className={css.main} onMouseOver={onMouseOver}>
@@ -33,7 +38,7 @@ function App({ processedArr, idx, idx2, idx3 }) {
           </div>
         </div>
       )}
-    </div>
+    </Link>
   );
 }
 

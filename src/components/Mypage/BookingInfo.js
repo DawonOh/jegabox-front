@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserBookingInfo from '../../components/Mypage/UserBookingInfo';
 import css from './BookingInfo.module.scss';
 
-function App() {
+function App({ bookingList }) {
   const [selectValue, setSelectValue] = useState();
 
   const date = new Date();
@@ -88,8 +88,14 @@ function App() {
           <button onClick={btnClick}>조회</button>
         </div>
       </div>
-      <div className={css.bookingDone}>예매 내역이 없습니다</div>
-      <UserBookingInfo />
+
+      {bookingList.length === 0 ? (
+        <div className={css.bookingDone}>예매 내역이 없습니다</div>
+      ) : (
+        bookingList.map((elem, idx) => {
+          return <UserBookingInfo key={idx} elem={elem} />;
+        })
+      )}
     </div>
   );
 }

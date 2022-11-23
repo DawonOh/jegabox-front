@@ -1,4 +1,5 @@
 .mainDiv {
+  margin: 20px 0;
   .outArea {
     margin: 10px 0;
   }
@@ -6,7 +7,7 @@
   .bookingInfo {
     width: 840px;
     height: 300px;
-    border: 1px solid black;
+    border: 2px solid rgba(128, 128, 128, 0.261);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -15,7 +16,6 @@
     .imgDiv {
       width: 180px;
       height: 250px;
-      border: 1px solid black;
     }
 
     .infoDiv {
@@ -28,15 +28,23 @@
         height: 40px;
         display: flex;
         align-items: center;
+        .elemValue {
+          margin: 0 0 0 15px;
+        }
+
+        .infoCellSingle {
+          margin: 0 0 0 20px;
+        }
 
         .infoCellLeft {
           width: 300px;
-          margin: 0 20px 0 0;
+          margin: 0 20px;
           display: flex;
           align-items: center;
         }
 
         .infoCellRight {
+          margin: 0 20px;
         }
       }
 

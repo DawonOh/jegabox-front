@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import css from './BookingCancel.module.scss';
 import UserCancelInfo from './UserCancelInfo';
 
-function App() {
+function App({ cancelList }) {
   const [alertCheck, setAlertCheck] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('white');
 
@@ -32,8 +32,14 @@ function App() {
           <div className={css.cell}>상영일시</div>
           <div className={css.cell}>취소금액</div>
         </div>
-        <div className={css.alertMent}>취소내역이 없습니다.</div>
-        <UserCancelInfo />
+
+        {cancelList.length === 0 ? (
+          <div className={css.alertMent}>취소내역이 없습니다.</div>
+        ) : (
+          cancelList.map((elem, idx) => {
+            return <UserCancelInfo key={idx} elem={elem} />;
+          })
+        )}
       </div>
       <div
         className={css.alertDiv}

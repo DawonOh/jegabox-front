@@ -28,6 +28,8 @@ function App() {
   const [posterTest, setPosterTest] = useState();
   const [posterList, setPosterList] = useState();
 
+  const [movieTime, setMovieTime] = useState();
+
   useEffect(() => {
     // 개발용 코드
     // fetch('/data/movieTitle.json')
@@ -43,7 +45,6 @@ function App() {
       .then(data => {
         const tempArr = [];
         const tempArr2 = []; //포스터 리스트
-        console.log(data.data);
         setPosterTest(data.data[0].movie_poster);
 
         for (let i = 0; i < data.data.length; i++) {
@@ -107,6 +108,8 @@ function App() {
       const tempArr2 = []; //[[강남 관별 상영 정보], [강동 관별 상영 정보], [마곡 관별 상영 정보], [화곡 관별 상영 정보]]
       const tempArr3 = [];
       const screenArr = []; // 스크린 별 상영 정보
+
+      if (resData.length !== 0) setMovieTime(resData[0].movie_time);
 
       // 상영관 별 배열값 push
       // tempArr1 = [강남, 강동, 마곡, 화곡]
