@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ScreeningInfo3 from './ScreeningInfo3';
 import css from './ScreeningInfo2.module.scss';
 function App({ processedArr, idx, idx2, screenArr }) {

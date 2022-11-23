@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import css from './Booking.module.scss';
 import DayBtn from '../../components/DayBtn/DayBtn';
 import SelectSeat from '../SelectSeat/SelectSeat';
@@ -7,7 +8,7 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import Footer from '../../components/Footer/Footer';
 import Ad from '../../components/Ad/Ad';
 
-function Booking({ movie }) {
+function Booking() {
   let now = new Date();
   let year = now.getFullYear(); //year
   let todayMonth = now.getMonth() + 1; //month
@@ -24,14 +25,23 @@ function Booking({ movie }) {
   let today = year + '-' + todayMonth + '-' + date;
   const [user_date, setDate] = useState(today);
   const [data, setData] = useState([]);
-  const [userMovie, setUserMv] = useState({});
 
+  //timetable에서 데이터 받아오기 위한 state
+  const [movieObj, setMovieObj] = useState();
+  const [userMovie, setUserMv] = useState({});
+  const location = useLocation();
   useEffect(() => {
-    if (movie) {
-      setUserMv(movie);
+    const user = location.state.movie;
+    console.log(user);
+    setMovieObj(user);
+  }, []);
+  useEffect(() => {
+    if (movieObj) {
+      setUserMv(movieObj);
       setDisable(false);
     }
-  }, []);
+  }, [movieObj]);
+
   //보류 사용
   useEffect(() => {
     fetch('http://127.0.0.1:8000/booking/', {
