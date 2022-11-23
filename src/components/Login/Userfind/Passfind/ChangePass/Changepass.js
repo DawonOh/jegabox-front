@@ -33,7 +33,6 @@ const Changepass = ({ id }) => {
       setCheckRegex(true);
       setCheckPass(e.target.value);
     }
-    console.log(checkRegex);
   };
 
   const handleCheckPass = e => {
@@ -86,7 +85,6 @@ const Changepass = ({ id }) => {
       setSame('none');
     }
   }, [pass, checkPass]);
-  console.log(same);
 
   //알림 모달창
   const [alertModal, setAlertModal] = useState(false);
