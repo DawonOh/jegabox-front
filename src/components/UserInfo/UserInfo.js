@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import css from './UserInfo.module.scss';
+import AlertModal from '../Login/AlertModal/AlertModal';
 
 const UserInfo = () => {
   let id = localStorage.getItem('account_id');
@@ -142,7 +144,7 @@ const UserInfo = () => {
   }, [min, sec]);
 
   const clickReSend = () => {
-    fetch('http://localhost:8000/users/validateNumber', {
+    fetch('http://localhost:8000/users/validateNumber2', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -173,7 +175,7 @@ const UserInfo = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        account_id: id,
+        phone_number: phone_number,
         validateNumber: checkRandomNum,
       }),
     })
@@ -194,10 +196,8 @@ const UserInfo = () => {
 
   //개인정보 변경 컴포넌트 이동을 위한 정보 저장
   //localStorage에 code가 있으면 userinfo 페이지에서 컴포넌트 변경
-  //id 저장해놓고 비밀번호 변경 페이지에서 띄워야 함
-  const goToChangePass = () => {
+  const goToChangeInfo = () => {
     localStorage.setItem('code', 200);
-    localStorage.setItem('id', id);
     window.location.reload();
   };
 
@@ -205,6 +205,21 @@ const UserInfo = () => {
 
   return (
     <Fragment>
+      {alertModal ? (
+        startTimer && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={passMessage}
+          />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal && isSame === 'pass' ? (
+        <AlertModal closeAlertModal={closeAlertModal} messages={successSend} />
+      ) : (
+        <div />
+      )}
       <div className={css.userinfoContainer}>
         <p className={css.userinfomessage}>
           회원님의 개인정보 보호를 위해 등록된 휴대폰 번호로 인증을 하셔야
@@ -216,35 +231,87 @@ const UserInfo = () => {
               <th>휴대폰 번호</th>
               <td>
                 <input type="text" disabled value={phone_number} />
-                <button className={css.onCertification}>인증요청</button>
+                {!tryAgain ? (
+                  <button
+                    className={
+                      !isDisabledReqBtn
+                        ? `${css.onCertification}`
+                        : `${css.getNumBtn}`
+                    }
+                    disabled={isDisabledReqBtn}
+                    onClick={sendInfo}
+                  >
+                    인증요청
+                  </button>
+                ) : (
+                  <button
+                    className={
+                      code !== 200
+                        ? `${css.onCertification}`
+                        : `${css.getNumBtn}`
+                    }
+                    disabled={isDisabledReqBtn}
+                    onClick={() => {
+                      clickReSend();
+                    }}
+                  >
+                    재전송
+                  </button>
+                )}
               </td>
             </tr>
-            <tr>
+            <tr style={{ display: code == 200 && 'none' }}>
               <th>인증번호</th>
               <td>
                 <div className={css.certificationTd}>
-                  <input type="text" className={css.certificationInput} />
+                  <input
+                    type="text"
+                    className={css.certificationInput}
+                    onChange={handleNum}
+                  />
                   <div className={css.passFindTimer}>
                     {min}:{sec < 10 ? `0${sec}` : sec}
                   </div>
-                  <button className={css.getNumBtn} disabled>
+                  <button
+                    className={
+                      !isDisabledCheckBtn
+                        ? `${css.getNumBtn}`
+                        : `${css.checkOkBtn}`
+                    }
+                    onClick={checkNum}
+                    disabled={!isDisabledCheckBtn}
+                  >
                     인증확인
                   </button>
                 </div>
-                {/* <p className={css.warning}>
-                  유효시간이 초과되었습니다. 인증번호 재전송을 통해서 다시
-                  인증해주세요.
-                </p>
-                <p className={css.warning}>
-                  인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
-                </p> */}
+                {timeout && (
+                  <p className={css.warning}>
+                    유효시간이 초과되었습니다. 인증번호 재전송을 통해서 다시
+                    인증해주세요.
+                  </p>
+                )}
+                {code == '' && (
+                  <p className={css.warning}>
+                    인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.
+                  </p>
+                )}
               </td>
             </tr>
           </tbody>
         </table>
         <div className={css.myInfoBtns}>
-          <button className={css.goToMyPage}>취소</button>
-          <button className={css.disConfirm}>확인</button>
+          <Link to="/mypage">
+            <button className={css.goToMyPage}>취소</button>
+          </Link>
+
+          <button
+            className={
+              !isDisabledBtn ? `${css.goChangeInfoBtn}` : `${css.disConfirm}`
+            }
+            onClick={goToChangeInfo}
+          >
+            확인
+          </button>
         </div>
       </div>
     </Fragment>
