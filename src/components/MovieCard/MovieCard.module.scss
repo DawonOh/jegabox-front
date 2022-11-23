@@ -32,6 +32,7 @@
   }
 
   .underImg {
+    cursor: pointer;
     margin-top: 10px;
     width: 240px;
     display: flex;
@@ -64,6 +65,7 @@
     }
 
     .reservation {
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
