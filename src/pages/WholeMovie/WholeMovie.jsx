@@ -13,7 +13,7 @@ const WholeMovie = () => {
   const navigate = useNavigate();
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/movie/list')
+    fetch('http://localhost:8000/movie/list', { method: 'POST' })
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);

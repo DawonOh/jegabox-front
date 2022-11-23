@@ -31,10 +31,13 @@ function Booking() {
   const [userMovie, setUserMv] = useState({});
   const location = useLocation();
   useEffect(() => {
-    const user = location.state.movie;
-    console.log(user);
-    setMovieObj(user);
+    if (location.state) {
+      const user = location.state.movie;
+      console.log(user);
+      setMovieObj(user);
+    }
   }, []);
+
   useEffect(() => {
     if (movieObj) {
       setUserMv(movieObj);
