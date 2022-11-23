@@ -22,31 +22,30 @@ const Changepass = ({ id }) => {
   let token = localStorage.getItem('passToken');
 
   const handlePass = e => {
-    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
-    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+    setPass(e.target.value);
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,16}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,16}$/.test(
       e.target.value
     );
-    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,16}$/.test(e.target.value);
     if (!(check1 || check2 || check3)) {
       setCheckRegex(false);
     } else {
       setCheckRegex(true);
-      setCheckPass(e.target.value);
     }
-    console.log(checkRegex);
   };
 
   const handleCheckPass = e => {
-    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(e.target.value);
-    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(
+    setCheckPass(e.target.value);
+    let check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,16}$/.test(e.target.value);
+    let check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,16}$/.test(
       e.target.value
     );
-    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(e.target.value);
+    let check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,16}$/.test(e.target.value);
     if (!(check1 || check2 || check3)) {
       setCheckRegex(false);
     } else {
       setCheckRegex(true);
-      setPass(e.target.value);
     }
   };
   const changePass = () => {
@@ -86,7 +85,6 @@ const Changepass = ({ id }) => {
       setSame('none');
     }
   }, [pass, checkPass]);
-  console.log(same);
 
   //알림 모달창
   const [alertModal, setAlertModal] = useState(false);
@@ -100,7 +98,8 @@ const Changepass = ({ id }) => {
     { id: 1, message: '비밀번호 변경이 완료되었습니다.' },
     { id: 2, message: '3초 후에 메인페이지로 이동됩니다.' },
   ];
-  const failSend = [{ id: 1, message: '잠시 후 다시 시도해주세요.' }];
+  const failSend = [{ id: 1, message: '비밀번호를 다시 확인해주세요.' }];
+
   return (
     <div className={css.changePassWrap}>
       {alertModal ? (
@@ -145,13 +144,12 @@ const Changepass = ({ id }) => {
                 onChange={handleCheckPass}
                 maxLength="16"
               />
-              {!checkRegex && (
+              {!checkRegex && pass !== '' && (
                 <p className={css.warning}>
                   비밀번호는 영문,숫자,특수기호 중 2가지 이상 조합하여 10자리
                   이상 16자리 이하 입니다.
                 </p>
               )}
-
               {same != 'same' ? (
                 checkPass.length > 10 ? (
                   <p className={css.warning}>
