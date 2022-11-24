@@ -44,7 +44,10 @@ const MovieCard = props => {
     <>
       <div className={css.cardWhole}>
         <span className={css.cardNumber}>{id}</span>
-        <div className={css.img} onClick={clickPoster}>
+        <div
+          className={css.img}
+          onClick={() => navigate(`/detail?movieNo=${id}`)}
+        >
           <img onMouseOut={outStory} onMouseOver={makeStory} src={img} />
           <span
             onMouseOver={makeStory}

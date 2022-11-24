@@ -16,7 +16,7 @@
     .story {
       display: inline-block;
       padding-right: 5px;
-
+      cursor: pointer;
       top: 50px;
       left: 30px;
       position: absolute;
@@ -27,6 +27,7 @@
       margin-top: 20px;
       width: 240px;
       height: 344px;
+      cursor: pointer;
       &:hover {
         filter: brightness(0.3);
       }
@@ -37,6 +38,7 @@
     margin-bottom: 10px;
     width: 240px;
     height: 344px;
+    cursor: pointer;
   }
   .movieInformation {
     display: flex;
@@ -73,6 +75,7 @@
     width: 240px;
     display: flex;
     align-items: center;
+    cursor: pointer;
     .movieLike {
       display: flex;
       align-items: center;
