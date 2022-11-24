@@ -14,7 +14,11 @@ import UnderMenu from '../PageHeader/UnderMenu/UnderMenu';
 import NonMember from '../Header/NonMember/NonMember';
 import { Member } from '../Header/Member/Member';
 import LoginModal from '../../components/Login/LoginModal';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 function PageHeader() {
+  const navigate = useNavigate();
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
 
@@ -23,8 +27,13 @@ function PageHeader() {
   const [validUnderMenu3, setValidUnderMenu3] = useState(false);
   const [validUnderMenu4, setValidUnderMenu4] = useState(false);
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
-
+  const [validToken, setValidToken] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [validLogin, setValidLogin] = useState('');
+
+  const clickJoin = () => {
+    navigate('/join');
+  };
   // 모달창 여는 함수
   const openLogin = () => {
     setOpenLoginModal(true);
@@ -86,10 +95,28 @@ function PageHeader() {
     setValidMember(true);
     setValidSearch(false);
     setValidMenu(false);
+    if (getToken !== null) {
+      setValidToken(true);
+    } else {
+      setValidToken(false);
+    }
   }
+  const getToken = window.localStorage.getItem('token');
+
   function memberClose() {
     setValidMember(false);
   }
+  useEffect(() => {
+    if (getToken !== null) {
+      setValidLogin('로그아웃');
+    } else {
+      setValidLogin('로그인');
+    }
+  }, []);
+  const Logout = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
   return (
     <>
       <div className={css.headerContainer}>
@@ -101,8 +128,13 @@ function PageHeader() {
               <span>고객센터</span>
             </div>
             <div className={css.memberBar}>
-              <span onClick={openLogin}>로그인</span>
-              <span>회원가입</span>
+              {
+                <span onClick={validLogin == '로그인' ? openLogin : Logout}>
+                  {validLogin}
+                </span>
+              }
+              {openLoginModal && <LoginModal closeLogin={closeLogin} />}
+              <span onClick={clickJoin}>회원가입</span>
               <span>빠른예매</span>
             </div>
           </div>
@@ -337,9 +369,8 @@ function PageHeader() {
       <div className={css.position}>
         {validMenu ? <Dropdown style={{ position: 'relative' }} /> : ''}
         {validSearch ? <GlassDropdown style={{ position: 'relative' }} /> : ''}
-        {ValidMember ? <NonMember /> : ''}
-
-        {/* <Member /> */}
+        {ValidMember && validToken ? <Member /> : ''}
+        {ValidMember && !validToken ? <NonMember /> : ''}
       </div>
     </>
   );

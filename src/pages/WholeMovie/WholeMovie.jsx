@@ -68,9 +68,9 @@ const WholeMovie = () => {
   // useEffect(() => {
   //   console.log('useEffect', movieArray);
   // }, [movieArray]);
-  const sendMovieInfo = () => {
-    console.log(movieArray);
-  };
+  // const sendMovieInfo = () => {
+  //   console.log(movieArray);
+  // };
   const validCheck = () => {
     if (check == true) setCheck(false);
     if (check == false) setCheck(true);
@@ -79,6 +79,13 @@ const WholeMovie = () => {
   // useEffect(() => {
   //   console.log('useEffect', check);
   // }, [check]);
+
+  const getName = window.localStorage.getItem('name');
+  const [validName, getValidName] = useState(false);
+  useEffect(() => {
+    if (getName) getValidName(true);
+    if (!getName) getValidName(false);
+  });
 
   return (
     <>
@@ -113,7 +120,8 @@ const WholeMovie = () => {
           <div style={{ borderLeft: 'none' }}>필름소사이어티</div>
           <div style={{ borderLeft: 'none' }}>클래식소사이어티</div>
           <div style={{ borderLeft: 'none' }}>
-            <span className={css.myname}>오수빈</span>님 선호 장르 영화
+            <span className={css.myname}>{validName ? getName : '로그인'}</span>
+            {validName ? '님의 선호 장르 영화' : '하시면 보여드림'}
           </div>
         </div>
         <div className={css.functionBar}>
