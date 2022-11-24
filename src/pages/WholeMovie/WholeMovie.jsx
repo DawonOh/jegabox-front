@@ -22,20 +22,21 @@ const WholeMovie = () => {
   //     // .then(res => setMovieArray(res.mainMovie));
   //     .then(res => setMovieArray(res.data));
   // }, []);
-  useEffect(() => {
-    fetch('http://localhost:8000/movie/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Authorization: localStorage.getItem('token'),
-      },
-      body: JSON.stringify({
-        released: '전체',
-      }),
-    })
-      .then(res => res.json())
-      .then(res => setMovieArray(res.data));
-  }, []);
+
+  // useEffect(() => {
+  //   fetch('http://localhost:8000/movie/list', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       // Authorization: localStorage.getItem('token'),
+  //     },
+  //     body: JSON.stringify({
+  //       released: '전체',
+  //     }),
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => setMovieArray(res.data));
+  // }, []);
 
   useEffect(() => {
     !check

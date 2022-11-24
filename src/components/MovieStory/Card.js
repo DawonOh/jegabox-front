@@ -8,7 +8,9 @@ import age18 from '../../img/18.png';
 import ageAll from '../../img/all.png';
 import { useState } from 'react';
 const MainMovieCard = props => {
-  const { id, img, cnt, description, date, title, age, viewer } = props;
+  const { id, img, cnt, description, date, title, age, viewer, elem } = props;
+
+  console.log(elem);
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
   const makeStory = () => {
@@ -39,7 +41,7 @@ const MainMovieCard = props => {
             className={css.moviePoster}
             onMouseOut={outStory}
             onMouseOver={makeStory}
-            src={img}
+            src={elem.movie_poster}
           />
           <span className={story ? `${css.story}` : `${css.none}`}>
             {description}
@@ -47,7 +49,7 @@ const MainMovieCard = props => {
         </div>
         <div className={css.movieInformation}>
           <img className={css.age} src={grade} />
-          <span className={css.movieTitle}>{title}</span>
+          <span className={css.movieTitle}>{elem.ko_title}</span>
         </div>
         <div className={css.underImg}>
           <div className={css.movieLike}>

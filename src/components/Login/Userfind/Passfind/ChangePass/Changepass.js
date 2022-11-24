@@ -3,6 +3,13 @@ import css from './Changepass.module.scss';
 import AlertModal from '../../../AlertModal/AlertModal';
 
 const Changepass = ({ id }) => {
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('passToken');
+      localStorage.removeItem('code');
+      localStorage.removeItem('id');
+    };
+  }, []);
   //비밀번호, 비밀번호 확인 input value
   const [pass, setPass] = useState('');
   const [checkPass, setCheckPass] = useState('');

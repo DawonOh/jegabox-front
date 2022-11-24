@@ -16,6 +16,7 @@ function App({
   const [backgroundColor, setbackgroundColor] = useState();
   const date = new Date();
   const today = date.getDate();
+  const [color, setColor] = useState('black');
 
   function dayClick(event) {
     const day = event.target.innerText;
@@ -29,12 +30,21 @@ function App({
       : setbackgroundColor('white');
   }, [dayClickCheck]);
 
+  useEffect(() => {
+    if (dayOfWeekArr[idx] === '토') setColor('blue');
+    if (dayOfWeekArr[idx] === '일') setColor('red');
+  }, []);
+
   return (
     <div
       key={idx}
       className={css.day}
       onClick={dayClick}
-      style={{ backgroundColor: backgroundColor }}
+      style={{
+        backgroundColor: backgroundColor,
+        lineHeight: '1.5',
+        color: color,
+      }}
     >
       {elem}
       <br />

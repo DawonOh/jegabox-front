@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -34,6 +34,8 @@ function PageHeader() {
   const clickJoin = () => {
     navigate('/join');
   };
+  const getToken = window.localStorage.getItem('token');
+
   // 모달창 여는 함수
   const openLogin = () => {
     setOpenLoginModal(true);
@@ -101,7 +103,6 @@ function PageHeader() {
       setValidToken(false);
     }
   }
-  const getToken = window.localStorage.getItem('token');
 
   function memberClose() {
     setValidMember(false);

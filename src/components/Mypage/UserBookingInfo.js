@@ -18,6 +18,7 @@ function App({ elem }) {
       .then(data => {
         console.log(data);
         alert('예매가 취소되었습니다');
+        window.location.reload();
       });
   }
   return (
