@@ -101,9 +101,13 @@ const MainMovieCard = props => {
             )}
             <span>{cnt}</span>
           </div>
-          <div className={css.reservation}>
+          <Link
+            className={css.reservation}
+            to={`/booking`}
+            state={{ id: movie.id }}
+          >
             <span>예매</span>
-          </div>
+          </Link>
         </div>
       </div>
     </>

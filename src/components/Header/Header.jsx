@@ -103,7 +103,6 @@ function Header() {
       setValidToken(false);
     }
   }
-
   function memberClose() {
     setValidMember(false);
   }
