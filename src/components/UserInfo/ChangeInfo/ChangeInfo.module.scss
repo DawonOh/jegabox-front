@@ -116,7 +116,8 @@
 
         .changePhoneNumContainer {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
+          flex-direction: column;
           margin-top: 10px;
           & input {
             width: 160px;
@@ -129,6 +130,9 @@
             border-radius: 5px;
             cursor: pointer;
             margin-left: 5px;
+          }
+          .getRow {
+            display: flex;
           }
         }
         .certificationInput {

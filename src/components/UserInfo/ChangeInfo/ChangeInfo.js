@@ -9,6 +9,7 @@ const ChangeInfo = () => {
   const [birthday, setBirthday] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [email, setEmail] = useState('');
+  const [newEmail, setNewEmail] = useState('');
   const [isClick, setIsClick] = useState(false);
   const [newPhoneNum, setNewPhoneNum] = useState('');
   const [samePhoneNum, setSamePhoneNum] = useState(false);
@@ -38,11 +39,22 @@ const ChangeInfo = () => {
   //인증번호 최종 확인 받았을 때 성공 여부
   const [code, setCode] = useState('code');
 
+  //보라색 변경 버튼 눌렀을 때 이메일 변경 성공 여부
+  const [successEmail, setSuccessEmail] = useState('');
+
+  //이미 사용중인 전화번호
+  const [alreadyUsePhone, setAlreadyUsePhone] = useState(false);
+
+  //유효성검사
+  const [isPhoneWrong, setIsPhoneWrong] = useState('');
+  const [isEmailWrong, setIsEmailWrong] = useState('');
+
   //타이머
   const [min, setMin] = useState(3);
   const [sec, setSec] = useState(0);
   const [startTimer, setStartTimer] = useState(false);
   const [timeout, setTimeout] = useState(false);
+  const newNum = useRef();
   useEffect(() => {
     fetch('http://localhost:8000/users/mypage', {
       method: 'POST',
@@ -59,6 +71,7 @@ const ChangeInfo = () => {
         setBirthday(json.birthday);
         setPhoneNum(json.phone_number);
         setEmail(json.email);
+        setNewEmail(json.email);
       });
     return () => {
       localStorage.removeItem('changeInfoPassCode');
@@ -69,12 +82,19 @@ const ChangeInfo = () => {
     setIsClick(!isClick);
   };
 
-  const newNum = useRef();
-  const handleNewPhoneNum = () => {
+  const handleNewPhoneNum = e => {
     if (phoneNum === newNum.current.value) {
       setSamePhoneNum(true);
     } else {
       setSamePhoneNum(false);
+    }
+    let data = e.target.value;
+    e.target.value = data.replace(/[^0-9]/g, '');
+    const phoneRegex = /(01[0|1])(\d{4})(\d{4})/;
+    if (phoneRegex.test(e.target.value)) {
+      setIsPhoneWrong('pass');
+    } else {
+      setIsPhoneWrong('none');
     }
   };
 
@@ -96,10 +116,11 @@ const ChangeInfo = () => {
   };
 
   console.log(samePhoneNum);
+  console.log('전화번호 유효성 : ', isPhoneWrong);
   //인증번호 요청 / 타이머 시작
   const sendInfo = () => {
-    if (samePhoneNum !== true) {
-      fetch('http://localhost:8000/users/validateNumber2', {
+    if (samePhoneNum !== true && isPhoneWrong === false) {
+      fetch('http://localhost:8000/users/validateNumber3', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,16 +132,23 @@ const ChangeInfo = () => {
       })
         .then(res => res.json())
         .then(json => {
-          if (json.code == 200) {
+          console.log(json);
+          if (json.message) {
+            console.log(json.message);
+            setAlreadyUsePhone(true);
+            openAlertModal();
+          } else if (json.code == 200) {
             setStartTimer(true);
             setTryAgain(true);
             setDisabledInput(false);
             setIsClickSendBtn(true);
+            setAlreadyUsePhone(false);
             openAlertModal();
             return;
           } else {
             setStartTimer(false);
             setIsClickSendBtn(false);
+            setAlreadyUsePhone(false);
             openAlertModal();
             return;
           }
@@ -167,66 +195,60 @@ const ChangeInfo = () => {
   }, [min, sec]);
 
   const clickReSend = () => {
-    fetch('http://localhost:8000/users/validateNumber2', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phone_number: newNum.current.value,
-        account_id: id,
-      }),
-    })
-      .then(res => res.json())
-      .then(json => {
-        if (json.code == 200) {
-          setMin(3);
-          setSec(0);
-          setStartTimer(true);
-          setDisabledInput(false);
-          setTimeout(false);
-          openAlertModal();
-        }
-      });
+    if (samePhoneNum !== true) {
+      fetch('http://localhost:8000/users/validateNumber3', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone_number: newNum.current.value,
+          account_id: id,
+        }),
+      })
+        .then(res => res.json())
+        .then(json => {
+          if (json.message) {
+            console.log(json.message);
+            setAlreadyUsePhone(true);
+            openAlertModal();
+          } else if (json.code == 200) {
+            setMin(3);
+            setSec(0);
+            setStartTimer(true);
+            setDisabledInput(false);
+            setAlreadyUsePhone(false);
+            openAlertModal();
+            return;
+          } else {
+            setAlreadyUsePhone(false);
+            openAlertModal();
+            return;
+          }
+        });
+    } else {
+      openAlertModal();
+    }
   };
 
-  //인증번호 맞는지 백으로 전송
+  //인증번호 맞는지 백으로 전송 및 전화번호 변경
   const checkNum = () => {
-    let check = 0;
-    fetch('http://localhost:8000/users/validateNumber', {
+    fetch('http://localhost:8000/users/validateNumber2', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        phone_number: newNum.current.value,
+        account_id: id,
         validateNumber: checkRandomNum,
+        phone_number: newNum.current.value,
       }),
     })
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
-          check = 200;
-          setCode(json.code);
+          setIsSame('phoneNumPass');
           setIsDisabledBtn(false);
-          fetch('http://localhost:8000/users/validateNumber2', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              phone_number: newNum.current.value,
-              account_id: id,
-            }),
-          })
-            .then(res => res.json())
-            .then(json => {
-              setIsSame('pass');
-              openAlertModal();
-              setTimeout(function () {
-                window.location.reload();
-              }, 3000);
-            });
           return;
         } else {
           setCode('');
@@ -234,8 +256,53 @@ const ChangeInfo = () => {
           setIsSame('none');
         }
       });
-    if (check == 200) {
+  };
+
+  const getNewEmail = useRef();
+  const onchangeNewEmail = e => {
+    setNewEmail(getNewEmail.current.value);
+    const phoneRegex = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/;
+
+    if (!phoneRegex.test(e.target.value)) {
+      setIsEmailWrong('pass');
+    } else {
+      setIsEmailWrong('none');
     }
+  };
+  console.log(newEmail);
+  //변경 버튼 클릭 시 이메일이 현재 입력된 값으로 변경됨
+  useEffect(() => {
+    if (newEmail === '') {
+      setNewEmail(email);
+    } else {
+      setNewEmail(getNewEmail.current.value);
+    }
+  }, [newEmail]);
+  const changeEmail = () => {
+    if (newEmail === '') {
+      setNewEmail(email);
+    }
+    fetch('http://localhost:8000/users/mypage', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        account_id: id,
+        email: newEmail,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        if (json.code == 200) {
+          setSuccessEmail('pass');
+          openAlertModal();
+        } else {
+          setSuccessEmail('none');
+          openAlertModal();
+        }
+      });
   };
   //알림창
   const [alertModal, setAlertModal] = useState(false);
@@ -253,18 +320,13 @@ const ChangeInfo = () => {
   const sameNumMessage = [{ id: 1, message: '휴대폰 번호가 동일합니다.' }];
   const passMessage = [{ id: 1, message: '변경이 완료되었습니다.' }];
 
+  const alreayUsedMessage = [{ id: 1, message: '사용중인 휴대폰 번호입니다.' }];
+
+  const changeEmailFailMessage = [{ id: 1, message: '이메일을 확인해주세요.' }];
+
+  const wrongPhoneNum = [{ id: 1, message: '휴대폰 번호를 확인해주세요.' }];
   return (
     <Fragment>
-      {alertModal ? (
-        startTimer && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successSend}
-          />
-        )
-      ) : (
-        <></>
-      )}
       {alertModal ? (
         samePhoneNum == true && (
           <AlertModal
@@ -276,7 +338,7 @@ const ChangeInfo = () => {
         <></>
       )}
       {alertModal ? (
-        isSame === 'pass' && (
+        isSame === 'phoneNumPass' && (
           <AlertModal
             closeAlertModal={closeAlertModal}
             messages={passMessage}
@@ -285,6 +347,60 @@ const ChangeInfo = () => {
       ) : (
         <></>
       )}
+      {alertModal ? (
+        successEmail == 'pass' && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={passMessage}
+          />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        successEmail == 'none' || isEmailWrong == 'none' ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={changeEmailFailMessage}
+          />
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
+
+      {alertModal ? (
+        alreadyUsePhone === true && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={alreayUsedMessage}
+          />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        isPhoneWrong === 'none' && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={wrongPhoneNum}
+          />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        startTimer && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={successSend}
+          />
+        )
+      ) : (
+        <></>
+      )}
+
       <div className={css.changeInfoWrap}>
         <p>회원님의 정보를 정확히 입력해주세요.</p>
         <table>
@@ -314,79 +430,87 @@ const ChangeInfo = () => {
                   {isClick ? '변경취소' : '휴대폰번호 변경'}
                 </button>
                 {isClick && (
-                  <div className={css.changePhoneNumContainer}>
-                    <span>변경할 휴대폰</span>
-                    <input
-                      type="text"
-                      placeholder="'-'없이 입력해 주세요"
-                      ref={newNum}
-                      onChange={handleNewPhoneNum}
-                    />
-                    {!tryAgain ? (
-                      <button
-                        className={
-                          !isDisabledReqBtn
-                            ? `${css.onCertification}`
-                            : `${css.getNumBtn}`
-                        }
-                        disabled={isDisabledReqBtn}
-                        onClick={() => {
-                          sendInfo();
-                        }}
-                      >
-                        인증번호 전송
-                      </button>
-                    ) : (
-                      <button
-                        className={
-                          code !== 200
-                            ? `${css.onCertification}`
-                            : `${css.getNumBtn}`
-                        }
-                        disabled={isDisabledReqBtn}
-                        onClick={() => {
-                          clickReSend();
-                        }}
-                      >
-                        재전송
-                      </button>
-                    )}
-                  </div>
-                )}
-                {isClickSendBtn && (
-                  <div className={css.changePhoneNumContainer}>
-                    <span>인증번호 입력</span>
-                    <input
-                      type="text"
-                      placeholder="인증번호를 입력해 주세요"
-                      className={css.certificationInput}
-                      onChange={handleNum}
-                    />
-                    <div className={css.passFindTimer}>
-                      {min}:{sec < 10 ? `0${sec}` : sec}
+                  <div>
+                    <div className={css.changePhoneNumContainer}>
+                      <div>
+                        <span>변경할 휴대폰</span>
+                        <input
+                          type="text"
+                          placeholder="'-'없이 입력해 주세요"
+                          ref={newNum}
+                          onChange={handleNewPhoneNum}
+                        />
+                        {!tryAgain ? (
+                          <button
+                            className={
+                              !isDisabledReqBtn
+                                ? `${css.onCertification}`
+                                : `${css.getNumBtn}`
+                            }
+                            disabled={isDisabledReqBtn}
+                            onClick={sendInfo}
+                          >
+                            인증번호 전송
+                          </button>
+                        ) : (
+                          <button
+                            className={
+                              code !== 200
+                                ? `${css.onCertification}`
+                                : `${css.getNumBtn}`
+                            }
+                            disabled={isDisabledReqBtn}
+                            onClick={() => {
+                              clickReSend();
+                            }}
+                          >
+                            재전송
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    <button
-                      className={
-                        !isDisabledCheckBtn
-                          ? `${css.getNumBtn}`
-                          : `${css.checkOkBtn}`
-                      }
-                      onClick={checkNum}
-                      disabled={!isDisabledCheckBtn}
-                    >
-                      변경완료
-                    </button>
-                    {timeout && (
-                      <p className={css.warning}>
-                        유효시간이 초과되었습니다. 인증번호 재전송을 통해서 다시
-                        인증해주세요.
-                      </p>
-                    )}
-                    {code == '' && (
-                      <p className={css.warning}>
-                        인증번호가 일치하지 않습니다. 인증번호를 다시
-                        입력해주세요.
-                      </p>
+                    {isClickSendBtn && (
+                      <div className={css.changePhoneNumContainer}>
+                        <div className={css.getRow}>
+                          <span>인증번호 입력</span>
+                          <input
+                            type="text"
+                            placeholder="인증번호를 입력해 주세요"
+                            className={css.certificationInput}
+                            onChange={handleNum}
+                          />
+                          <div className={css.passFindTimer}>
+                            {min}:{sec < 10 ? `0${sec}` : sec}
+                          </div>
+                          <button
+                            className={
+                              !isDisabledCheckBtn
+                                ? `${css.getNumBtn}`
+                                : `${css.checkOkBtn}`
+                            }
+                            onClick={checkNum}
+                            disabled={!isDisabledCheckBtn}
+                          >
+                            변경완료
+                          </button>
+                        </div>
+                        <div>
+                          <div className={css.warningMessages}>
+                            {timeout && (
+                              <p className={css.warning}>
+                                유효시간이 초과되었습니다. 인증번호 재전송을
+                                통해서 다시 인증해주세요.
+                              </p>
+                            )}
+                            {code == '' && (
+                              <p className={css.warning}>
+                                인증번호가 일치하지 않습니다. 인증번호를 다시
+                                입력해주세요.
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     )}
                   </div>
                 )}
@@ -395,7 +519,12 @@ const ChangeInfo = () => {
             <tr>
               <th>이메일</th>
               <td>
-                <input type="text" defaultValue={email} />
+                <input
+                  type="text"
+                  defaultValue={email}
+                  ref={getNewEmail}
+                  onChange={onchangeNewEmail}
+                />
               </td>
             </tr>
             <tr>
@@ -412,7 +541,9 @@ const ChangeInfo = () => {
           <Link to="/mypage">
             <button className={css.cancleBtn}>취소</button>
           </Link>
-          <button className={css.changeInfoBtn}>등록</button>
+          <button className={css.changeInfoBtn} onClick={changeEmail}>
+            등록
+          </button>
         </div>
       </div>
     </Fragment>
