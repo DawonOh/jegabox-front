@@ -90,13 +90,9 @@ const Idfind = () => {
       .then(json => {
         setId(json.userID);
         setJoinDate(json.created_at);
+        openAlertModal();
       });
   };
-  useEffect(() => {
-    if (joinDate !== '') {
-      openAlertModal();
-    }
-  }, [joinDate]);
 
   //id알림 모달창
   const [alertModal, setAlertModal] = useState(false);

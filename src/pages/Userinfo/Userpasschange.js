@@ -107,7 +107,8 @@ const Userpasschange = () => {
   let token = localStorage.getItem('token');
   const changePassResult = () => {
     if (
-      same === 'same' &&
+      sameNowAndNew !== 'same' &&
+      same !== 'same' &&
       checkPassRegex == 'pass' &&
       checkPassAgainRegex == 'pass' &&
       nowPass &&
