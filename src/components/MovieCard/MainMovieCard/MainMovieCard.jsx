@@ -11,20 +11,27 @@ import { AiFillHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 const MainMovieCard = props => {
   const navigate = useNavigate();
-  const [like, setlike] = useState(false);
+  const [like, setlike] = useState();
   const [likeNum, setLikeNum] = useState(1);
   const { id, img, cnt, description, date, title, age, viewer, movie } = props;
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
   const [movieArray, setMovieArray] = useState([]);
 
-  // useEffect(() => {
-  //   //fetch('http://localhost:8000/movie/main');
-  //   fetch('/data/mainMovie.json')
-  //     .then(res => res.json())
-  //     .then(res => setMovieArray(res.mainMovie));
-  //   // .then(res => setMovieArray(res.data));
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:8000/movie/main', {
+      method: 'GET',
+    })
+      // fetch('/data/mainMovie.json')
+      .then(res => res.json())
+      // .then(res => setMovieArray(res.mainMovie));
+      .then(res => console.log(res));
+    // .then(res => setMovieArray(res.data));
+  }, []);
+
+  const sendMovieInfo = () => {
+    console.log(movie);
+  };
 
   const makeLikeNum = () => {
     setLikeNum(likeNum + 1);

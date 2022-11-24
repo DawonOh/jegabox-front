@@ -5,15 +5,17 @@ import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import { useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+
 const MovieCard = props => {
   const navigate = useNavigate();
   const { id, img, cnt, description, number, movie } = props;
+
   // const sendMovieInfo = () => {
   //   console.log(movie);
   // };
+
   const [story, setStory] = useState(false);
-  const [like, setlike] = useState(false);
+  const [like, setlike] = useState();
   const [likeNum, setLikeNum] = useState(1);
   const likenumber = useRef();
   const makeLikeNum = () => {
