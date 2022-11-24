@@ -16,7 +16,7 @@ const Dropdown = () => {
                   &nbsp; &nbsp;&nbsp;&nbsp;영화 &nbsp; &nbsp;&nbsp;&nbsp;
                   <Link
                     className={`${css.dropdownLink} ${css.borderline}`}
-                    to={'/login'}
+                    to={'/movie'}
                   >
                     전체영화
                   </Link>
@@ -98,7 +98,7 @@ const Dropdown = () => {
                   >
                     나의 메가박스 홈
                   </Link>
-                  <Link className={css.dropdownLink} to={'/login'}>
+                  <Link className={css.dropdownLink} to={'/mypage'}>
                     예매/구매내역
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>
@@ -113,7 +113,7 @@ const Dropdown = () => {
                   <Link className={css.dropdownLink} to={'/login'}>
                     멤버십포인트
                   </Link>
-                  <Link className={css.dropdownLink} to={'/login'}>
+                  <Link className={css.dropdownLink} to={'/mypage/moviestory'}>
                     나의 무비스토리
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>

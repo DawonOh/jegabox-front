@@ -6,6 +6,8 @@ import ScreeningInfo from '../../components/TimeTableComponent/ScreeningInfo1';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import PageFooter from '../../components/Footer/Footer';
 import SelectSeat from '../SelectSeat/SelectSeat';
+import NoneData from '../../components/TimeTableComponent/NoneData';
+
 function App() {
   const [titleList, setTitleList] = useState([]); // SortByMovie에 뿌릴 타이틀 정보
 
@@ -151,26 +153,6 @@ function App() {
       setPlaceArr(tempArr1);
       setScreenArr(screenArr);
       console.log('tempArr3', tempArr3);
-
-      // 강남의 스크린별 상영 정보 배열, 강동의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열, 마곡의 스크린별 상영 정보 배열
-      // screenArr.map(elem => {
-      //   // elem는 강남의 스크린 배열
-      //   const temp = [];
-      //   elem.map(elem2 => {
-      //     // elem2는 강남의 스크린 요소
-      //     const temp2 = [];
-      //     tempArr2.map(elem3 => {
-      //       const temp3 = [];
-      //       elem3.map(elem4 => {
-      //         if (elem4.screen === elem2) temp3.push(elem4);
-      //       });
-      //       temp2.push(temp3);
-      //     }); // elem3는 강남의 상영 정보 배열
-      //     temp.push(temp2);
-      //   });
-      //   tempArr3.push(temp);
-      // });
-      // console.log(tempArr3);
     }
   }, [resData]);
 
@@ -194,17 +176,21 @@ function App() {
           currArea={currArea}
           setCurrArea={setCurrArea}
         />
-        {processedArr.map((elem, idx) => {
-          return (
-            <ScreeningInfo
-              processedArr={processedArr}
-              key={idx}
-              idx={idx}
-              placeArr={placeArr}
-              screenArr={screenArr}
-            />
-          );
-        })}
+        {processedArr.length === 0 ? (
+          <NoneData />
+        ) : (
+          processedArr.map((elem, idx) => {
+            return (
+              <ScreeningInfo
+                processedArr={processedArr}
+                key={idx}
+                idx={idx}
+                placeArr={placeArr}
+                screenArr={screenArr}
+              />
+            );
+          })
+        )}
       </div>
 
       <div className={css.ad}>

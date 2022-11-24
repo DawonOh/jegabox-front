@@ -103,8 +103,6 @@ function Header() {
       setValidToken(false);
     }
   }
-  console.log(validToken);
-  console.log(ValidMember);
   function memberClose() {
     setValidMember(false);
   }
