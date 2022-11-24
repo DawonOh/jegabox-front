@@ -1,0 +1,25 @@
+@mixin flexcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userinfo {
+  margin: 0 auto;
+  width: 1100px;
+  margin-top: 50px;
+  display: flex;
+  .userinfoWrap {
+    display: flex;
+    .userinfoMainWrap {
+      .userInfoTitle {
+        font-weight: 400;
+        font-size: 1.8em;
+        margin-left: 50px;
+      }
+      .userInfoMain {
+        width: 840px;
+      }
+    }
+  }
+}
