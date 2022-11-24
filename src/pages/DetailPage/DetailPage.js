@@ -8,7 +8,7 @@ import qs from 'qs';
 function DetailPage() {
   const location = useLocation();
   const [onDesc, setOnDesc] = useState(true);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(false);
   const [commentArr, setCommentArr] = useState([]);
   const [commentArr_l, setCommentAr_l] = useState([]);
   const [data, setData] = useState([]);
@@ -24,27 +24,35 @@ function DetailPage() {
   });
   const movieId = query.movieNo;
 
-  // 필터 해서 디테일에 내보낼 데이터 찾기
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   fetch(`http://localhost:8000/movie/detail/${movieId}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       authorization: token,
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => setData(res[0]));
+  // }, [like]);
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
     fetch(`http://localhost:8000/movie/detail/${movieId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization: token,
       },
     })
       .then(res => res.json())
       .then(res => setData(res[0]));
-    console.log(data);
-  }, [like]);
+  }, []);
 
   useEffect(() => {
-    setLike(data.likeCnt);
-  }, []);
-  useEffect(() => {
-    console.log(like);
-  });
+    if (data) {
+      setLike(data.likeCnt);
+    }
+  }, [data]);
   const prtGrade = grade => {
     return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
   };
@@ -81,9 +89,10 @@ function DetailPage() {
       .then(res => setCommentArr(res.data));
   }, [commentArr_l]);
 
-  useEffect(() => {
+  const handleLike = like => {
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:8000/likes/addLikes`, {
+    setLike(!like);
+    fetch(`http://localhost:8000/likes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +102,8 @@ function DetailPage() {
         movie_id: movieId,
       }),
     });
-  }, [like]);
+  };
+  console.log(data);
 
   return (
     <div className={css.container}>
@@ -114,7 +124,7 @@ function DetailPage() {
             {prtGrade(data.grade_simple)}
             <p className={css.title}>{data.ko_title}</p>
             <p className={css.en_title}>{data.en_title}</p>
-            <button onClick={() => setLike(!like)} className={css.heart}>
+            <button onClick={() => handleLike(like)} className={css.heart}>
               {like ? (
                 <img
                   src="/image/fillheart.png"
@@ -130,7 +140,7 @@ function DetailPage() {
                   height="20px"
                 />
               )}
-              <p>{data.like}</p>
+              <p>{data.cnt}</p>
             </button>
             <img className={css.poster} src={data.movie_poster} alt="사진" />
             <p className={css.w_review}>실관람 평점</p>
@@ -139,7 +149,7 @@ function DetailPage() {
               src="/image/review.png"
               alt="reviewicon"
             />
-            <p className={css.review}>{data.rated}</p>
+            <p className={css.review}>{data.rate}</p>
           </div>
         </div>
       )}

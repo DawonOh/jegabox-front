@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import { useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+
 const MovieCard = props => {
   const navigate = useNavigate();
   const { id, img, cnt, description, number, movie } = props;
