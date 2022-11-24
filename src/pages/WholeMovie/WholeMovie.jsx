@@ -65,9 +65,9 @@ const WholeMovie = () => {
           .then(res => setMovieArray(res.data));
   }, [check]);
 
-  useEffect(() => {
-    console.log('useEffect', movieArray);
-  }, [movieArray]);
+  // useEffect(() => {
+  //   console.log('useEffect', movieArray);
+  // }, [movieArray]);
   const sendMovieInfo = () => {
     console.log(movieArray);
   };
@@ -144,13 +144,14 @@ const WholeMovie = () => {
         {movieArray.map((movie, i) => {
           return (
             <MainMovieCard
+              movie={movie}
               age={movie.grade}
               title={movie.ko_title}
               key={movie.id}
               id={i + 1}
               img={movie.movie_poster}
               cnt={movie.cnt}
-              description={movie.description}
+              description={movie.sub_description}
               date={movie.release_date}
               viewer={movie.viewer}
             />

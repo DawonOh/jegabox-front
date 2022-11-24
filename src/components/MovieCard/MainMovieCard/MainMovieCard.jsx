@@ -11,11 +11,11 @@ import { AiFillHeart } from 'react-icons/ai';
 const MainMovieCard = props => {
   const [like, setlike] = useState(false);
   const [likeNum, setLikeNum] = useState(1);
-  const { id, img, cnt, description, date, title, age, viewer, onClick } =
-    props;
+  const { id, img, cnt, description, date, title, age, viewer, movie } = props;
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
   const [movieArray, setMovieArray] = useState([]);
+
   // useEffect(() => {
   //   //fetch('http://localhost:8000/movie/main');
   //   fetch('/data/mainMovie.json')
@@ -24,7 +24,7 @@ const MainMovieCard = props => {
   //   // .then(res => setMovieArray(res.data));
   // }, []);
   const sendMovieInfo = () => {
-    console.log(movieArray);
+    console.log(movie);
   };
   const makeLikeNum = () => {
     setLikeNum(likeNum + 1);
@@ -64,7 +64,7 @@ const MainMovieCard = props => {
             onMouseOut={outStory}
             onMouseOver={makeStory}
             src={img}
-            onClick={onclick}
+            onClick={sendMovieInfo}
           />
           <span className={story ? `${css.story}` : `${css.none}`}>
             {description}
