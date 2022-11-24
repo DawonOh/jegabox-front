@@ -44,6 +44,11 @@ const Userpasschange = () => {
 
   const failChangePass = [{ id: 1, message: '다시 시도해주세요.' }];
 
+  const samePassMessage = [
+    { id: 1, message: '현재 비밀번호와 새 비밀번호가 같습니다. ' },
+    { id: 2, message: '다른 비밀번호로 변경해주세요.' },
+  ];
+
   //현재 비밀번호
   const handleNowPass = e => {
     setNowPass(e.target.value);
@@ -88,7 +93,16 @@ const Userpasschange = () => {
     }
   }, [pass, checkPass]);
 
+  useEffect(() => {
+    if (nowPass === pass) {
+      setSameNowAndNew('same');
+    } else {
+      setSameNowAndNew('none');
+    }
+  }, [nowPass, pass]);
+
   //수정 버튼 클릭
+  let token = localStorage.getItem('token');
   const changePassResult = () => {
     if (
       same === 'same' &&
@@ -103,6 +117,7 @@ const Userpasschange = () => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          token: token,
         },
         body: JSON.stringify({
           password: nowPass,
@@ -194,11 +209,21 @@ const Userpasschange = () => {
       ) : (
         <></>
       )}
-      {alertModal ? (
+      {/* {alertModal ? (
         success == 'fail' && (
           <AlertModal
             closeAlertModal={closeAlertModal}
             messages={failChangePass}
+          />
+        )
+      ) : (
+        <></>
+      )} */}
+      {alertModal ? (
+        sameNowAndNew == 'same' && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={samePassMessage}
           />
         )
       ) : (
@@ -219,13 +244,13 @@ const Userpasschange = () => {
                   <tr>
                     <th>현재 비밀번호</th>
                     <td>
-                      <input type="text" onChange={handleNowPass} />
+                      <input type="password" onChange={handleNowPass} />
                     </td>
                   </tr>
                   <tr>
                     <th>새 비밀번호</th>
                     <td>
-                      <input type="text" onChange={handlePass} />
+                      <input type="password" onChange={handlePass} />
                       <span>
                         ※ 영문, 숫자, 특수문자 중 2가지 이상 조합하여 10자리
                         이상으로 입력 해 주세요.
@@ -235,7 +260,7 @@ const Userpasschange = () => {
                   <tr>
                     <th>새 비밀번호 재입력</th>
                     <td>
-                      <input type="text" onChange={handleCheckPass} />
+                      <input type="password" onChange={handleCheckPass} />
                       <span>
                         ※ 비밀번호 확인을 위해 한 번 더 입력해 주시기 바랍니다.
                       </span>
