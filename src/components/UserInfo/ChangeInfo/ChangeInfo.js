@@ -251,6 +251,8 @@ const ChangeInfo = () => {
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
+          localStorage.removeItem('phone_number');
+          localStorage.setItem('phone_number', newNum.current.value);
           setIsSame('phoneNumPass');
           setIsDisabledBtn(false);
           setSuccessChangePass('success');
