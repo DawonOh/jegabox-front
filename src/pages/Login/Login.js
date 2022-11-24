@@ -21,7 +21,7 @@ function Login() {
       <PageHeader />
       {/* 로그인 모달창 부분*/}
       {openLoginModal && <LoginModal closeLogin={closeLogin} />}
-      <div onClick={openLogin}>로그인</div>
+      <div onClick={openLogin}>준비중입니다~~</div>
     </div>
   );
 }

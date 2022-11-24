@@ -10,8 +10,18 @@ import MainMovieCard from '../../../components/MovieCard/MainMovieCard/MainMovie
 import { useState } from 'react';
 import { useEffect } from 'react';
 const PlanningMovie = () => {
+  const [letterOrder, setletterOrder] = useState(false);
+  const [dateOrder, setDateOrder] = useState(false);
   const navigate = useNavigate();
   const [movieArray, setMovieArray] = useState([]);
+  const letterTime = () => {
+    setletterOrder(true);
+    setDateOrder(false);
+  };
+  const daterTime = () => {
+    setletterOrder(false);
+    setDateOrder(true);
+  };
   useEffect(() => {
     fetch('http://localhost:8000/movie/comingsoon', {
       method: 'POST',
@@ -19,6 +29,35 @@ const PlanningMovie = () => {
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);
+
+  useEffect(() => {
+    letterOrder && !dateOrder
+      ? fetch('http://localhost:8000/movie/comingsoon', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: localStorage.getItem('token'),
+          },
+          body: JSON.stringify({
+            released: '개봉일순',
+          }),
+        })
+          .then(res => res.json())
+          .then(res => setMovieArray(res.data))
+      : fetch('http://localhost:8000/movie/comingsoon', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: localStorage.getItem('token'),
+          },
+          body: JSON.stringify({
+            released: '가나다순',
+          }),
+        })
+          .then(res => res.json())
+          .then(res => setMovieArray(res.data));
+  }, [letterOrder, dateOrder]);
+
   return (
     <>
       <PageHeader />
@@ -57,11 +96,23 @@ const PlanningMovie = () => {
         </div>
         <div className={css.functionBar}>
           <div className={css.toggleBtn}>
-            <label className={css.switch}>
-              <input type="checkbox" />
-              <span className={`${css.slider} ${css.round}`}></span>
-            </label>
-            <span className={css.switchName}>개봉작만</span>
+            <span
+              onClick={daterTime}
+              className={
+                dateOrder ? `${css.switchNameClick}` : `${css.switchName}`
+              }
+              style={{ borderRight: '1px solid rgb(180, 180, 180)' }}
+            >
+              개봉일순
+            </span>
+            <span
+              className={
+                letterOrder ? `${css.switchNameClick}` : `${css.switchName}`
+              }
+              onClick={letterTime}
+            >
+              가나다순
+            </span>
             <span className={css.movienumber}>
               <span className={css.highlightFont}>{movieArray.length}</span>개의
               영화가 검색되었습니다.
@@ -78,6 +129,7 @@ const PlanningMovie = () => {
         {movieArray.map((movie, i) => {
           return (
             <MainMovieCard
+              movie={movie}
               age={movie.grade}
               title={movie.ko_title}
               key={movie.id}

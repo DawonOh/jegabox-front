@@ -9,7 +9,6 @@ const MainComponent = () => {
 
   useEffect(() => {
     fetch('http://localhost:8000/movie/main')
-      // fetch('/data/mainMovie.json')
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);

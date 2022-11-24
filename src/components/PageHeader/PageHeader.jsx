@@ -217,7 +217,7 @@ function PageHeader() {
                   {validUnderMenu3 ? (
                     <UnderMenu
                       style={{ position: 'relative' }}
-                      margin={'2000px'}
+                      margin={'1960px'}
                       menu1={'전체극장'}
                       menu2={'특별관'}
                       menu3={''}
