@@ -26,7 +26,7 @@ const PlanningMovie = () => {
     fetch('http://localhost:8000/movie/comingsoon', {
       method: 'POST',
       body: JSON.stringify({
-        released: '가나다순',
+        sort: '개봉일순',
       }),
     })
       .then(res => res.json())
@@ -35,7 +35,7 @@ const PlanningMovie = () => {
   }, []);
 
   useEffect(() => {
-    letterOrder && !dateOrder
+    letterOrder
       ? fetch('http://localhost:8000/movie/comingsoon', {
           method: 'POST',
           headers: {
@@ -43,7 +43,7 @@ const PlanningMovie = () => {
             // Authorization: localStorage.getItem('token'),
           },
           body: JSON.stringify({
-            released: '개봉일순',
+            sort: '개봉일순',
           }),
         })
           .then(res => res.json())
@@ -55,12 +55,12 @@ const PlanningMovie = () => {
             // Authorization: localStorage.getItem('token'),
           },
           body: JSON.stringify({
-            released: '가나다순',
+            sort: '가나다순',
           }),
         })
           .then(res => res.json())
           .then(res => setMovieArray(res.data));
-  }, [letterOrder, dateOrder]);
+  }, [letterOrder]);
 
   return (
     <>
@@ -107,7 +107,7 @@ const PlanningMovie = () => {
               }
               style={{ borderRight: '1px solid rgb(180, 180, 180)' }}
             >
-              개봉일순
+              가나다순
             </span>
             <span
               className={
@@ -115,7 +115,7 @@ const PlanningMovie = () => {
               }
               onClick={letterTime}
             >
-              가나다순
+              개봉일순
             </span>
             <span className={css.movienumber}>
               <span className={css.highlightFont}>{movieArray.length}</span>개의

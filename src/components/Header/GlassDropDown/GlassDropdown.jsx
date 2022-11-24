@@ -3,15 +3,22 @@ import css from './GlassDropdown.module.scss';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 const GlassDropdown = props => {
+  const navigate = useNavigate();
+  const [content, setContent] = useState('');
+  const [click, setclick] = useState(false);
+  let location = useLocation();
+
+  const [movietitle, setMovieTitle] = useState([]);
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     fetch('http://localhost:8000/movie/main', {
       headers: {
         'Content-Type': 'application/json',
-        authorization: token,
+        // authorization: token,
       },
     })
       .then(res => res.json())
@@ -73,6 +80,20 @@ const GlassDropdown = props => {
     setValidPhoto5(true);
   }
 
+  const search = e => {
+    if (click || e.key === 'Enter') {
+      let url = '/searchlist?query=' + content;
+      navigate(url);
+      window.location.reload();
+    } else {
+      setContent(e.target.value);
+    }
+  };
+  let params = new URLSearchParams(location.search); //?query=구름
+  let searchText = params.get('searchText'); //구름
+  useEffect(() => {
+    setContent(searchText);
+  }, [searchText]);
   return (
     <div className={css.outColor}>
       <div className={css.wholeSearch}>
@@ -148,8 +169,18 @@ const GlassDropdown = props => {
             </span>
           </div>
           <div className={css.searchBar}>
-            <input placeholder="영화를 검색하세요"></input>
-            <BiSearch className={css.searchIcon} />
+            <input
+              placeholder="영화를 검색하세요"
+              onChange={search}
+              value={content}
+              type="search"
+            ></input>
+            <BiSearch
+              className={css.searchIcon}
+              onCLick={() => {
+                setclick(true);
+              }}
+            />
           </div>
         </div>
       </div>

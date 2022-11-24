@@ -103,6 +103,10 @@ function Header() {
       setValidToken(false);
     }
   }
+<<<<<<< HEAD
+
+=======
+>>>>>>> d205a5bb4909115834bc7235b1b8deeadffef314
   function memberClose() {
     setValidMember(false);
   }

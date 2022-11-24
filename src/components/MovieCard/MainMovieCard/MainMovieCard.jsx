@@ -25,9 +25,7 @@ const MainMovieCard = props => {
   //     .then(res => setMovieArray(res.mainMovie));
   //   // .then(res => setMovieArray(res.data));
   // }, []);
-  const sendMovieInfo = () => {
-    console.log(movie);
-  };
+
   const makeLikeNum = () => {
     setLikeNum(likeNum + 1);
     if (likeNum % 2 == 0) {

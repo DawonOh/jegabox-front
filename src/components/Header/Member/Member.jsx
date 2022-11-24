@@ -4,10 +4,23 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 export const Member = () => {
   const [name, setname] = useState('');
+  const [movieName, setMovieName] = useState('');
   const myname = window.localStorage.getItem('name');
   useEffect(() => {
     setname(myname);
   }, []);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:8000/mypage/header', {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => setMovieName(res));
+  }, []);
+
   return (
     <div className={css.position}>
       <div className={css.wholeContainer}>
@@ -15,7 +28,7 @@ export const Member = () => {
           <div style={{ width: '250px' }}>
             <p className={css.hello}>안녕하세요!</p>
             <p className={css.member1}>
-              <span className={css.name}>{name}&nbsp;</span>회원님
+              <span className={css.name}>{movieName.name}&nbsp;</span>회원님
             </p>
           </div>
           <button className={css.btn}>나의 제가박스</button>
@@ -42,7 +55,7 @@ export const Member = () => {
           <div className={css.component}>
             <span className={css.title}>예매율</span>
             <span className={`${css.content} ${css.fontSize}`}>
-              예매내역이 없어요!
+              {movieName.ko_title}
             </span>
             <button className={`${css.btn} ${css.btn10}`}>예매내역</button>
           </div>
