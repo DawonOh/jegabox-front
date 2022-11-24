@@ -1,11 +1,13 @@
 import React, { useTransition } from 'react';
 import css from './MovieCard.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import { useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 const MovieCard = props => {
+  const navigate = useNavigate();
   const { id, img, cnt, description, number, movie } = props;
   const sendMovieInfo = () => {
     console.log(movie);
@@ -36,7 +38,7 @@ const MovieCard = props => {
         <span className={css.cardNumber}>{id}</span>
         <div className={css.img}>
           <img
-            onClick={sendMovieInfo}
+            onClick={() => navigate(`/detail?movieNo=${movie.id}`)}
             onMouseOut={outStory}
             onMouseOver={makeStory}
             src={img}

@@ -15,9 +15,13 @@ const PlanningMovie = () => {
   useEffect(() => {
     fetch('http://localhost:8000/movie/comingsoon', {
       method: 'POST',
+      body: JSON.stringify({
+        released: '가나다순',
+      }),
     })
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
+    // .then(res => console.log(res));
   }, []);
   return (
     <>

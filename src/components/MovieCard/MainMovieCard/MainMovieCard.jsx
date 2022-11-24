@@ -8,7 +8,9 @@ import age18 from '../../../img/18.png';
 import ageAll from '../../../img/all.png';
 import { useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 const MainMovieCard = props => {
+  const navigate = useNavigate();
   const [like, setlike] = useState(false);
   const [likeNum, setLikeNum] = useState(1);
   const { id, img, cnt, description, date, title, age, viewer, onClick } =
@@ -64,7 +66,7 @@ const MainMovieCard = props => {
             onMouseOut={outStory}
             onMouseOver={makeStory}
             src={img}
-            onClick={onclick}
+            onClick={() => navigate(`/detail?movieNo=${id}`)}
           />
           <span className={story ? `${css.story}` : `${css.none}`}>
             {description}

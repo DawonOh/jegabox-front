@@ -7,11 +7,11 @@ import MainUnderBar from '../MainUnderBar/MainUnderBar';
 const MainComponent = () => {
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    //fetch('http://localhost:8000/movie/main');
-    fetch('/data/mainMovie.json')
+    fetch('http://localhost:8000/movie/main')
+      // fetch('/data/mainMovie.json')
       .then(res => res.json())
-      .then(res => setMovieArray(res.mainMovie));
-    // .then(res => setMovieArray(res.data));
+      // .then(res => setMovieArray(res.mainMovie));
+      .then(res => setMovieArray(res.data));
   }, []);
 
   return (
