@@ -31,9 +31,11 @@ function Booking() {
   const [userMovie, setUserMv] = useState({});
   const location = useLocation();
   useEffect(() => {
-    const user = location.state.movie;
-    console.log(user);
-    setMovieObj(user);
+    if (location.state) {
+      const user = location.state.movie;
+      console.log(user);
+      setMovieObj(user);
+    }
   }, []);
   useEffect(() => {
     if (movieObj) {
@@ -41,6 +43,12 @@ function Booking() {
       setDisable(false);
     }
   }, [movieObj]);
+  //메인 포스터에서 ID값 받아서 저장하기
+  useEffect(() => {
+    if (location.state) {
+      setIds([location.state.id]);
+    }
+  }, []);
 
   //보류 사용
   useEffect(() => {

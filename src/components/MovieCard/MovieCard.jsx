@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 const MovieCard = props => {
-  const { id, img, cnt, description } = props;
+  const { id, img, cnt, description, movie } = props;
   const [story, setStory] = useState(false);
   const makeStory = () => {
     setStory(true);
@@ -12,6 +12,11 @@ const MovieCard = props => {
   const outStory = () => {
     setStory(false);
   };
+
+  function clickPoster() {
+    console.log('test');
+  }
+
   // console.log(id);
   // console.log(img);
   // console.log(cnt);
@@ -20,9 +25,12 @@ const MovieCard = props => {
     <>
       <div className={css.cardWhole}>
         <span className={css.cardNumber}>{id}</span>
-        <div className={css.img}>
+        <div className={css.img} onClick={clickPoster}>
           <img onMouseOut={outStory} onMouseOver={makeStory} src={img} />
-          <span className={story ? `${css.story}` : `${css.none}`}>
+          <span
+            onMouseOver={makeStory}
+            className={story ? `${css.story}` : `${css.none}`}
+          >
             {description}
           </span>
         </div>
@@ -31,9 +39,13 @@ const MovieCard = props => {
             <AiOutlineHeart className={css.heart} />
             <span>{cnt}</span>
           </div>
-          <div className={css.reservation}>
+          <Link
+            className={css.reservation}
+            to={`/booking`}
+            state={{ id: movie.id }}
+          >
             <span>예매</span>
-          </div>
+          </Link>
         </div>
       </div>
     </>

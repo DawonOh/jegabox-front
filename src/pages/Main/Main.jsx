@@ -6,6 +6,7 @@ import MainIntroduce from '../../components/MainIntroduce/MainIntroduce';
 import Footer from '../../components/Footer/Footer';
 
 function Main() {
+  console.log(localStorage.getItem('token'));
   return (
     <>
       <Header />

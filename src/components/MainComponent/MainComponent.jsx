@@ -6,6 +6,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import MainUnderBar from '../MainUnderBar/MainUnderBar';
 const MainComponent = () => {
   const [movieArray, setMovieArray] = useState([]);
+
   useEffect(() => {
     fetch('http://localhost:8000/movie/main')
       .then(res => res.json())
@@ -33,6 +34,7 @@ const MainComponent = () => {
                   img={movie.movie_poster}
                   cnt={movie.cnt}
                   description={movie.description}
+                  movie={movie}
                 />
               );
             })}
