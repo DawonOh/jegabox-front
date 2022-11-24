@@ -20,8 +20,6 @@ const Userinfo = () => {
             </h1>
             <div className={css.userInfoMain}>
               {isPass ? <ChangeInfo /> : <UserInfo />}
-              <ChangeInfo />
-              <UserInfo />
             </div>
           </div>
         </div>
