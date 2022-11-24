@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -15,8 +15,12 @@ import UnderMenu from './UnderMenu/UnderMenu';
 import NonMember from './NonMember/NonMember';
 import { Member } from './Member/Member';
 import LoginModal from '../../components/Login/LoginModal';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const [validToken, setValidToken] = useState(false);
+
+  const navigate = useNavigate();
   const [validSearch, setValidSearch] = useState(false);
   const [validMenu, setValidMenu] = useState(false);
 
@@ -26,6 +30,11 @@ function Header() {
   const [validUnderMenu4, setValidUnderMenu4] = useState(false);
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
 
+  const [validLogin, setValidLogin] = useState('');
+
+  const clickJoin = () => {
+    navigate('/join');
+  };
   const [ValidMember, setValidMember] = useState(false);
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -88,10 +97,38 @@ function Header() {
     setValidMember(true);
     setValidSearch(false);
     setValidMenu(false);
+    if (getToken !== null) {
+      setValidToken(true);
+    } else {
+      setValidToken(false);
+    }
   }
+  console.log(validToken);
+  console.log(ValidMember);
   function memberClose() {
     setValidMember(false);
   }
+  const getToken = window.localStorage.getItem('token');
+  // const successLogin = () => {
+  //   if (getToken !== null) {
+  //     setValidLogin('로그아웃');
+  //   } else {
+  //     setValidLogin('로그인');
+  //   }
+  // };
+  useEffect(() => {
+    if (getToken !== null) {
+      setValidLogin('로그아웃');
+    } else {
+      setValidLogin('로그인');
+    }
+  }, []);
+
+  const Logout = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+
   return (
     <>
       <div className={css.headerContainer}>
@@ -103,9 +140,13 @@ function Header() {
               <span>고객센터</span>
             </div>
             <div className={css.memberBar}>
-              <span onClick={openLogin}>로그인</span>
+              {
+                <span onClick={validLogin == '로그인' ? openLogin : Logout}>
+                  {validLogin}
+                </span>
+              }
               {openLoginModal && <LoginModal closeLogin={closeLogin} />}
-              <span>회원가입</span>
+              <span onClick={clickJoin}>회원가입</span>
               <span>빠른예매</span>
             </div>
           </div>
@@ -323,7 +364,8 @@ function Header() {
       <div className={css.position}>
         {validMenu ? <Dropdown style={{ position: 'relative' }} /> : ''}
         {validSearch ? <GlassDropdown style={{ position: 'relative' }} /> : ''}
-        {ValidMember ? <NonMember /> : ''}
+        {ValidMember && validToken ? <Member /> : ''}
+        {ValidMember && !validToken ? <NonMember /> : ''}
         {/* <Member /> */}
       </div>
     </>

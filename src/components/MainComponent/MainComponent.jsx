@@ -6,12 +6,13 @@ import { BsPlusLg } from 'react-icons/bs';
 import MainUnderBar from '../MainUnderBar/MainUnderBar';
 const MainComponent = () => {
   const [movieArray, setMovieArray] = useState([]);
+
   useEffect(() => {
     fetch('http://localhost:8000/movie/main')
       .then(res => res.json())
-
       .then(res => setMovieArray(res.data));
   }, []);
+
   return (
     <>
       <div className={css.coverblack}>
@@ -25,17 +26,19 @@ const MainComponent = () => {
             </span>
           </div>
           <div className={css.moviecards}>
-            {movieArray.map(movie => {
-              return (
+            {movieArray.map((movie, i) =>
+              i < 4 ? (
                 <MovieCard
+                  movie={movie}
+                  number={i}
                   key={movie.id}
                   id={movie.id}
                   img={movie.movie_poster}
                   cnt={movie.cnt}
                   description={movie.description}
                 />
-              );
-            })}
+              ) : null
+            )}
           </div>
           <div>
             <MainUnderBar />

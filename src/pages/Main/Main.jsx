@@ -6,6 +6,7 @@ import MainIntroduce from '../../components/MainIntroduce/MainIntroduce';
 import Footer from '../../components/Footer/Footer';
 
 function Main() {
+  console.log(localStorage.getItem('token'));
   return (
     <>
       <Header />
@@ -14,7 +15,7 @@ function Main() {
       <div className={css.ad}>
         <p>AD</p>
         <a href="http://54.180.128.213:3000/">
-          <img style={{ height: '120px' }} src="/image/market.png" alt="jsop" />
+          <img style={{ height: '140px' }} src="/image/market.png" alt="jsop" />
         </a>
         <h2> 드루와 구멍으로 드루와</h2>
       </div>
