@@ -11,64 +11,37 @@ import { AiFillHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 const MainMovieCard = props => {
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
+  const [like, setlike] = useState();
+  const [likeNum, setLikeNum] = useState(1);
   const { id, img, cnt, description, date, title, age, viewer, movie } = props;
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
   const [movieArray, setMovieArray] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:8000/movie/main')
-  //     // fetch('/data/mainMovie.json')
-  //     .then(res => res.json())
-  //     // .then(res => setMovieArray(res.mainMovie));
-  //     .then(res => setMovieArray(res.data));
-  // }, []);
-
   useEffect(() => {
-    setLike(movie.likeCnt);
+    fetch('http://localhost:8000/movie/main', {
+      method: 'GET',
+    })
+      // fetch('/data/mainMovie.json')
+      .then(res => res.json())
+      // .then(res => setMovieArray(res.mainMovie));
+      .then(res => console.log(res));
+    // .then(res => setMovieArray(res.data));
   }, []);
-
-  const handleLike = like => {
-    setLike(!like);
-    const token = localStorage.getItem('token');
-    if (!like) {
-      fetch(`http://localhost:8000/likes/addLikes`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: token,
-        },
-        body: JSON.stringify({
-          movie_id: id,
-        }),
-      });
-    } else if (like) {
-      fetch(`http://localhost:8000/likes/removeLikes`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: token,
-        },
-        body: JSON.stringify({
-          movie_id: id,
-        }),
-      });
-    }
-  };
 
   const sendMovieInfo = () => {
     console.log(movie);
   };
-  // const makeLikeNum = () => {
-  //   setLikeNum(likeNum + 1);
-  //   if (likeNum % 2 == 0) {
-  //     console.log(likeNum);
-  //     setlike(false);
-  //   }
-  //   if (likeNum % 2 == 1) setlike(true);
-  //   console.log(likeNum);
-  // };
+
+  const makeLikeNum = () => {
+    setLikeNum(likeNum + 1);
+    if (likeNum % 2 == 0) {
+      console.log(likeNum);
+      setlike(false);
+    }
+    if (likeNum % 2 == 1) setlike(true);
+    console.log(likeNum);
+  };
   const makeStory = () => {
     setStory(true);
   };
@@ -117,7 +90,7 @@ const MainMovieCard = props => {
           </div>
         </div>
         <div className={css.underImg}>
-          <div className={css.movieLike} onClick={handleLike}>
+          <div className={css.movieLike} onClick={makeLikeNum}>
             {like ? (
               <AiFillHeart
                 style={{ color: 'rgb(2 123 148)' }}

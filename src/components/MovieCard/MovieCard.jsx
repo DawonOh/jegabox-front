@@ -9,11 +9,12 @@ import { useRef } from 'react';
 const MovieCard = props => {
   const navigate = useNavigate();
   const { id, img, cnt, description, number, movie } = props;
+  console.log(movie);
   const sendMovieInfo = () => {
     console.log(movie);
   };
   const [story, setStory] = useState(false);
-  const [like, setlike] = useState(false);
+  const [like, setlike] = useState();
   const [likeNum, setLikeNum] = useState(1);
   const likenumber = useRef();
   const makeLikeNum = () => {
