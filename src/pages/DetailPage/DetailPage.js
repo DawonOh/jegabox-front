@@ -5,7 +5,6 @@ import Footer from '../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import qs from 'qs';
-import { faCropSimple } from '@fortawesome/free-solid-svg-icons';
 function DetailPage() {
   const location = useLocation();
   const [onDesc, setOnDesc] = useState(true);
@@ -27,6 +26,7 @@ function DetailPage() {
   // 1. 첫 랜더링시 영화 포스터 정보 저장
   useEffect(() => {
     const token = localStorage.getItem('token');
+    // if (token) {
     fetch(`http://localhost:8000/movie/detail/${movieId}`, {
       method: 'GET',
       headers: {
@@ -38,6 +38,10 @@ function DetailPage() {
       .then(res => {
         setData(res);
       });
+    // } else {
+    //   navigate('/');
+    //   alert('로그인을 해주세요');
+    // }
   }, []);
 
   // 2. 영화 포스터 정보 변경 시 실행, lickCnt 저장
