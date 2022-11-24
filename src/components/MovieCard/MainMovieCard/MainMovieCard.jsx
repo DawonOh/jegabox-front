@@ -57,7 +57,13 @@ const MainMovieCard = props => {
   return (
     <>
       <div className={css.cardWhole}>
-        <span className={css.cardNumber}>{id}</span>
+        <span
+          onMouseOut={outStory}
+          onMouseOver={makeStory}
+          className={css.cardNumber}
+        >
+          {id}
+        </span>
         <div className={css.img}>
           <img
             className={css.moviePoster}
@@ -65,10 +71,20 @@ const MainMovieCard = props => {
             onMouseOver={makeStory}
             src={img}
             onClick={() => navigate(`/detail?movieNo=${id}`)}
-          />
-          <span className={story ? `${css.story}` : `${css.none}`}>
-            {description}
-          </span>
+          />{' '}
+          <div
+            onMouseOut={outStory}
+            onMouseOver={makeStory}
+            className={story ? `${css.descriptionWrap}` : `${css.none}`}
+          >
+            <span
+              onMouseOut={outStory}
+              onMouseOver={makeStory}
+              className={css.story}
+            >
+              {description}
+            </span>
+          </div>
         </div>
         <div className={css.movieInformation}>
           <img className={css.age} src={grade} />

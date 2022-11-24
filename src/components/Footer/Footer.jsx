@@ -12,7 +12,7 @@ function Footer() {
         </div>
         <div className={css.secondContainer}>
           <div className={css.leftContainer}>
-            <img src="https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_1280.jpg"></img>
+            <img src="https://ifh.cc/g/m4L7Pv.jpg"></img>
             <div className={css.pContainer}>
               <p>
                 서울특별시 오수구 빈드로 621 ,지상1013층(아모레파티) APR

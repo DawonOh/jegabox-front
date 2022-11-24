@@ -15,7 +15,6 @@ import NonMember from '../Header/NonMember/NonMember';
 import { Member } from '../Header/Member/Member';
 import LoginModal from '../../components/Login/LoginModal';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 function PageHeader() {
   const navigate = useNavigate();
