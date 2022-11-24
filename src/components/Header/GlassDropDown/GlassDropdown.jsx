@@ -177,7 +177,7 @@ const GlassDropdown = props => {
             ></input>
             <BiSearch
               className={css.searchIcon}
-              onCLick={() => {
+              onClick={() => {
                 setclick(true);
               }}
             />
