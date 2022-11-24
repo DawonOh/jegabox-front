@@ -12,7 +12,6 @@ import DetailPage from './DetailPage/DetailPage';
 import Booking from './Booking/Booking';
 import PlanningMovie from './WholeMovie/PlanningMovie/PlanningMovie';
 import Join from './Join/Join';
-
 function Router() {
   return (
     <BrowserRouter>

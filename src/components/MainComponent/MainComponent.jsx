@@ -10,9 +10,9 @@ const MainComponent = () => {
   useEffect(() => {
     fetch('http://localhost:8000/movie/main')
       .then(res => res.json())
-
       .then(res => setMovieArray(res.data));
   }, []);
+
   return (
     <>
       <div className={css.coverblack}>
@@ -26,9 +26,11 @@ const MainComponent = () => {
             </span>
           </div>
           <div className={css.moviecards}>
-            {movieArray.map(movie => {
-              return (
+            {movieArray.map((movie, i) =>
+              i < 4 ? (
                 <MovieCard
+                  movie={movie}
+                  number={i}
                   key={movie.id}
                   id={movie.id}
                   img={movie.movie_poster}
@@ -36,8 +38,8 @@ const MainComponent = () => {
                   description={movie.description}
                   movie={movie}
                 />
-              );
-            })}
+              ) : null
+            )}
           </div>
           <div>
             <MainUnderBar />

@@ -37,6 +37,7 @@ function Booking() {
       setMovieObj(user);
     }
   }, []);
+
   useEffect(() => {
     if (movieObj) {
       setUserMv(movieObj);
