@@ -36,6 +36,7 @@ const MainComponent = () => {
                   img={movie.movie_poster}
                   cnt={movie.cnt}
                   description={movie.description}
+                  movie={movie}
                 />
               ) : null
             )}

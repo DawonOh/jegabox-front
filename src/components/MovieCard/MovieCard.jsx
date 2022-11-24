@@ -32,18 +32,24 @@ const MovieCard = props => {
     setStory(false);
   };
 
+  function clickPoster() {
+    console.log('test');
+  }
+
+  // console.log(id);
+  // console.log(img);
+  // console.log(cnt);
+  // console.log(description);
   return (
     <>
       <div className={css.cardWhole}>
         <span className={css.cardNumber}>{id}</span>
-        <div className={css.img}>
-          <img
-            onClick={() => navigate(`/detail?movieNo=${movie.id}`)}
-            onMouseOut={outStory}
+        <div className={css.img} onClick={clickPoster}>
+          <img onMouseOut={outStory} onMouseOver={makeStory} src={img} />
+          <span
             onMouseOver={makeStory}
-            src={img}
-          />
-          <span className={story ? `${css.story}` : `${css.none}`}>
+            className={story ? `${css.story}` : `${css.none}`}
+          >
             {description}
           </span>
         </div>
@@ -59,9 +65,13 @@ const MovieCard = props => {
             )}
             <span>{cnt}</span>
           </div>
-          <div className={css.reservation}>
+          <Link
+            className={css.reservation}
+            to={`/booking`}
+            state={{ id: movie.id }}
+          >
             <span>예매</span>
-          </div>
+          </Link>
         </div>
       </div>
     </>

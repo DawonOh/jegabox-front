@@ -77,7 +77,7 @@ function App() {
 
   useEffect(() => {
     //개발용 코드
-    console.log('reqDate', reqData);
+    // console.log('reqDate', reqData);
     // fetch('/data/movieInfo.json')
     //   .then(res => res.json())
     //   .then(data => {

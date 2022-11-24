@@ -46,7 +46,7 @@ function App() {
       <div onMouseOver={onMouseOver}>두 번째 div</div>
       <div onMouseOver={onMouseOver}>세 번째 div</div>
       <div onMouseOver={onMouseOver}>네 번째 div</div>
-      <div onMouseOver={onMouseOver}>다섯 번째 div</div>
+      <div onMouseOver={onMouseOver}>다섯 번째 div.</div>
 
       <label className={css.switch}>
         <input type="checkbox" />

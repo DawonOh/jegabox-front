@@ -44,6 +44,12 @@ function Booking() {
       setDisable(false);
     }
   }, [movieObj]);
+  //메인 포스터에서 ID값 받아서 저장하기
+  useEffect(() => {
+    if (location.state) {
+      setIds([location.state.id]);
+    }
+  }, []);
 
   //보류 사용
   useEffect(() => {
