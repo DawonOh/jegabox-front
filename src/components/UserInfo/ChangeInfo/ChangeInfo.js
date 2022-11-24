@@ -69,10 +69,12 @@ const ChangeInfo = () => {
     setIsClick(!isClick);
   };
 
-  const handleNewPhoneNum = e => {
-    setNewPhoneNum(e.target.value);
-    if (phoneNum === newPhoneNum) {
+  const newNum = useRef();
+  const handleNewPhoneNum = () => {
+    if (phoneNum === newNum.current.value) {
       setSamePhoneNum(true);
+    } else {
+      setSamePhoneNum(false);
     }
   };
 
@@ -93,34 +95,39 @@ const ChangeInfo = () => {
     }
   };
 
+  console.log(samePhoneNum);
   //인증번호 요청 / 타이머 시작
   const sendInfo = () => {
-    fetch('http://localhost:8000/users/validateNumber2', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phone_number: phoneNum,
-        account_id: id,
-      }),
-    })
-      .then(res => res.json())
-      .then(json => {
-        if (json.code == 200) {
-          setStartTimer(true);
-          setTryAgain(true);
-          setDisabledInput(false);
-          setIsClickSendBtn(true);
-          openAlertModal();
-          return;
-        } else {
-          setStartTimer(false);
-          setIsClickSendBtn(false);
-          openAlertModal();
-          return;
-        }
-      });
+    if (samePhoneNum !== true) {
+      fetch('http://localhost:8000/users/validateNumber2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone_number: newNum.current.value,
+          account_id: id,
+        }),
+      })
+        .then(res => res.json())
+        .then(json => {
+          if (json.code == 200) {
+            setStartTimer(true);
+            setTryAgain(true);
+            setDisabledInput(false);
+            setIsClickSendBtn(true);
+            openAlertModal();
+            return;
+          } else {
+            setStartTimer(false);
+            setIsClickSendBtn(false);
+            openAlertModal();
+            return;
+          }
+        });
+    } else {
+      openAlertModal();
+    }
   };
 
   // 타이머
@@ -166,7 +173,7 @@ const ChangeInfo = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        phone_number: phoneNum,
+        phone_number: newNum.current.value,
         account_id: id,
       }),
     })
@@ -185,27 +192,41 @@ const ChangeInfo = () => {
 
   //인증번호 맞는지 백으로 전송
   const checkNum = () => {
+    let check = 0;
     fetch('http://localhost:8000/users/validateNumber', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        phone_number: phoneNum,
+        phone_number: newNum.current.value,
         validateNumber: checkRandomNum,
       }),
     })
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
-          localStorage.setItem('passToken', json.token);
+          check = 200;
           setCode(json.code);
           setIsDisabledBtn(false);
-          setIsSame('pass');
-          openAlertModal();
-          setTimeout(function () {
-            window.location.reload();
-          }, 3000);
+          fetch('http://localhost:8000/users/validateNumber2', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phone_number: newNum.current.value,
+              account_id: id,
+            }),
+          })
+            .then(res => res.json())
+            .then(json => {
+              setIsSame('pass');
+              openAlertModal();
+              setTimeout(function () {
+                window.location.reload();
+              }, 3000);
+            });
           return;
         } else {
           setCode('');
@@ -213,8 +234,9 @@ const ChangeInfo = () => {
           setIsSame('none');
         }
       });
+    if (check == 200) {
+    }
   };
-
   //알림창
   const [alertModal, setAlertModal] = useState(false);
   const openAlertModal = () => {
@@ -297,6 +319,7 @@ const ChangeInfo = () => {
                     <input
                       type="text"
                       placeholder="'-'없이 입력해 주세요"
+                      ref={newNum}
                       onChange={handleNewPhoneNum}
                     />
                     {!tryAgain ? (
@@ -308,9 +331,7 @@ const ChangeInfo = () => {
                         }
                         disabled={isDisabledReqBtn}
                         onClick={() => {
-                          if (samePhoneNum !== true) {
-                            sendInfo();
-                          }
+                          sendInfo();
                         }}
                       >
                         인증번호 전송
