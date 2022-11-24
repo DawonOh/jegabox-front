@@ -27,7 +27,7 @@ const MainIntroduce = () => {
             </div>
             <div>2022.12.25</div>
           </div>
-          <div className={css.plus}>더보기 ></div>
+          <div className={css.plus}>더보기 </div>
         </div>
         <div className={css.iconContainer}>
           <div className={css.icon}>

@@ -7,7 +7,13 @@ import { BiSearch } from 'react-icons/bi';
 const GlassDropdown = props => {
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/movie/main')
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:8000/movie/main', {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);
