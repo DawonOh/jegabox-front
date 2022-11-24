@@ -79,6 +79,7 @@ const LoginModal = ({ closeLogin }) => {
           }
           setIsLogin(true);
           closeLogin();
+          window.location.reload();
         } else {
           idInput.current.value = '';
           pwInput.current.value = '';

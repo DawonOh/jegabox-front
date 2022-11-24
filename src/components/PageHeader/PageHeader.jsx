@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -25,6 +25,10 @@ function PageHeader() {
   const [validUnderMenu5, setValidUnderMenu5] = useState(false);
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
+
+  const [validLogin, setValidLogin] = useState('');
+  const getToken = window.localStorage.getItem('token');
+
   // 모달창 여는 함수
   const openLogin = () => {
     setOpenLoginModal(true);
@@ -90,6 +94,19 @@ function PageHeader() {
   function memberClose() {
     setValidMember(false);
   }
+
+  const Logout = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+
+  useEffect(() => {
+    if (getToken !== null) {
+      setValidLogin('로그아웃');
+    } else {
+      setValidLogin('로그인');
+    }
+  }, []);
   return (
     <>
       <div className={css.headerContainer}>
@@ -101,7 +118,11 @@ function PageHeader() {
               <span>고객센터</span>
             </div>
             <div className={css.memberBar}>
-              <span onClick={openLogin}>로그인</span>
+              {
+                <span onClick={validLogin == '로그인' ? openLogin : Logout}>
+                  {validLogin}
+                </span>
+              }
               <span>회원가입</span>
               <span>빠른예매</span>
             </div>
