@@ -19,9 +19,9 @@ const Userinfo = () => {
               {isPass ? '개인정보수정' : '회원정보'}
             </h1>
             <div className={css.userInfoMain}>
-              {/* {isPass ? <ChangeInfo /> : <UserInfo />} */}
+              {isPass ? <ChangeInfo /> : <UserInfo />}
               <ChangeInfo />
-              {/* <UserInfo /> */}
+              <UserInfo />
             </div>
           </div>
         </div>
