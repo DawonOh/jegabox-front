@@ -5,6 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import qs from 'qs';
+import { faCropSimple } from '@fortawesome/free-solid-svg-icons';
 function DetailPage() {
   const location = useLocation();
   const [onDesc, setOnDesc] = useState(true);
@@ -43,8 +44,7 @@ function DetailPage() {
   useEffect(() => {
     console.log('in');
     if (data) {
-      console.log('in data');
-      setLike(data.likeCnt);
+      setLike(data.isLiked);
     }
   }, [data]);
 
@@ -158,7 +158,7 @@ function DetailPage() {
               src="/image/review.png"
               alt="reviewicon"
             />
-            <p className={css.review}>{data.rate}</p>
+            <p className={css.review}>{data.rated}</p>
           </div>
         </div>
       )}
