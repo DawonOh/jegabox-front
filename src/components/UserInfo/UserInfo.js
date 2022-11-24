@@ -192,7 +192,6 @@ const UserInfo = () => {
       .then(res => res.json())
       .then(json => {
         if (json.code == 200) {
-          localStorage.setItem('passToken', json.token);
           setCode(json.code);
           setIsDisabledBtn(false);
           setIsSame('pass');
