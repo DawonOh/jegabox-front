@@ -13,14 +13,23 @@
     font-size: 40px;
   }
   .img {
-    .story {
-      display: inline-block;
-      padding-right: 5px;
-      cursor: pointer;
-      top: 50px;
-      left: 30px;
+    position: relative;
+    cursor: pointer;
+    .descriptionWrap {
       position: absolute;
-      color: white;
+      bottom: 1px;
+      background-color: rgba(0, 0, 0, 0.7);
+      width: 240px;
+      height: 344px;
+      .story {
+        display: inline-block;
+        padding-right: 5px;
+        cursor: pointer;
+        top: 50px;
+        left: 30px;
+        position: absolute;
+        color: white;
+      }
     }
     img {
       border-radius: 10px;

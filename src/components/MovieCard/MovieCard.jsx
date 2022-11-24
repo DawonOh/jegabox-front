@@ -9,10 +9,11 @@ import { useRef } from 'react';
 const MovieCard = props => {
   const navigate = useNavigate();
   const { id, img, cnt, description, number, movie } = props;
-  console.log(movie);
-  const sendMovieInfo = () => {
-    console.log(movie);
-  };
+
+  // const sendMovieInfo = () => {
+  //   console.log(movie);
+  // };
+
   const [story, setStory] = useState(false);
   const [like, setlike] = useState();
   const [likeNum, setLikeNum] = useState(1);
@@ -41,21 +42,35 @@ const MovieCard = props => {
   // console.log(img);
   // console.log(cnt);
   // console.log(description);
+
   return (
     <>
       <div className={css.cardWhole}>
-        <span className={css.cardNumber}>{id}</span>
+        <span
+          onMouseOut={outStory}
+          onMouseOver={makeStory}
+          className={css.cardNumber}
+        >
+          {id}
+        </span>
         <div
           className={css.img}
           onClick={() => navigate(`/detail?movieNo=${id}`)}
         >
           <img onMouseOut={outStory} onMouseOver={makeStory} src={img} />
-          <span
+          <div
+            onMouseOut={outStory}
             onMouseOver={makeStory}
-            className={story ? `${css.story}` : `${css.none}`}
+            className={story ? `${css.descriptionWrap}` : `${css.none}`}
           >
-            {description}
-          </span>
+            <span
+              onMouseOut={outStory}
+              onMouseOver={makeStory}
+              className={css.story}
+            >
+              {description}
+            </span>
+          </div>
         </div>
         <div className={css.underImg}>
           <div className={css.movieLike} onClick={makeLikeNum} ref={likenumber}>
