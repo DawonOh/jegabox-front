@@ -15,13 +15,13 @@ const WholeMovie = () => {
   const navigate = useNavigate();
   const [movieArray, setMovieArray] = useState([]);
   const [check, setCheck] = useState(false);
-  useEffect(() => {
-    //fetch('http://localhost:8000/movie/main');
-    fetch('/data/mainMovie.json')
-      .then(res => res.json())
-      .then(res => setMovieArray(res.mainMovie));
-    // .then(res => setMovieArray(res.data));
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:8000/movie/main')
+  //     // fetch('/data/mainMovie.json')
+  //     .then(res => res.json())
+  //     // .then(res => setMovieArray(res.mainMovie));
+  //     .then(res => setMovieArray(res.data));
+  // }, []);
   useEffect(() => {
     fetch('http://localhost:8000/movie/list', {
       method: 'POST',
@@ -37,30 +37,37 @@ const WholeMovie = () => {
       .then(res => setMovieArray(res.data));
   }, []);
 
-  // useEffect(() => {
-  //   !check
-  //     ? fetch('http://localhost:8000/movie/list', {
-  //         method: 'POST',
-  //       })
-  //         .then(res => res.json())
-  //         .then(res => setMovieArray(res.data))
-  //     : fetch('http://localhost:8000/movie/list', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           // Authorization: localStorage.getItem('token'),
-  //         },
-  //         body: JSON.stringify({
-  //           released: '전체',
-  //         }),
-  //       })
-  //         .then(res => res.json())
-  //         .then(res => setMovieArray(res.data));
-  // }, [check]);
-
   useEffect(() => {
-    console.log('useEffect', movieArray);
-  }, [movieArray]);
+    !check
+      ? fetch('http://localhost:8000/movie/list', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: localStorage.getItem('token'),
+          },
+          body: JSON.stringify({
+            released: '전체',
+          }),
+        })
+          .then(res => res.json())
+          .then(res => setMovieArray(res.data))
+      : fetch('http://localhost:8000/movie/list', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: localStorage.getItem('token'),
+          },
+          body: JSON.stringify({
+            released: '개봉작만',
+          }),
+        })
+          .then(res => res.json())
+          .then(res => setMovieArray(res.data));
+  }, [check]);
+
+  // useEffect(() => {
+  //   console.log('useEffect', movieArray);
+  // }, [movieArray]);
   const sendMovieInfo = () => {
     console.log(movieArray);
   };
@@ -122,8 +129,8 @@ const WholeMovie = () => {
             <span className={css.switchName}>개봉작만</span>
 
             <span className={css.movienumber}>
-              <span className={css.highlightFont}>121</span>개의 영화가
-              검색되었습니다.
+              <span className={css.highlightFont}>{movieArray.length}</span>개의
+              영화가 검색되었습니다.
             </span>
           </div>
 
@@ -137,13 +144,14 @@ const WholeMovie = () => {
         {movieArray.map((movie, i) => {
           return (
             <MainMovieCard
+              movie={movie}
               age={movie.grade}
               title={movie.ko_title}
               key={movie.id}
               id={i + 1}
               img={movie.movie_poster}
               cnt={movie.cnt}
-              description={movie.description}
+              description={movie.sub_description}
               date={movie.release_date}
               viewer={movie.viewer}
             />

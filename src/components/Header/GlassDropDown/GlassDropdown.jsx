@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-const GlassDropdown = () => {
+const GlassDropdown = props => {
   const [movieArray, setMovieArray] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -17,6 +17,7 @@ const GlassDropdown = () => {
       .then(res => res.json())
       .then(res => setMovieArray(res.data));
   }, []);
+
   const [changePhoto1, setChangePhoto1] = useState('');
   const [changeValidPhoto1, setValidPhoto1] = useState(false);
   const [changePhoto2, setChangePhoto2] = useState('');
@@ -28,6 +29,10 @@ const GlassDropdown = () => {
   const [changePhoto5, setChangePhoto5] = useState('');
   const [changeValidPhoto5, setValidPhoto5] = useState(false);
   function ChangePoster1() {
+    setValidPhoto5(false);
+    setValidPhoto4(false);
+    setValidPhoto3(false);
+    setValidPhoto2(false);
     setValidPhoto1(true);
     setChangePhoto1(100);
     setChangePhoto2(0);

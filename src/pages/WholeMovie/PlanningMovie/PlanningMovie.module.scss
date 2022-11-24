@@ -54,8 +54,11 @@
     .toggleBtn {
       font-size: 15px;
       .switchName {
+        color: rgb(95, 95, 95);
+        padding-top: 0;
+        padding-right: 10px;
         margin-left: 7px;
-        margin-right: 10px;
+        //margin-right: 10px;
       }
       .highlightFont {
         font-weight: 900;
@@ -164,4 +167,12 @@ input:checked + .slider:before {
 }
 .pointer {
   cursor: pointer;
+}
+.switchNameClick {
+  font-weight: 1000;
+  color: black;
+  padding-top: 0;
+  padding-right: 10px;
+  margin-left: 7px;
+  //margin-right: 10px;
 }
