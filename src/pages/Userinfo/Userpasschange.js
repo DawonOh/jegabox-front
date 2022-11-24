@@ -100,7 +100,9 @@ const Userpasschange = () => {
       setSameNowAndNew('none');
     }
   }, [nowPass, pass]);
-
+  console.log('same ? ', same);
+  console.log('password ok? ', checkPassRegex);
+  console.log('passAgain ok? ', checkPassAgainRegex);
   //수정 버튼 클릭
   let token = localStorage.getItem('token');
   const changePassResult = () => {

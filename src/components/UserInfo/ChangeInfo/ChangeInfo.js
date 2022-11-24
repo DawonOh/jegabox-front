@@ -291,6 +291,7 @@ const ChangeInfo = () => {
       setNewEmail(getNewEmail.current.value);
     }
   }, [newEmail]);
+
   const changeEmail = () => {
     if (newEmail === '') {
       setNewEmail(email);
@@ -317,6 +318,7 @@ const ChangeInfo = () => {
         }
       });
   };
+  console.log('successEmail : ', successEmail);
   //알림창
   const [alertModal, setAlertModal] = useState(false);
   const openAlertModal = () => {
@@ -372,18 +374,6 @@ const ChangeInfo = () => {
       ) : (
         <></>
       )}
-      {alertModal ? (
-        successEmail == 'none' || isEmailWrong == 'none' ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={changeEmailFailMessage}
-          />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
 
       {alertModal ? (
         alreadyUsePhone === true && (
@@ -432,6 +422,18 @@ const ChangeInfo = () => {
             closeAlertModal={closeAlertModal}
             messages={passMessage}
           />
+        )
+      ) : (
+        <></>
+      )}
+      {alertModal ? (
+        successEmail == 'none' ? (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={changeEmailFailMessage}
+          />
+        ) : (
+          <></>
         )
       ) : (
         <></>
