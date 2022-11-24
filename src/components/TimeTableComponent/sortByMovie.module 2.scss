@@ -1,0 +1,78 @@
+.mainDiv {
+  border: 3px solid gray;
+  width: 1100px;
+  height: 300px;
+  display: flex;
+  border-radius: 10px;
+  position: relative;
+
+  .sortDiv {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+
+    .sort {
+      width: 150px;
+      height: 100px;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+
+      i {
+        margin: 5px;
+      }
+    }
+  }
+  .titleCategory {
+    transform: translateX(40px);
+    .movieCategory {
+      display: flex;
+      margin: 10px 10px 10px 30px;
+      border-bottom: 1px solid gray;
+      width: 585px;
+
+      .category {
+        margin: 5px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+    }
+    .movieTitleDiv {
+      width: 580px;
+      height: 250px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      overflow: auto;
+      margin-left: 40px;
+      ::-webkit-scrollbar-thumb {
+        border-radius: 0.5px;
+        background-color: gray;
+      }
+
+      .movieTitle {
+        width: 150px;
+        height: 27px;
+        margin: 0 10px;
+        font-size: 15px;
+        color: rgb(68, 68, 68);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .moviePosterDiv {
+    width: 250px;
+    height: 300px;
+    position: absolute;
+    background-size: cover;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    right: 0;
+    // transform: translateX(1.2px);
+  }
+}
