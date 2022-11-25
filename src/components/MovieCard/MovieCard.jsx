@@ -49,7 +49,7 @@ const MovieCard = props => {
           onMouseOver={makeStory}
           className={css.cardNumber}
         >
-          {id}
+          {number}
         </span>
         <div
           className={css.img}
