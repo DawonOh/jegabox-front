@@ -6,15 +6,17 @@
     font-style: italic;
     left: 20px;
     top: 50px;
+    z-index: 1;
     position: absolute;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
   }
   .img {
     position: relative;
     cursor: pointer;
     .descriptionWrap {
       position: absolute;
+      z-index: 2;
       bottom: 1px;
       background-color: rgba(0, 0, 0, 0.7);
       width: 240px;

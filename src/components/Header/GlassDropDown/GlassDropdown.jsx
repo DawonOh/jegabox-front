@@ -80,20 +80,18 @@ const GlassDropdown = props => {
     setValidPhoto5(true);
   }
 
-  const search = e => {
-    if (click || e.key === 'Enter') {
-      let url = '/searchlist?query=' + content;
+  const getValue = e => {
+    setContent(e.target.value);
+  };
+  const gotomovie = e => {
+    if (content == '') {
+      navigate('/movie');
+    } else {
+      let url = '/movie?searchText=' + content;
       navigate(url);
       window.location.reload();
-    } else {
-      setContent(e.target.value);
     }
   };
-  let params = new URLSearchParams(location.search); //?query=구름
-  let searchText = params.get('searchText'); //구름
-  useEffect(() => {
-    setContent(searchText);
-  }, [searchText]);
   return (
     <div className={css.outColor}>
       <div className={css.wholeSearch}>
@@ -171,16 +169,10 @@ const GlassDropdown = props => {
           <div className={css.searchBar}>
             <input
               placeholder="영화를 검색하세요"
-              onChange={search}
-              value={content}
-              type="search"
+              onChange={getValue}
+              type="text"
             ></input>
-            <BiSearch
-              className={css.searchIcon}
-              onClick={() => {
-                setclick(true);
-              }}
-            />
+            <BiSearch className={css.searchIcon} onClick={gotomovie} />
           </div>
         </div>
       </div>

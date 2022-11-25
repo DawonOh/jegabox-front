@@ -94,9 +94,12 @@
 .cardList {
   display: flex;
   flex-wrap: wrap;
-
   width: 1100px;
   margin: auto;
+  .notSearch {
+    margin: 100px auto;
+    font-size: 28px;
+  }
 }
 /* The switch - the box around the slider */
 .switch {
