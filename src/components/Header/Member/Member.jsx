@@ -2,7 +2,9 @@ import React from 'react';
 import css from './Member.module.scss';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 export const Member = () => {
+  const Navigate = useNavigate();
   const [name, setname] = useState('');
   const [movieName, setMovieName] = useState('');
   const myname = window.localStorage.getItem('name');
@@ -21,6 +23,10 @@ export const Member = () => {
       .then(res => setMovieName(res));
   }, []);
 
+  function moveReservation() {
+    Navigate('/mypage');
+  }
+
   return (
     <div className={css.position}>
       <div className={css.wholeContainer}>
@@ -31,7 +37,9 @@ export const Member = () => {
               <span className={css.name}>{movieName.name}&nbsp;</span>회원님
             </p>
           </div>
-          <button className={css.btn}>나의 제가박스</button>
+          <button onClick={moveReservation} className={css.btn}>
+            나의 제가박스
+          </button>
         </div>
         <div className={`${css.twoContainer} ${css.flex}`}>
           <div className={css.component}>
@@ -57,7 +65,12 @@ export const Member = () => {
             <span className={`${css.content} ${css.fontSize}`}>
               {movieName.ko_title}
             </span>
-            <button className={`${css.btn} ${css.btn10}`}>예매내역</button>
+            <button
+              className={`${css.btn} ${css.btn10}`}
+              onClick={moveReservation}
+            >
+              예매내역
+            </button>
           </div>
           <div className={css.component}>
             <span className={css.title}>구매</span>

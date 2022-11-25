@@ -8,11 +8,11 @@ import qs from 'qs';
 function DetailPage() {
   const location = useLocation();
   const [onDesc, setOnDesc] = useState(true);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(false);
   const [commentArr, setCommentArr] = useState([]);
   const [commentArr_l, setCommentAr_l] = useState([]);
   const [data, setData] = useState([]);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState();
   const [rate, setRate] = useState(0);
   const navigate = useNavigate();
   const commentValue = useRef();
@@ -23,10 +23,10 @@ function DetailPage() {
     ignoreQueryPrefix: true,
   });
   const movieId = query.movieNo;
-
-  // 필터 해서 디테일에 내보낼 데이터 찾기
+  // 1. 첫 랜더링시 영화 포스터 정보 저장
   useEffect(() => {
     const token = localStorage.getItem('token');
+    // if (token) {
     fetch(`http://localhost:8000/movie/detail/${movieId}`, {
       method: 'GET',
       headers: {
@@ -35,16 +35,36 @@ function DetailPage() {
       },
     })
       .then(res => res.json())
-      .then(res => setData(res[0]));
-    console.log(data);
-  }, [like]);
+      .then(res => {
+        setData(res);
+      });
+    // } else {
+    //   navigate('/');
+    //   alert('로그인을 해주세요');
+    // }
+  }, []);
+
+  // 2. 영화 포스터 정보 변경 시 실행, lickCnt 저장
+  useEffect(() => {
+    console.log('in');
+    if (data) {
+      setLike(data.isLiked);
+    }
+  }, [data]);
 
   useEffect(() => {
-    setLike(data.likeCnt);
-  }, []);
-  useEffect(() => {
-    console.log(like);
-  });
+    const token = localStorage.getItem('token');
+    fetch(`http://localhost:8000/comments?pstMovieNo=${movieId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => setCommentArr(res.data));
+  }, [commentArr_l]);
+
   const prtGrade = grade => {
     return <img className={css.grade} src={`image/${grade}.png`} alt="grade" />;
   };
@@ -68,22 +88,12 @@ function DetailPage() {
     rateNum.current.value = '';
   };
 
-  useEffect(() => {
+  // 3. heart 클릭 시 실행
+  const handleLike = async () => {
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:8000/comments?pstMovieNo=${movieId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: token,
-      },
-    })
-      .then(res => res.json())
-      .then(res => setCommentArr(res.data));
-  }, [commentArr_l]);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    fetch(`http://localhost:8000/likes/addLikes`, {
+    //영화 id 서버로 전송
+    await fetch(`http://localhost:8000/likes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +103,20 @@ function DetailPage() {
         movie_id: movieId,
       }),
     });
-  }, [like]);
+
+    //data 갱신
+    fetch(`http://localhost:8000/movie/detail/${movieId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setData(res);
+      });
+  };
 
   return (
     <div className={css.container}>
@@ -114,7 +137,7 @@ function DetailPage() {
             {prtGrade(data.grade_simple)}
             <p className={css.title}>{data.ko_title}</p>
             <p className={css.en_title}>{data.en_title}</p>
-            <button onClick={() => setLike(!like)} className={css.heart}>
+            <button onClick={() => handleLike()} className={css.heart}>
               {like ? (
                 <img
                   src="/image/fillheart.png"
@@ -130,7 +153,7 @@ function DetailPage() {
                   height="20px"
                 />
               )}
-              <p>{data.like}</p>
+              <p>{data.cnt}</p>
             </button>
             <img className={css.poster} src={data.movie_poster} alt="사진" />
             <p className={css.w_review}>실관람 평점</p>
@@ -183,7 +206,8 @@ function DetailPage() {
                   <span>
                     장르 : {data.genre}/{data.movie_time}분
                   </span>{' '}
-                  <span>등급 : {data.grade} </span> 개봉일 :{data.release_date}
+                  <span>등급 : {data.grade} </span>{' '}
+                  <span>개봉일 : 20{data.release_date}</span>
                 </p>
                 <p>출연진 : {data.actors}</p>
               </div>

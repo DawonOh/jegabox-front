@@ -1,45 +1,58 @@
-import React, { useTransition } from 'react';
+import React, { useEffect, useTransition } from 'react';
 import css from './MovieCard.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
-import { useRef } from 'react';
-import { Navigate } from 'react-router-dom';
-const MovieCard = props => {
+
+function MovieCard({ id, img, cnt, description, number, movie, setChange }) {
   const navigate = useNavigate();
-  const { id, img, cnt, description, number, movie } = props;
-  // const sendMovieInfo = () => {
-  //   console.log(movie);
-  // };
+
   const [story, setStory] = useState(false);
-  const [like, setlike] = useState(false);
-  const [likeNum, setLikeNum] = useState(1);
-  const likenumber = useRef();
-  const makeLikeNum = () => {
-    setLikeNum(likeNum + 1);
-    if (likeNum % 2 == 0) {
-      console.log(likeNum);
-      setlike(false);
-    }
-    if (likeNum % 2 == 1) setlike(true);
+  const [like, setLike] = useState();
+
+  // console.log(likeArr);
+  useEffect(() => {
+    setLike(movie.isLiked);
+  }, []);
+
+  const handleLike = async () => {
+    const token = localStorage.getItem('token');
+
+    //영화 id 서버로 전송
+    await fetch(`http://localhost:8000/likes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+      body: JSON.stringify({
+        movie_id: id,
+      }),
+    });
+    setChange(false);
+    //data 갱신
+    fetch(`http://localhost:8000/movie/detail/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setLike(res.isLiked);
+        console.log(res);
+      });
   };
 
+  //array를 받아와서 like
   const makeStory = () => {
     setStory(true);
   };
   const outStory = () => {
     setStory(false);
   };
-
-  function clickPoster() {
-    console.log('test');
-  }
-
-  // console.log(id);
-  // console.log(img);
-  // console.log(cnt);
-  // console.log(description);
 
   return (
     <>
@@ -71,7 +84,7 @@ const MovieCard = props => {
           </div>
         </div>
         <div className={css.underImg}>
-          <div className={css.movieLike} onClick={makeLikeNum} ref={likenumber}>
+          <div className={css.movieLike} onClick={() => handleLike()}>
             {like ? (
               <AiFillHeart
                 style={{ color: 'rgb(2 123 148)' }}
@@ -93,6 +106,6 @@ const MovieCard = props => {
       </div>
     </>
   );
-};
+}
 
 export default MovieCard;

@@ -335,7 +335,7 @@ function Header() {
               </li>
             </div>
             <li className={css.mainMenuBar}>
-              <Link className={`${css.linkToWhere} `} to={'/login'}>
+              <Link className={`${css.linkToWhere} `} to={'/timetable'}>
                 <FaCalendarAlt className={css.headerIcon} />
               </Link>
               <span className={`${css.linkToWhere}`} to={'/login'}>

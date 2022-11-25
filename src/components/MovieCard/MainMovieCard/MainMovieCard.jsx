@@ -11,30 +11,37 @@ import { AiFillHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 const MainMovieCard = props => {
   const navigate = useNavigate();
-  const [like, setlike] = useState(false);
-  const [likeNum, setLikeNum] = useState(1);
-  const { id, img, cnt, description, date, title, age, viewer, movie } = props;
+  const [like, setLike] = useState();
+
+  const {
+    id,
+    img,
+    cnt,
+    description,
+    date,
+    title,
+    age,
+    viewer,
+    number,
+    movie,
+    likeArr,
+  } = props;
   const [grade, setGrade] = useState('');
   const [story, setStory] = useState(false);
-  const [movieArray, setMovieArray] = useState([]);
-
+  console.log('in movie Card');
   // useEffect(() => {
-  //   //fetch('http://localhost:8000/movie/main');
-  //   fetch('/data/mainMovie.json')
-  //     .then(res => res.json())
-  //     .then(res => setMovieArray(res.mainMovie));
-  //   // .then(res => setMovieArray(res.data));
+  //   setLike(likeArr[number]);
+  //   console.log(like);
   // }, []);
-
-  const makeLikeNum = () => {
-    setLikeNum(likeNum + 1);
-    if (likeNum % 2 == 0) {
-      console.log(likeNum);
-      setlike(false);
-    }
-    if (likeNum % 2 == 1) setlike(true);
-    console.log(likeNum);
-  };
+  // const makeLikeNum = () => {
+  //   setLikeNum(likeNum + 1);
+  //   if (likeNum % 2 == 0) {
+  //     console.log(likeNum);
+  //     setlike(false);
+  //   }
+  //   if (likeNum % 2 == 1) setlike(true);
+  //   console.log(likeNum);
+  // };
   const makeStory = () => {
     setStory(true);
   };
@@ -54,6 +61,19 @@ const MainMovieCard = props => {
     }
   }, []);
 
+  const handleLike = async () => {
+    const token = localStorage.getItem('token');
+    await fetch(`http://localhost:8000/likes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+      body: JSON.stringify({
+        movie_id: id,
+      }),
+    });
+  };
   return (
     <>
       <div className={css.cardWhole}>
@@ -99,7 +119,7 @@ const MainMovieCard = props => {
           </div>
         </div>
         <div className={css.underImg}>
-          <div className={css.movieLike} onClick={makeLikeNum}>
+          <div className={css.movieLike} onClick={handleLike}>
             {like ? (
               <AiFillHeart
                 style={{ color: 'rgb(2 123 148)' }}
