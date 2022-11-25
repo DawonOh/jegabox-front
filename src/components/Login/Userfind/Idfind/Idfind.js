@@ -88,7 +88,7 @@ const Idfind = () => {
     })
       .then(res => res.json())
       .then(json => {
-        setId(json.userID);
+        setId(json.account_id);
         setJoinDate(json.created_at);
         openAlertModal();
       });
