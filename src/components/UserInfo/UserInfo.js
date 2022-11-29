@@ -21,9 +21,6 @@ const UserInfo = () => {
   // 인증확인 버튼 비활성화
   const [isDisabledCheckBtn, setDisabledCheckBtn] = useState(false);
 
-  //인증확인 input 비활성화
-  const [isDisabledInput, setDisabledInput] = useState(true);
-
   //인증요청 -> 재전송 버튼 변경 여부
   const [tryAgain, setTryAgain] = useState(false);
 
@@ -99,23 +96,16 @@ const UserInfo = () => {
           if (json.code == 200) {
             setStartTimer(true);
             setTryAgain(true);
-            setDisabledInput(false);
-
             openAlertModal();
             return;
           } else {
             setStartTimer(false);
-
             openAlertModal();
             return;
           }
         });
     }
   };
-
-  // const startTimerFunc = () => {
-  //   setStartTimer(true);
-  // };
 
   // 타이머
   const time = useRef(180);
@@ -147,7 +137,6 @@ const UserInfo = () => {
       setSec(0);
       clearInterval(timerId.current);
       setTimeout(true);
-      setDisabledInput(true);
       setStartTimer(false);
       time.current = 180;
     }
@@ -170,7 +159,6 @@ const UserInfo = () => {
           setMin(3);
           setSec(0);
           setStartTimer(true);
-          setDisabledInput(false);
           setTimeout(false);
           openAlertModal();
         }
@@ -195,6 +183,7 @@ const UserInfo = () => {
           setCode(json.code);
           setIsDisabledBtn(false);
           setIsSame('pass');
+          setStartTimer(false);
           openAlertModal();
           return;
         } else {
@@ -220,38 +209,27 @@ const UserInfo = () => {
 
   const passMessage = [{ id: 1, message: '휴대폰 인증을 완료했습니다.' }];
   const requireLoginMessage = [{ id: 1, message: '로그인 후 이용가능합니다.' }];
+  const showAlert = () => {
+    if (startTimer) {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={successSend} />
+      );
+    } else if (isSame === 'pass') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
+      );
+    } else if (isLogin === false) {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={requireLoginMessage}
+        />
+      );
+    }
+  };
   return (
     <Fragment>
-      {alertModal ? (
-        startTimer && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successSend}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        isSame === 'pass' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        isLogin === false && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={requireLoginMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
+      {alertModal && showAlert()}
       <div className={css.userinfoContainer}>
         <p className={css.userinfomessage}>
           회원님의 개인정보 보호를 위해 등록된 휴대폰 번호로 인증을 하셔야

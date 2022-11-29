@@ -11,7 +11,6 @@ const ChangeInfo = () => {
   const [email, setEmail] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [isClick, setIsClick] = useState(false);
-  const [newPhoneNum, setNewPhoneNum] = useState('');
   const [samePhoneNum, setSamePhoneNum] = useState(false);
   const [isClickSendBtn, setIsClickSendBtn] = useState(false);
   let hyphenPhoneNum = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/gi, '$1-$2-$3');
@@ -215,6 +214,7 @@ const ChangeInfo = () => {
           if (json.message) {
             console.log(json.message);
             setAlreadyUsePhone(true);
+            setStartTimer(false);
             openAlertModal();
           } else if (json.code == 200) {
             setMin(3);
@@ -226,6 +226,7 @@ const ChangeInfo = () => {
             return;
           } else {
             setAlreadyUsePhone(false);
+            setStartTimer(false);
             openAlertModal();
             return;
           }
@@ -256,6 +257,7 @@ const ChangeInfo = () => {
           setIsSame('phoneNumPass');
           setIsDisabledBtn(false);
           setSuccessChangePass('success');
+          setStartTimer(false);
           openAlertModal();
           setTimeout(function () {
             window.location.reload();
@@ -265,6 +267,7 @@ const ChangeInfo = () => {
         } else {
           setCode('');
           setIsDisabledReqBtn(false);
+          setStartTimer(false);
           setSuccessChangePass('fail');
           setIsSame('none');
         }
@@ -311,9 +314,11 @@ const ChangeInfo = () => {
         console.log(json);
         if (json.code == 200) {
           setSuccessEmail('pass');
+          setStartTimer(false);
           openAlertModal();
         } else {
           setSuccessEmail('none');
+          setStartTimer(false);
           openAlertModal();
         }
       });
@@ -342,102 +347,61 @@ const ChangeInfo = () => {
   const wrongPhoneNum = [{ id: 1, message: '휴대폰 번호를 확인해주세요.' }];
 
   const failMessage = [{ id: 1, message: '다시 시도해주세요.' }];
+
+  const showAlert = () => {
+    if (startTimer) {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={successSend} />
+      );
+    } else if (samePhoneNum == true) {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={sameNumMessage}
+        />
+      );
+    } else if (isSame === 'phoneNumPass') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
+      );
+    } else if (successEmail == 'pass') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
+      );
+    } else if (alreadyUsePhone === true) {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={alreayUsedMessage}
+        />
+      );
+    } else if (isPhoneWrong === 'none') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={wrongPhoneNum}
+        />
+      );
+    } else if (successChangePass === 'fail') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={failMessage} />
+      );
+    } else if (successChangePass === 'success') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={passMessage} />
+      );
+    } else if (successEmail == 'none') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={changeEmailFailMessage}
+        />
+      );
+    }
+  };
   return (
     <Fragment>
-      {alertModal ? (
-        samePhoneNum == true && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={sameNumMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        isSame === 'phoneNumPass' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        successEmail == 'pass' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-
-      {alertModal ? (
-        alreadyUsePhone === true && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={alreayUsedMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        isPhoneWrong === 'none' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={wrongPhoneNum}
-          />
-        )
-      ) : (
-        <></>
-      )}
-
-      {alertModal ? (
-        successChangePass === 'fail' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={failMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        startTimer && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successSend}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        successChangePass === 'success' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        successEmail == 'none' ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={changeEmailFailMessage}
-          />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
+      {alertModal && showAlert()}
       <div className={css.changeInfoWrap}>
         <p>회원님의 정보를 정확히 입력해주세요.</p>
         <table>
