@@ -179,7 +179,7 @@ const UserInfo = () => {
 
   //인증번호 맞는지 백으로 전송
   const checkNum = () => {
-    fetch('http://localhost:8000/users/validateNumber', {
+    fetch('http://localhost:8000/users/validateNumber2', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

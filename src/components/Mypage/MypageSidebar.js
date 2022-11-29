@@ -1,7 +1,7 @@
 import React from 'react';
 import BookingInfo from '../../components/Mypage/BookingInfo';
 import css from './MypageSidebar.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
@@ -13,7 +13,9 @@ function App() {
     <div className={css.cidebarMain}>
       <div className={css.titleDiv}>나의 메가박스</div>
       <div className={css.middleDiv}>
-        <span className={css.middleSpan}>예매/구매내역</span>
+        <Link to="/mypage">
+          <span className={css.middleSpan}>예매/구매내역</span>
+        </Link>
       </div>
       <div className={css.middleDiv}>
         <span className={css.middleSpan}>영화/스토어 관람권</span>
@@ -38,7 +40,9 @@ function App() {
         </div>
       </div>
       <div className={css.middleDiv} onClick={moveMovieStory}>
-        <span className={css.middleSpan}>나의 무비 스토리</span>
+        <Link to="/mypage/moviestory">
+          <span className={css.middleSpan}>나의 무비 스토리</span>
+        </Link>
       </div>
       <div className={css.middleDiv}>
         <span className={css.middleSpan}>나의 이벤트 응모내역</span>
@@ -54,7 +58,9 @@ function App() {
       </div>
       <div className={css.whiteDiv}>
         <div className={css.whiteDivMargin}>
-          <div className={css.whiteCell}>개인정보 수정</div>
+          <Link to="/mypage/userinfo">
+            <div className={css.whiteCell}>개인정보 수정</div>
+          </Link>
           <div className={css.whiteCell}>선택정보 수정</div>
         </div>
       </div>

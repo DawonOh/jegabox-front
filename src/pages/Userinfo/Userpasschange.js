@@ -106,8 +106,10 @@ const Userpasschange = () => {
   //수정 버튼 클릭
   let token = localStorage.getItem('token');
   const changePassResult = () => {
+    console.log('클릭?');
     if (
-      same === 'same' &&
+      sameNowAndNew !== 'same' &&
+      same == 'same' &&
       checkPassRegex == 'pass' &&
       checkPassAgainRegex == 'pass' &&
       nowPass &&
@@ -177,9 +179,13 @@ const Userpasschange = () => {
       ) : (
         <></>
       )}
+
       {alertModal ? (
-        !nowPass && (
-          <AlertModal closeAlertModal={closeAlertModal} messages={noNowPass} />
+        !checkPass && (
+          <AlertModal
+            closeAlertModal={closeAlertModal}
+            messages={noCheckPass}
+          />
         )
       ) : (
         <></>
@@ -192,11 +198,8 @@ const Userpasschange = () => {
         <></>
       )}
       {alertModal ? (
-        !checkPass && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={noCheckPass}
-          />
+        !nowPass && (
+          <AlertModal closeAlertModal={closeAlertModal} messages={noNowPass} />
         )
       ) : (
         <></>
@@ -211,7 +214,7 @@ const Userpasschange = () => {
       ) : (
         <></>
       )}
-      {/* {alertModal ? (
+      {alertModal ? (
         success == 'fail' && (
           <AlertModal
             closeAlertModal={closeAlertModal}
@@ -220,7 +223,7 @@ const Userpasschange = () => {
         )
       ) : (
         <></>
-      )} */}
+      )}
       {alertModal ? (
         sameNowAndNew == 'same' && (
           <AlertModal

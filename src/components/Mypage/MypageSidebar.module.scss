@@ -3,6 +3,9 @@
   height: 750px;
   border: 1.5px solid rgba(128, 128, 128, 0.195);
   border-radius: 15px;
+  & a {
+    text-decoration: none;
+  }
 
   .titleDiv {
     display: flex;

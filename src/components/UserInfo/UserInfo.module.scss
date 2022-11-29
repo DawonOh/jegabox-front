@@ -4,8 +4,8 @@
   justify-content: center;
 }
 .userinfoContainer {
-  margin: 0 auto;
-  padding: 200px;
+  margin: 100px 0 0 150px;
+  padding: 80px;
   @include flexcenter();
   flex-direction: column;
   .userinfomessage {

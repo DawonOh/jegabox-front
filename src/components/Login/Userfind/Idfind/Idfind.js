@@ -88,15 +88,11 @@ const Idfind = () => {
     })
       .then(res => res.json())
       .then(json => {
-        setId(json.userID);
+        setId(json.account_id);
         setJoinDate(json.created_at);
+        openAlertModal();
       });
   };
-  useEffect(() => {
-    if (joinDate !== '') {
-      openAlertModal();
-    }
-  }, [joinDate]);
 
   //id알림 모달창
   const [alertModal, setAlertModal] = useState(false);
