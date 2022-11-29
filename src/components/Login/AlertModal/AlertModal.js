@@ -2,14 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import css from './AlertModal.module.scss';
 
 const AlertModal = ({ closeAlertModal, messages }) => {
-  const [messageList, setMessageList] = useState(messages);
-  // useEffect(() => {
-  //   if (messages !== null) {
-  //     setMessageList(messages);
-  //   }
-  //   console.log(messageList);
-  // }, [messages]);
-
   return (
     <div className={css.AlertModalBackground}>
       <div className={css.AlertModalContainer}>
@@ -21,7 +13,7 @@ const AlertModal = ({ closeAlertModal, messages }) => {
         </div>
         <div className={css.AlertModalMain}>
           <div className={css.AlertModalContents}>
-            {messageList.map(message => {
+            {messages.map(message => {
               return <p key={message.id}>{message.message}</p>;
             })}
           </div>

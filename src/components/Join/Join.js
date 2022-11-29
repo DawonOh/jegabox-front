@@ -14,7 +14,7 @@ const Join = () => {
   //아이디
   const [id, setId] = useState('');
   const [isIdWrong, setIsIdWrong] = useState(false);
-  const [passId, setPassId] = useState(false);
+  const [passId, setPassId] = useState('');
   //비밀번호
   const [pass, setPass] = useState('');
   //입력받은 비밀번호가 조건에 맞는지 확인 여부
@@ -43,8 +43,6 @@ const Join = () => {
   const closeAlertModal = () => {
     setAlertModal(false);
   };
-  const passIDMessage = [{ id: 1, message: '사용가능한 ID입니다.' }];
-  const failpassIdMessage = [{ id: 1, message: '이미 사용중인 ID입니다.' }];
 
   //1. 생년월일
   const handleBirth = e => {
@@ -115,10 +113,10 @@ const Join = () => {
       .then(response => response.json())
       .then(json => {
         if (json.code == 200) {
-          setPassId(true);
+          setPassId('아이디 통과');
           openAlertModal();
         } else {
-          setPassId(false);
+          setPassId('아이디 중복');
           openAlertModal();
         }
       });
@@ -255,12 +253,17 @@ const Join = () => {
           let result = json.message;
           if (result.includes('SIGNED UP')) {
             setSuccess('성공');
-            openAlertModal();
+            setPassId('');
             setTimeout(function () {
               window.location.href = '/';
             }, 3000);
-          } else if (result.includes('PHONE NUMBER')) {
+          } else if (result.includes('PHONE')) {
+            setPassId('');
             setSuccess('전화번호오류');
+            openAlertModal();
+          } else if (result.includes('ID')) {
+            setTryCheckId('none');
+            setPassId('');
             openAlertModal();
           } else {
             setSuccess('실패');
@@ -270,77 +273,56 @@ const Join = () => {
     }
   };
 
+  const passIDMessage = [{ id: 1, message: '사용가능한 ID입니다.' }];
+  const failpassIdMessage = [{ id: 1, message: '이미 사용중인 ID입니다.' }];
   const tryIdCheck = [{ id: 1, message: '아이디 중복확인을 진행해 주세요' }];
-
   const successJoin = [
     { id: 1, message: '회원가입이 완료되었습니다.' },
     { id: 2, message: '3초 후에 메인페이지로 이동됩니다.' },
   ];
   const failJoin = [{ id: 1, message: '다시 시도해주세요.' }];
-
   const checkPhoneNum = [{ id: 1, message: '전화번호를 다시 확인해주세요.' }];
+
+  const showAlert = () => {
+    if (tryCheckId === 'none') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={tryIdCheck} />
+      );
+    } else if (passId === '아이디 통과') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={passIDMessage}
+        />
+      );
+    } else if (passId === '아이디 중복') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={failpassIdMessage}
+        />
+      );
+    } else if (success === '성공') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={successJoin} />
+      );
+    } else if (success === '실패') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={failJoin} />
+      );
+    } else if (success === '전화번호오류') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={checkPhoneNum}
+        />
+      );
+    }
+  };
 
   return (
     <div className={css.joinWrap}>
-      {alertModal ? (
-        passId == true ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passIDMessage}
-          />
-        ) : (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={failpassIdMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-
-      {alertModal ? (
-        tryCheckId === 'none' ? (
-          <AlertModal closeAlertModal={closeAlertModal} messages={tryIdCheck} />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
-
-      {alertModal ? (
-        success == '성공' ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successJoin}
-          />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        success == '실패' ? (
-          <AlertModal closeAlertModal={closeAlertModal} messages={failJoin} />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        success == '전화번호오류' ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={checkPhoneNum}
-          />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
+      {alertModal && showAlert()}
       <h1 className={css.joinTitle}>회원님 안녕하세요.</h1>
       <p className={css.joinTitleContent}>회원정보를 입력해주세요.</p>
       <table>

@@ -5,9 +5,7 @@ import AlertModal from '../../../AlertModal/AlertModal';
 const Changepass = ({ id }) => {
   useEffect(() => {
     return () => {
-      localStorage.removeItem('passToken');
-      localStorage.removeItem('code');
-      localStorage.removeItem('id');
+      localStorage.clear();
     };
   }, []);
   //비밀번호, 비밀번호 확인 input value
@@ -16,9 +14,6 @@ const Changepass = ({ id }) => {
 
   //변경 완료 확인용 code 저장
   const [code, setCode] = useState('');
-
-  //확인 버튼 활성화 여부
-  const [disabled, setDisabled] = useState(true);
 
   //새 비밀번호와 비밀번호 확인이 같은 지 여부
   const [same, setSame] = useState('');
@@ -109,17 +104,11 @@ const Changepass = ({ id }) => {
 
   return (
     <div className={css.changePassWrap}>
-      {alertModal ? (
-        code == 200 ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successSend}
-          />
-        ) : (
-          <AlertModal closeAlertModal={closeAlertModal} messages={failSend} />
-        )
-      ) : (
-        <></>
+      {alertModal && (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={code == 200 ? successSend : failSend}
+        />
       )}
       <h1>비밀번호 재설정</h1>
       <p className={css.infoMessage}>

@@ -122,15 +122,12 @@ const Idfind = () => {
   ];
   return (
     <div className={css.idFindWrap}>
-      {alertModal &&
-        (id === undefined ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={wrongIDmessage}
-          />
-        ) : (
-          <AlertModal closeAlertModal={closeAlertModal} messages={message} />
-        ))}
+      {alertModal && (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={id === undefined ? wrongIDmessage : message}
+        />
+      )}
       <table>
         <tbody>
           <tr>

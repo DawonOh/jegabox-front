@@ -146,10 +146,6 @@ const Passfind = () => {
       });
   };
 
-  // const startTimerFunc = () => {
-  //   setStartTimer(true);
-  // };
-
   // 타이머
   const time = useRef(180);
   const timerId = useRef(null);
@@ -259,18 +255,12 @@ const Passfind = () => {
 
   return (
     <div className={css.passFindWrap}>
-      {alertModal &&
-        (startTimer ? (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={passMessage}
-          />
-        ) : (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={wrongInfomessage}
-          />
-        ))}
+      {alertModal && (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={startTimer ? passMessage : wrongInfomessage}
+        />
+      )}
       <table>
         <tbody>
           <tr>
