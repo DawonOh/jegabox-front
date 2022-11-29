@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
-
-import css from './Login.module.scss';
-import LoginModal from '../../components/Login/LoginModal';
+import Footer from '../../components/Footer/Footer';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
-function Login() {
-  // 로그인 모달창 상태값
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  // 모달창 여는 함수
-  const openLogin = () => {
-    setOpenLoginModal(true);
-  };
-  // 모달창 닫는 함수
-  const closeLogin = () => {
-    setOpenLoginModal(false);
-  };
+import css from './Login.module.scss';
 
+function Login() {
   return (
-    <div className={css.container}>
+    <>
       <PageHeader />
-      {/* 로그인 모달창 부분*/}
-      {openLoginModal && <LoginModal closeLogin={closeLogin} />}
-      <div onClick={openLogin}>준비중입니다~~</div>
-    </div>
+      <div className={css.content}>
+        <div className={css.text}>
+          준비 중이니까 <br />
+          나중에 오도록해
+        </div>
+        <div className={css.container}></div>
+      </div>
+      <div></div>
+
+      <Footer />
+    </>
   );
 }
 

@@ -81,7 +81,7 @@ const Dropdown = () => {
                     새로운 상품
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>
-                    메가티켓
+                    제가티켓
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>
                     팝콘/음료/굿즈
@@ -91,12 +91,12 @@ const Dropdown = () => {
                   </Link>
                 </div>
                 <div>
-                  나의 메가박스
+                  나의 제가박스
                   <Link
                     className={`${css.dropdownLink} ${css.borderline}`}
                     to={'/login'}
                   >
-                    나의 메가박스 홈
+                    나의 제가박스 홈
                   </Link>
                   <Link className={css.dropdownLink} to={'/mypage'}>
                     예매/구매내역
@@ -176,7 +176,7 @@ const Dropdown = () => {
                     className={`${css.dropdownLink} ${css.borderline}`}
                     to={'/login'}
                   >
-                    메가박스소개
+                    제가박스소개
                   </Link>
                   <Link className={css.dropdownLink} to={'/login'}>
                     사회공헌

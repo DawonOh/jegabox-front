@@ -62,7 +62,7 @@ function MovieCard({ id, img, cnt, description, number, movie, setChange }) {
           onMouseOver={makeStory}
           className={css.cardNumber}
         >
-          {id}
+          {number}
         </span>
         <div
           className={css.img}

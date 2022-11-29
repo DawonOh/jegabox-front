@@ -5,15 +5,33 @@ import { IoCalendarOutline } from 'react-icons/io5';
 import { MdLocalMovies } from 'react-icons/md';
 import { IoTicketOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 const MainUnderBar = () => {
   const navigate = useNavigate();
+  const [content, setContent] = useState('');
+  const getValue = e => {
+    setContent(e.target.value);
+  };
+  const gotomovie = e => {
+    if (content == '') {
+      navigate('/movie');
+    } else {
+      let url = '/movie?searchText=' + content;
+      navigate(url);
+      window.location.reload();
+    }
+  };
   return (
     <div>
       <div className={css.mainUnderBarWhole}>
         <div className={`${css.boxes} ${css.searchBar}`}>
-          <input placeholder="영화명을 입력해주세요"></input>
+          <input
+            onChange={getValue}
+            type="text"
+            placeholder="영화명을 입력해주세요"
+          ></input>
 
-          <BiSearch className={css.searchIcon} />
+          <BiSearch className={css.searchIcon} onClick={gotomovie} />
         </div>
         <div className={css.boxes}>
           <IoCalendarOutline className={css.icon} />

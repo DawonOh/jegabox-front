@@ -69,7 +69,7 @@ const MainComponent = () => {
               i < 4 ? (
                 <MovieCard
                   movie={movie}
-                  number={i}
+                  number={i + 1}
                   key={movie.id}
                   id={movie.id}
                   img={movie.movie_poster}
