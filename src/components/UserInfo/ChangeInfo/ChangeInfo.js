@@ -116,9 +116,6 @@ const ChangeInfo = () => {
       setDisabledCheckBtn(false);
     }
   };
-
-  console.log(samePhoneNum);
-  console.log('전화번호 유효성 : ', isPhoneWrong);
   //인증번호 요청 / 타이머 시작
   const sendInfo = () => {
     if (samePhoneNum !== true) {
@@ -134,9 +131,7 @@ const ChangeInfo = () => {
       })
         .then(res => res.json())
         .then(json => {
-          console.log(json);
           if (json.message) {
-            console.log(json.message);
             setAlreadyUsePhone(true);
             openAlertModal();
           } else if (json.code == 200) {
@@ -210,9 +205,7 @@ const ChangeInfo = () => {
       })
         .then(res => res.json())
         .then(json => {
-          console.log(json);
           if (json.message) {
-            console.log(json.message);
             setAlreadyUsePhone(true);
             setStartTimer(false);
             openAlertModal();
@@ -285,7 +278,6 @@ const ChangeInfo = () => {
       setIsEmailWrong('none');
     }
   };
-  console.log(newEmail);
   //변경 버튼 클릭 시 이메일이 현재 입력된 값으로 변경됨
   useEffect(() => {
     if (newEmail === '') {
@@ -311,7 +303,6 @@ const ChangeInfo = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         if (json.code == 200) {
           setSuccessEmail('pass');
           setStartTimer(false);
@@ -323,7 +314,6 @@ const ChangeInfo = () => {
         }
       });
   };
-  console.log('successEmail : ', successEmail);
   //알림창
   const [alertModal, setAlertModal] = useState(false);
   const openAlertModal = () => {
