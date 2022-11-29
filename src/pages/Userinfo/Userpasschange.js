@@ -42,7 +42,7 @@ const Userpasschange = () => {
 
   const successChangePass = [{ id: 1, message: '비밀번호가 저장되었습니다.' }];
 
-  const failChangePass = [{ id: 1, message: '다시 시도해주세요.' }];
+  const failChangePass = [{ id: 1, message: '비밀번호를 확인해주세요.' }];
 
   const samePassMessage = [
     { id: 1, message: '현재 비밀번호와 새 비밀번호가 같습니다. ' },
@@ -100,13 +100,9 @@ const Userpasschange = () => {
       setSameNowAndNew('none');
     }
   }, [nowPass, pass]);
-  console.log('same ? ', same);
-  console.log('password ok? ', checkPassRegex);
-  console.log('passAgain ok? ', checkPassAgainRegex);
   //수정 버튼 클릭
   let token = localStorage.getItem('token');
   const changePassResult = () => {
-    console.log('클릭?');
     if (
       sameNowAndNew !== 'same' &&
       same == 'same' &&
@@ -116,7 +112,6 @@ const Userpasschange = () => {
       pass &&
       checkPass
     ) {
-      console.log('비밀번호 전송!');
       fetch('http://localhost:8000/users/password2', {
         method: 'PATCH',
         headers: {
@@ -131,7 +126,6 @@ const Userpasschange = () => {
       })
         .then(res => res.json())
         .then(json => {
-          console.log(json);
           if (json.code == 200) {
             setSuccess('success');
             openAlertModal();
@@ -153,87 +147,58 @@ const Userpasschange = () => {
     }
   };
 
+  const showAlert = () => {
+    if (!nowPass) {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={noNowPass} />
+      );
+    } else if (!pass) {
+      return <AlertModal closeAlertModal={closeAlertModal} messages={noPass} />;
+    } else if (!checkPass) {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={noCheckPass} />
+      );
+    } else if (same == 'none') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={sameNumMessage}
+        />
+      );
+    } else if (checkPassRegex == 'none') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={wrongPass} />
+      );
+    } else if (checkPassAgainRegex == 'none') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={wrongPass} />
+      );
+    } else if (success == 'success') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={successChangePass}
+        />
+      );
+    } else if (success == 'fail') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={failChangePass}
+        />
+      );
+    } else if (sameNowAndNew == 'same') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={samePassMessage}
+        />
+      );
+    }
+  };
   return (
     <Fragment>
-      {alertModal ? (
-        same == 'none' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={sameNumMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        checkPassRegex == 'none' && (
-          <AlertModal closeAlertModal={closeAlertModal} messages={wrongPass} />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        checkPassAgainRegex == 'none' && (
-          <AlertModal closeAlertModal={closeAlertModal} messages={wrongPass} />
-        )
-      ) : (
-        <></>
-      )}
-
-      {alertModal ? (
-        !checkPass && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={noCheckPass}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        !pass && (
-          <AlertModal closeAlertModal={closeAlertModal} messages={noPass} />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        !nowPass && (
-          <AlertModal closeAlertModal={closeAlertModal} messages={noNowPass} />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        success == 'success' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={successChangePass}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        success == 'fail' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={failChangePass}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        sameNowAndNew == 'same' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={samePassMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
+      {alertModal && showAlert()}
       <PageHeader />
       <div className={css.userinfo}>
         <div className={css.userinfoWrap}>

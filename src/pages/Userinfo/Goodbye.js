@@ -36,8 +36,6 @@ const Goodbye = () => {
     })
       .then(response => response.json())
       .then(json => {
-        console.log(json);
-        console.log(json.message);
         if (json.message.includes('REMOVED')) {
           setSuccessRemove('success');
           openAlertModal();
@@ -67,38 +65,31 @@ const Goodbye = () => {
   ];
   const failMessage = [{ id: 1, message: '다시 시도하세요.' }];
   const wrongPassMessage = [{ id: 1, message: '비밀번호를 확인해주세요.' }];
+
+  const showAlert = () => {
+    if (successRemove === 'success') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={goodbyeMessage}
+        />
+      );
+    } else if (successRemove === 'wrong') {
+      return (
+        <AlertModal
+          closeAlertModal={closeAlertModal}
+          messages={wrongPassMessage}
+        />
+      );
+    } else if (successRemove === 'fail') {
+      return (
+        <AlertModal closeAlertModal={closeAlertModal} messages={failMessage} />
+      );
+    }
+  };
   return (
     <Fragment>
-      {alertModal ? (
-        successRemove === 'success' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={goodbyeMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        successRemove === 'wrong' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={wrongPassMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
-      {alertModal ? (
-        successRemove === 'fail' && (
-          <AlertModal
-            closeAlertModal={closeAlertModal}
-            messages={failMessage}
-          />
-        )
-      ) : (
-        <></>
-      )}
+      {alertModal && showAlert()}
       <PageHeader />
       <div className={css.userinfo}>
         <div className={css.userinfoWrap}>
