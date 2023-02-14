@@ -1,0 +1,62 @@
+.cidebarMain {
+  width: 200px;
+  height: 750px;
+  border: 1.5px solid rgba(128, 128, 128, 0.195);
+  border-radius: 15px;
+  & a {
+    text-decoration: none;
+  }
+
+  .titleDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgb(65, 65, 65);
+    width: 200px;
+    height: 90px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  .middleDiv {
+    display: flex;
+    align-items: center;
+    background-color: rgb(242, 242, 242);
+    height: 40px;
+    width: 200px;
+    border-top: rgba(128, 128, 128, 0.101) 1px solid;
+    border-bottom: rgba(128, 128, 128, 0.127) 1px solid;
+    font-size: 15px;
+
+    .middleSpan {
+      margin-left: 14px;
+      font-weight: 600;
+      color: #222222;
+      &:hover {
+        color: rgb(81, 135, 180);
+      }
+    }
+
+    cursor: pointer;
+  }
+
+  .whiteDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .whiteDivMargin {
+      margin: 20px 0;
+      .whiteCell {
+        font-size: 15px;
+        margin: 5px 14px;
+        color: rgb(102, 102, 102);
+        &:hover {
+          color: rgb(81, 135, 180);
+        }
+        cursor: pointer;
+      }
+    }
+  }
+}

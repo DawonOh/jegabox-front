@@ -1,0 +1,77 @@
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AlertModalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  @include flexCenter();
+  .AlertModalContainer {
+    width: 400px;
+    height: 181px;
+    background-color: #fff;
+    .AlertModalHeader {
+      background-color: #503396;
+      height: 45px;
+      @include flexCenter();
+      .AlertModalHeaderTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 370px;
+        height: 45px;
+        & h3 {
+          font-size: 1rem;
+          font-weight: 500;
+          display: inline-block;
+          color: #fff;
+          line-height: 45px;
+        }
+        .closeAlertModal {
+          border: 0;
+          width: 17px;
+          height: 17px;
+          cursor: pointer;
+          background : {
+            color: #503396;
+            image: url('../../../assets/images/close.png');
+            size: 17px 17px;
+            repeat: no-repeat;
+          }
+        }
+      }
+    }
+    .AlertModalMain {
+      @include flexCenter();
+      flex-direction: column;
+      .AlertModalContents {
+        width: 370px;
+        height: 80px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 0.9em;
+        & P {
+          margin: 0;
+          padding: 0;
+          line-height: 1.2em;
+        }
+      }
+      .checkAlertModal {
+        width: 55px;
+        height: 36px;
+        cursor: pointer;
+        background-color: #503396;
+        border-radius: 5px;
+        color: #fff;
+      }
+    }
+  }
+}

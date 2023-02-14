@@ -1,0 +1,142 @@
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  z-index: 99999999;
+  @include flexCenter();
+  .loginContainer {
+    width: 470px;
+    height: 484px;
+    background-color: #fff;
+
+    .loginTop {
+      background-color: #503396;
+      height: 45px;
+      @include flexCenter();
+      .loginTopTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 440px;
+        height: 45px;
+        & h3 {
+          font-size: 1rem;
+          font-weight: 500;
+          display: inline-block;
+          color: #fff;
+          line-height: 45px;
+        }
+        .closeLoginBtn {
+          border: 0;
+          width: 17px;
+          height: 17px;
+          cursor: pointer;
+          background : {
+            color: #503396;
+            image: url('../../assets/images/close.png');
+            size: 17px 17px;
+            repeat: no-repeat;
+          }
+        }
+      }
+    }
+    .loginMain {
+      @include flexCenter();
+      height: 440px;
+      padding-top: 20px;
+      .loginElements {
+        width: 380px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        .loginInputs {
+          @include flexCenter();
+          flex-direction: column;
+          .loginInputStyle {
+            width: 380px;
+            height: 40px;
+            border: 1px solid #d8d9db;
+            text-indent: 10px;
+            font : {
+              size: 0.9em;
+            }
+          }
+          .loginInputStyle:focus {
+            outline: none;
+          }
+          gap: 18px;
+        }
+        .loginChekboxStyle {
+          width: 16px;
+          height: 16px;
+          margin-top: 20px;
+          margin-right: 5px;
+        }
+
+        //로그인 버튼 활성화
+        .loginBtn {
+          border: 0;
+          width: 380px;
+          height: 40px;
+          border-radius: 5px;
+          margin-top: 30px;
+          background-color: #503396;
+          color: #fff;
+          font-size: 0.9em;
+          cursor: pointer;
+        }
+
+        //로그인 버튼 비활성화
+        .disabledLoginBtn {
+          border: 0;
+          width: 380px;
+          height: 40px;
+          border-radius: 5px;
+          margin-top: 30px;
+          background-color: #d8d9db;
+          color: #666;
+          font-size: 0.9em;
+        }
+
+        .loginFindInfo {
+          width: 380px;
+          @include flexCenter();
+          color: #666;
+          margin-top: 15px;
+          font-size: 0.9em;
+          .loginFIndInfoCenter {
+            width: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .loginLink {
+            color: #666;
+            padding: 0;
+            margin: 0;
+          }
+
+          .loginLinkTag {
+            text-decoration: none;
+          }
+
+          .loginFindBoundary {
+            width: 1px;
+            height: 18px;
+            border: none;
+            background-color: #d8d9db;
+          }
+        }
+      }
+    }
+  }
+}

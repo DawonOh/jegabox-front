@@ -1,0 +1,181 @@
+.submenuContainer {
+  background-color: rgb(248 248 250);
+  .submenu {
+    color: #666;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin: 0 auto;
+    width: 1100px;
+  }
+}
+.movieWhole {
+  cursor: pointer;
+  margin: auto;
+  width: 1100px;
+
+  .title {
+    margin: 30px 0;
+    span {
+      font-size: 26px;
+    }
+  }
+  .menu {
+    display: flex;
+    div {
+      font-size: 15px;
+      border: 1px solid rgb(192, 192, 192);
+      border-bottom: 1.3px solid rgb(80 51 150);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 36px;
+      width: 180px;
+      .myname {
+        font-size: 900;
+        color: rgb(52 163 183);
+      }
+    }
+    .highlight {
+      font-weight: 600;
+      color: rgb(80 51 150);
+      border: 1.3px solid rgb(80 51 150);
+      border-bottom: none;
+    }
+  }
+  .functionBar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    .switch {
+      margin-left: 5px;
+    }
+    .toggleBtn {
+      font-size: 15px;
+      .switchName {
+        color: rgb(95, 95, 95);
+        padding-top: 0;
+        padding-right: 10px;
+        margin-left: 7px;
+        //margin-right: 10px;
+      }
+      .highlightFont {
+        font-weight: 900;
+      }
+    }
+    .searchBar {
+      position: relative;
+      input {
+        margin-right: 22px;
+        font-size: 15px;
+        border-radius: 2px;
+        border: 1px solid rgb(216 217 219);
+        padding-left: 10px;
+        height: 32px;
+        width: 210px;
+        &::placeholder {
+          padding-left: 5px;
+          font-size: 15px;
+          color: rgb(144, 144, 146);
+          padding-left: 5px;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+      .searchIcon {
+        top: 7px;
+        left: 190px;
+        position: absolute;
+        color: rgb(144, 144, 146);
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1100px;
+  margin: auto;
+  .notSearch {
+    margin: 100px auto;
+    font-size: 28px;
+  }
+}
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 14px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  top: 1px;
+  content: '';
+  height: 11px;
+  width: 11px;
+  //left: 4px;
+  //bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: rgb(52 163 183);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px rgb(52 163 183);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.pointer {
+  cursor: pointer;
+}
+.switchNameClick {
+  font-weight: 1000;
+  color: black;
+  padding-top: 0;
+  padding-right: 10px;
+  margin-left: 7px;
+  //margin-right: 10px;
+}

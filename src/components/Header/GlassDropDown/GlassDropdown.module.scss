@@ -1,0 +1,111 @@
+.outColor {
+  position: absolute;
+  z-index: 100;
+  margin-top: 0px;
+  background-color: rgb(54 31 103);
+  width: 100%;
+
+  .wholeSearch {
+    width: 1100px;
+    margin: auto;
+    padding-bottom: 56px;
+    background-color: rgb(54 31 103);
+    .rankingName {
+      padding-top: 45px;
+      display: flex;
+
+      .searchTitle {
+        margin-right: 24px;
+        font-size: 16px;
+        color: #fff;
+      }
+      .underlineChange {
+        padding-bottom: 8px;
+        border-bottom: 2px solid white;
+      }
+    }
+    .searchMainColumn {
+      display: flex;
+      align-items: center;
+
+      .moviePoster {
+        position: relative;
+        margin-top: 24px;
+        img {
+          width: 160px;
+          height: 220px;
+        }
+        .moviePoster1 {
+          z-index: -1;
+        }
+
+        .moviePoster2,
+        .moviePoster3,
+        .moviePoster4,
+        .moviePoster5 {
+          z-index: -100;
+          left: 0px;
+          position: absolute;
+        }
+      }
+      .movieRanking {
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 15px;
+        margin-left: 40px;
+        color: #fff;
+
+        // .marginChange {
+        //   margin-top: 24px;
+        // }
+
+        .movieName {
+          display: block;
+          margin-bottom: 13px;
+          &:hover:not(.nameNumber) {
+            cursor: pointer;
+            text-decoration: underline;
+            color: white;
+          }
+
+          .nameNumber {
+            font-style: oblique;
+            font-size: 28px;
+            margin-right: 17px;
+          }
+        }
+      }
+      .searchBar {
+        position: relative;
+        margin-left: 200px;
+        input {
+          padding-left: 10px;
+          margin-left: 10px;
+          font-size: 18px;
+          color: white;
+          border: none;
+          border-bottom: 1.5px solid white;
+          background-color: rgb(54 31 103);
+          width: 400px;
+          height: 55px;
+          &::placeholder {
+            color: white;
+            font-size: 18px;
+          }
+          &:focus {
+            outline: none;
+          }
+        }
+        .searchIcon {
+          cursor: pointer;
+          position: absolute;
+          left: 380px;
+          top: 16px;
+          color: white;
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.main {
+  width: 1100px;
+  height: 112px;
+  border-top: 1px rgba(128, 128, 128, 0.204) solid;
+  border-bottom: 1px rgba(128, 128, 128, 0.204) solid;
+  display: flex;
+  border-collapse: collapse;
+
+  .screen {
+    margin: 20px 0;
+    width: 190px;
+    height: 53px;
+
+    .screen2 {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .seatCount {
+      color: rgb(95, 91, 91);
+    }
+  }
+
+  .movie {
+    display: flex;
+    align-items: center;
+    .movie_property {
+      width: 100px;
+      height: 71px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 7px 0 0;
+      background-color: rgb(244, 244, 244);
+      font-weight: 700;
+      white-space: pre-wrap;
+      text-align: center;
+    }
+  }
+}

@@ -1,2 +1,24 @@
-.container {
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap%27');
+
+.content {
+  width: 700px;
+  display: flex;
+  margin: 100px auto;
+
+  .text {
+    width: 250px;
+    height: 150px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poor Story', cursive !important;
+  }
+
+  .container {
+    width: 300px;
+    height: 250px;
+    background-image: url('https://cdn.discordapp.com/attachments/1041308129440309279/1045452464771571782/IMG_0463.png');
+    background-size: cover;
+  }
 }

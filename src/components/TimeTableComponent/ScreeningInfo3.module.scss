@@ -1,0 +1,48 @@
+.link {
+  text-decoration: none;
+  color: black;
+
+  .main {
+    width: 97px;
+    height: 68px;
+    border: 1px solid rgb(215, 210, 210);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-collapse: collapse;
+    z-index: 2;
+    text-align: center;
+
+    .noneHover {
+      .time {
+        font-size: 18px;
+      }
+
+      .seatCount {
+        font-size: 16px;
+        color: rgb(50, 113, 136);
+      }
+    }
+  }
+
+  .onHover {
+    width: 98px;
+    height: 69px;
+    border: 1px solid rgb(215, 210, 210);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-collapse: collapse;
+    background-color: rgb(76, 52, 145);
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    // &:hover {
+    //   display: none;
+    // }
+  }
+}

@@ -1,0 +1,123 @@
+.cardWhole {
+  position: relative;
+  margin: 0 15px 15px 0;
+  .cardNumber {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-style: italic;
+    left: 20px;
+    top: 50px;
+    position: absolute;
+    color: white;
+    font-size: 40px;
+  }
+  .img {
+    .story {
+      display: inline-block;
+      padding-right: 5px;
+
+      top: 50px;
+      left: 30px;
+      position: absolute;
+      color: white;
+    }
+    img {
+      border-radius: 10px;
+      width: 195px;
+      height: 281px;
+      &:hover {
+        filter: brightness(0.3);
+      }
+    }
+  }
+  .moviePoster {
+    width: 195px;
+    height: 281px;
+  }
+  .movieInformation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    .age {
+      width: 22px;
+      height: 22px;
+    }
+    .movieTitle {
+      margin-left: 5px;
+      font-size: 16px;
+    }
+  }
+  .movieInfo {
+    display: flex;
+    .moviePeople {
+      border-right: 1px solid rgb(198, 198, 198);
+      padding-right: 8px;
+    }
+    .movieDate {
+      padding-left: 7px;
+    }
+  }
+  .underImg {
+    margin-top: 10px;
+    width: 195px;
+    display: flex;
+    align-items: center;
+    .movieLike {
+      display: flex;
+      align-items: center;
+      border-radius: 3px;
+      position: relative;
+      font-size: 14px;
+      margin-right: 5px;
+      height: 33px;
+      width: 35%;
+
+      border: 1px solid gray;
+      color: black;
+      span {
+        font-weight: 600;
+        color: rgb(80 51 150);
+        top: 8px;
+        position: absolute;
+        left: 40px;
+      }
+      .heart {
+        color: gray;
+        position: absolute;
+        top: 1px;
+        left: 0px;
+        margin-left: 13px;
+
+        padding-top: 5px;
+        width: 20px;
+        height: 20px;
+        padding-right: 5px;
+      }
+    }
+
+    .reservation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(80 51 150);
+      position: relative;
+      width: 65%;
+      font-size: 15px;
+      //padding-top: 10px;
+      text-align: center;
+
+      text-decoration: none;
+      height: 35px;
+      border-radius: 3px;
+      color: white;
+      span {
+        // left: 63px;
+        // font-size: 15px;
+        // position: absolute;
+        // top: 10px;
+      }
+    }
+  }
+}
+.none {
+  display: none;
+}
